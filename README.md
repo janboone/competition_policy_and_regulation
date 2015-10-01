@@ -1,0 +1,2 @@
+# competition_policy_and_regulation_2015_2016
+course material for competition policy and regulation
