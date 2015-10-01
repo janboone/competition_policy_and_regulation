@@ -1,0 +1,287 @@
+
+Python: collusion with Cournot competition
+==========================================
+
+In the lecture, we considered collusion with Bertrand competition. Here
+we are going to consider the case where firms without collusion compete
+in quantities, that is Cournot competition.
+
+Here we consider collusion in a Cournot duopoly market. We use markdown
+to explain what we do in the code.
+
+First, we import some libraries that we will use:
+
+.. code:: python
+
+    from scipy import optimize,arange
+    from numpy import array
+    import matplotlib.pyplot as plt
+    %matplotlib inline
+
+demand and costs
+----------------
+
+We define a linear demand curve, :math:`p_i(x_i,x_j) = 1- x_i - b x_j`
+where :math:`b \in \langle 0,1]` determines the elasticity of
+substitution between the goods. With :math:`b=1` the goods are perfect
+substitutes, with :math:`b<1` the goods are differentiated.
+
+We assume constant marginal costs, that is total costs are given by
+:math:`c(x)=cx`. If we would like to introduce a fixed cost,
+:math:`c(x) = cx+f` for some :math:`f>0` we need to say explicitly that
+:math:`c(0)=0`: if the firm is not active, it does not incur the fixed
+cost. For this we use the ``if``-statement below in the definition of
+the function ``cost(x,c)``.
+
+Note that ``demand`` is defined for the firm indexed as 1 with the other
+firm indexed as 2.
+
+When we do the math, we write :math:`p_i(x_i,x_j)` without mentioning
+that :math:`b` is a parameter as well. We could do the same in Python,
+but then it is not so straightforward to change :math:`b` later on.
+Therefore the function ``demand`` is written as a function of :math:`b`
+explicitly.
+
+.. code:: python
+
+    def demand(x1,x2,b):
+        return 1-x1-b*x2
+    
+    def cost(x,c):
+        if x == 0:
+         cost = 0
+        else:
+         cost = c*x
+        return cost
+
+profits
+-------
+
+With demand and costs, we can define profits as
+
+.. math::
+
+
+   \pi(x_i,x_j) = p_i(x_i,x_j)x_i-c(x_i)
+
+.. code:: python
+
+    def profit(x1,x2,c1,b):
+        return demand(x1,x2,b)*x1-cost(x1,c1)
+
+reaction functions
+------------------
+
+Under Cournot competition, firm :math:`i` chooses :math:`x_i` to
+maximize profits, taking :math:`x_2` as given. That is,
+:math:`x_1^*,x_2^*` is a Nash equilibrium if and only if
+
+.. math::
+
+
+   x_i^* = \arg\max_{x_i} \pi(x_i,x_j^*)
+
+for each :math:`i \neq j \in \{1,2\}`.
+
+Hence, we first determine what the optimal output level of one firm is,
+given the choice :math:`x_2` of the other firm. The function
+``reaction`` does exactly that. When we do this in an exercise, we take
+the first order condition. That is, we calculate the Nash equilibrium as
+the solution :math:`x_1^*,x_2^*` to
+
+.. math::
+
+
+   \left. \frac{\partial \pi(x_i,x_j)}{\partial x_i} \right|_{x_i=x_i^*,x_j=x_j^*} = 0
+
+provided that :math:`\pi` is concave in :math:`x_i`. So one way to go is
+to let Python calculate the derivative and solve this equation for each
+firm. However, Python (in particular, the scipy-library) can also
+directly look for the profit maximizing outcome. Below we use the
+function ``brute`` to look for the global maximum of :math:`\pi`. In
+principle, the first derivative may give us a local maximum but not the
+global one. In particular, if :math:`f>0` it may be the case that
+:math:`x_i^*=0` (one firm is not active), while the first order
+condition gives :math:`x_i^* >0` (but with negative profits).
+
+The `scipy
+optimize <http://docs.scipy.org/doc/scipy-0.14.0/reference/optimize.html>`__
+library has a number of routines to optimize functions. They are all
+defined as minimization problems. So if we want to maximize a function
+:math:`f(x)`, we need to minimize :math:`-f(x)`.
+
+.. code:: python
+
+    def reaction(x2,c1,b):
+        x1 = optimize.brute(lambda x: -profit(x,x2,c1,b), ((0,1,),)) # brute minimizes the function;
+                                                                     # when we minimize -profits, we maximize profits
+        return x1[0]
+
+equilibrium as fixed point
+--------------------------
+
+To find an equilibrium, we are looking for a (so called) fixed point.
+That is, we have a function :math:`f(x)` and look for the point where
+:math:`x = f(x)`. In this case, :math:`x` and :math:`f` are two
+dimensional vectors.
+
+Let :math:`r_i(x_j)` denote firm :math:`i`'s optimal response to
+:math:`j`'s output level :math:`x_j`. Then we need to find a point such
+that
+
+.. math::
+
+
+   \pmatrix{x_1^* \\ x_2^*} = \pmatrix{r_1(x_2^*) \\ r_2(x_1^*)}
+
+Defining the vector function :math:`f(x_1,x_2)` as
+
+.. math::
+
+
+   f(x) = \pmatrix{r_1(x_2^*) \\ r_2(x_1^*)}
+
+we are looking for a point :math:`x^*=(x_1^*,x_2^*)` such that
+:math:`x^*=f(x^*)`.
+
+The function ``vector_reaction`` is defined as :math:`x-f(x)` in this
+notation. Hence, to find the fixed point, we are looking for :math:`x^*`
+such that ``vector_reaction`` :math:`= 0`; or put differently,
+:math:`x^*-f(x^*)=0`.
+
+We pass :math:`b,c_1,c_2` as a vector of parameters ``param``
+:math:`= [b, c_1, c_2]`.
+
+.. code:: python
+
+    def vector_reaction(x,param): # vector param = (b,c1,c2)
+        return array(x)-array([reaction(x[1],param[1],param[0]),reaction(x[0],param[2],param[0])])
+
+Cournot equilibrium
+-------------------
+
+Let's calulate the Cournot equilibrium in case both firms have zero
+costs (:math:`c=0`) and they produce homogeneous goods (:math:`b=1`). We
+use the routine ``fsolve`` (again from ``scipy.optimize``) to find
+:math:`x` where ``vector_reaction`` :math:`=0`. That is, ``fsolve``
+finds the point of a function where it equals 0. We need to give
+``fsolve`` an initial guess :math:`x_0`. Further, we pass the paramter
+vector ``param`` as arguments (``args``) to ``fsolve``.
+
+.. code:: python
+
+    param = [1.0,0.0,0.0]
+    x0 = [0.3, 0.3]
+    
+    ans = optimize.fsolve(vector_reaction, x0, args = (param))
+    print ans
+
+
+.. parsed-literal::
+
+    [ 0.33332648  0.33332648]
+
+
+The variable ``ans`` contains the values of :math:`x_1,x_2` for which
+``vector_reaction`` :math:`=0`.
+
+You can see that we are dealing with numerical procedures here.
+
+-  What is the Cournot equilibrium exactly in this case? Although what
+   we find is (very) close, it is not exact!
+
+We denote the symmetric Cournot equilibrium by :math:`x^*`.
+
+collusion
+---------
+
+We want to understand what the industry profits are if the firms collude
+on output levels :math:`x_1,x_2`. To simplify, we focus on the case
+where firms are symmetric :math:`c_1 = c_2 =c`. Further, the firms
+collude on symmetric output :math:`x_1=x_2=x`. We plot industry profits
+:math:`\pi(x,x)+\pi(x,x)=2\pi(x,x)` as a function of :math:`x`, where we
+check whether :math:`x` can be sustained under collusion.
+
+As we saw in the lecture, the condition for :math:`x` to be sustained as
+a collusive outcome is given by
+
+.. math::
+
+
+   \pi(x,x) \frac{1}{1-\delta} \geq \max_{\hat x} \pi(\hat x,x) + \frac{\delta}{1-\delta} \pi(x^*,x^*) 
+
+where :math:`\delta \in [0,1]` denotes the discount factor, :math:`x^*`
+denotes the Nash equilibrium output level and :math:`\hat x` denotes the
+firm's optimal response to its opponent choosing output level :math:`x`.
+
+-  Check that we can rewrite this inequality as:
+
+.. math::
+
+
+   \pi(x,x) \geq (1-\delta) \max_{\hat x} \pi(\hat x,x) + \delta \pi(x^*,x^*) 
+
+-  Check that :math:`x=x^*` satisfies this inequality. What is the
+   interpretation of this?
+
+Hence the function ``collusion_profits`` can be defined as follows:
+
+.. code:: python
+
+    def collusion_profits(x,b,c,delta): # we only do this for the symmetric case: c1 = c2 = c
+        profits = profit(x,x,c,b)
+        ans = optimize.fsolve(vector_reaction, x0, args = ([b,c,c]))
+        if profits >= (1-delta)*profit(reaction(x,c,b),x,c,b)+delta*profit(ans[0],ans[1],c,b):
+            industry_profits = 2*profits # profits can be sustained as collusion profits
+        else:
+            industry_profits = 0 # profits cannot be sustained as collusion profits
+        return industry_profits
+
+
+Note that profits :math:`=0` when collusion cannot be sustained. This is
+just to signal (in the graph) where collusion breaks down. It is not a
+prediction of the collusion profits. Indeed, if parties collude, they
+will choose :math:`x` to maximize their profits.
+
+The next graph shows collusion profits for the case where
+:math:`b=1.0,c_1=c_2=0.0` and two values for :math:`\delta`.
+
+-  When :math:`\delta` is high enough (0.8 in this case), for which
+   :math:`x` are profits maximized?
+-  What is the interpretation of this :math:`x`?
+
+When :math:`\delta` is low (0.3), collusion profits are lower (and
+output is higher).
+
+.. code:: python
+
+    range_x = arange(0.25,ans[0],0.01)
+    delta1 = 0.8
+    delta2 = 0.3
+    range_profits = [collusion_profits(x,1.0,0.0,delta1) for x in range_x]
+    range_profits2 = [collusion_profits(x,1.0,0.0,delta2) for x in range_x]
+    
+    plt.clf()
+     
+    plt.plot(range_x, range_profits,'-', color = 'r', linewidth = 2)
+    plt.plot(range_x, range_profits2,'-', color = 'b', linewidth = 2)
+    plt.title("Collusion profits",fontsize = 15)
+    plt.xlabel("output",fontsize = 15)
+    plt.ylabel("profits",fontsize = 15,rotation = 90)
+    plt.xlim(0.25,0.33)
+    plt.ylim(0.0,0.3)
+    plt.savefig('collusion.png')
+
+
+
+.. image:: output_16_0.png
+
+
+imperfect substitutes
+---------------------
+
+Exercise: plot profits for the case where :math:`b = 0.5`, that is goods
+are imperfect substitutes.
+
+-  Why are collusion profits maximized for higher :math:`x` in this
+   case?

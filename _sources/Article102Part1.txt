@@ -1,0 +1,39 @@
+===================
+Article 102: Part 1
+===================
+
+
+
+lecture
+-------
+
+:ref:`Lecture notes on Article 102 <Article_102>`
+
+
+screencasts
+-----------
+
+
+`part 1 <screencasts/Article102_part1/Article102_1.mov>`_
+
+`part 2 <screencasts/Article102_part1/Article102_2.mov>`_
+
+`part 3 <screencasts/Article102_part1/Article102_3.mov>`_
+
+`part 4 <screencasts/Article102_part1/Article102_4.mov>`_
+
+`part 5 <screencasts/Article102_part1/Article102_5.mov>`_
+
+
+exercises
+---------
+
+
+.. Instead of looking at the exercises, you can use the time in class to
+.. ask questions about the python assignment. 
+
+
+python
+------
+
+No python file for the first part of this lecture.

@@ -1,0 +1,156 @@
+
+Python: intrabrand competition
+==============================
+
+In the Hart and Tirole (1990) set up, the equilibrium is different from
+the standard one. Contracts are not publicly observable and agents have
+passive beliefs. This leads to a different definition of equilibrium
+than we have used before.
+
+This notebook shows you to derive an equilibrium numerically in this set
+up.
+
+First, we import the libraries that we need.
+
+.. code:: python
+
+    from scipy import optimize,arange
+    from numpy import array
+    import matplotlib.pyplot as plt
+    %matplotlib inline
+
+demand, costs and profits
+-------------------------
+
+We consider the model in the lecture with one Upstream firm :math:`U`
+and two Downstream firms :math:`D_1,D_2`. We assume linear demand
+:math:`p(x_1,x_2)=1-x_1-x_2` and zero costs both upstream and
+downstream, :math:`c=\gamma=0`.
+
+.. code:: python
+
+    c = 0
+    gamma = 0
+    def demand(x1,x2):
+        return 1-x1-x2
+    def profit_D(x1,x2):
+        return demand(x1,x2)*x1-gamma*x1
+
+public contracts
+----------------
+
+With public contracts and two part tariffs, :math:`U` can appropriate
+all rents from the downstream firms. Hence, :math:`U` sets
+:math:`x_1,x_2` to maximize the sum of downstream profits
+:math:`\pi(x_1,x_2)+\pi(x_2,x_1)-c(x_1+x_2)`.
+
+.. code:: python
+
+    def minus_industry_profits(vx):
+        return -(profit_D(vx[0],vx[1])+profit_D(vx[1],vx[0])-c*(vx[0]+vx[1])) 
+        # the optimize.brute routine that we use, minimizes a function
+    
+    public_contracts = optimize.brute(minus_industry_profits, ((0.0,1.0),(0.0,1.0),))
+    print public_contracts
+
+
+.. parsed-literal::
+
+    [  2.01328278e-04   4.99790473e-01]
+
+
+Now what does this mean?
+
+private contracts
+-----------------
+
+With private contracts, :math:`D_i` cannot observe the output level
+:math:`x_j` in :math:`D_j`'s contract. Hence, the amount :math:`D_i` is
+willing to pay :math:`U` cannot be :math:`\pi_i(x_i,x_j)` as :math:`D_i`
+does not know :math:`x_j`.
+
+:math:`D_i` can have an expectation about :math:`x_j`; this expectation
+we denote :math:`x_j^e`. In equilibrium, this expectation has to be
+correct: :math:`x_j^e = x_j`. Further, we assume passive beliefs; that
+is, if :math:`D_i` gets a deviation offer :math:`\tilde x_i \neq x_i`,
+:math:`D_i` does not change :math:`x_j^e`.
+
+Hence, given belief :math:`x_j^e`, the optimal offer :math:`x_i` to
+:math:`D_i` solves
+
+.. math::
+
+
+   \max_x \pi(x,x_j^e) - cx
+
+The function ``reaction_U`` calculates :math:`U`'s optimal reaction to
+``beliefs`` :math:`x_1^e,x_2^e`.
+
+.. code:: python
+
+    def reaction_U(beliefs): # beliefs[0] is D_2's belief about x1; beliefs[1] is D_1's belief about x2
+        x1 = optimize.brute(lambda x: -(profit_D(x,beliefs[1])-c*x), ((0,1,),))
+        x2 = optimize.brute(lambda x: -(profit_D(x,beliefs[0])-c*x), ((0,1,),))
+        return [x1[0],x2[0]]
+
+symmetric equilibrium
+---------------------
+
+In a symmtric equilibrium we must have that
+
+.. math::
+
+
+   x = \arg\max_{x'} \pi(x',x)-cx'
+
+That is, it is optimal for :math:`U` to offer :math:`D_i` output level
+:math:`x' = x` while :math:`D_i` believes that :math:`x_j=x_j^e=x`.
+
+In other words, we are looking for the intersection point of the optimal
+reaction to belief :math:`x_i^e` and the 45-degree line:
+
+.. code:: python
+
+    range_beliefs = arange(0.0,1.01,0.01)
+    range_x = [reaction_U([x,x])[0] for x in range_beliefs]
+    
+    plt.clf()
+    plt.plot(range_beliefs, range_x,'-', color = 'r', linewidth = 2)
+    plt.plot(range_beliefs, range_beliefs,'-', color = 'b', linewidth = 2)
+    plt.title("Equilibrium passive beliefs",fontsize = 15)
+    plt.xlabel("$x_j^e$",fontsize = 15)
+    plt.ylabel("$x_i$",fontsize = 15,rotation = 90)
+    # plt.xlim(c,1.0)
+    # plt.ylim(0.0,0.3)
+    plt.savefig('passive_beliefs.png')
+
+
+
+.. image:: output_10_0.png
+
+
+To find the equilibrium, we define a fixed point mapping. That is, if
+beliefs are :math:`x`, then the optimal reaction by :math:`U` to these
+beliefs should also be :math:`x` (think of :math:`x` either as a vector
+here or as a scalar with :math:`x_1=x_2=x`).
+
+From the graph we guess that the equilibrium is around :math:`x=0.3`
+
+.. code:: python
+
+    x0 = [0.3,0.3]
+    
+    def fixed_point(x):
+        return x - reaction_U(x)
+    ans = optimize.fsolve(fixed_point, x0, args = ())
+    print ans
+
+
+.. parsed-literal::
+
+    [ 0.33332648  0.33332648]
+
+
+Indeed, as we found in the lecture, the optimal output level with two
+downstrea firms equals the duopoloy Cournot output level.
+

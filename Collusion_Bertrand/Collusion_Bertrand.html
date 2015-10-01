@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python: collusion with Bertrand competition &mdash; Competition Policy and Regulation 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Competition Policy and Regulation 1.0 documentation" href="../index.html" />
+    <link rel="next" title="Python: intrabrand competition" href="../HartTirole/HartTirole.html" />
+    <link rel="prev" title="Python: collusion with Cournot competition" href="../Collusion_Cournot/Collusion_Cournot.html" /> 
+  </head>
+  <body role="document">
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Competition Policy and Regulation 1.0 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../Collusion_Cournot/Collusion_Cournot.html" title="Python: collusion with Cournot competition"
+             accesskey="P">previous</a> |
+          <a href="../HartTirole/HartTirole.html" title="Python: intrabrand competition"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-collusion-with-bertrand-competition">
+<h1>Python: collusion with Bertrand competition<a class="headerlink" href="#python-collusion-with-bertrand-competition" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook we consider collusion with Bertrand competition.
+However, we do not specify a demand function. We start from consumers&#8217;
+utility and then derive demand from that.</p>
+<p>With Bertrand competition it turns out that defining the best response
+numerically is a bit tricky...</p>
+<div class="code python highlight-python"><div class="highlight"><pre>from scipy import optimize,arange
+from numpy import array
+import matplotlib.pyplot as plt
+%matplotlib inline
+</pre></div>
+</div>
+<div class="section" id="utility-structure-and-demand">
+<h2>utility structure and demand<a class="headerlink" href="#utility-structure-and-demand" title="Permalink to this headline">¶</a></h2>
+<p>Assume that a consumer buys either one product or none at all. A
+consumer of type <span class="math">\(n\)</span> values buying a product at price <span class="math">\(p\)</span> at
+<span class="math">\(n-p\)</span>. Her outside option is normalized at 0. Hence, she only buys
+the good if <span class="math">\(n-p \geq 0\)</span>.</p>
+<p>Total demand is then given by all consumers with <span class="math">\(n \geq p\)</span>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">u</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">n</span><span class="p">):</span> <span class="c"># utility for consumer who values good at n</span>
+    <span class="k">return</span> <span class="n">n</span><span class="o">-</span><span class="n">p</span>
+
+<span class="n">consumer_types</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span> <span class="c"># 100 consumers with n varying between 0 and 1</span>
+
+<span class="k">def</span> <span class="nf">buy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">u</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">buy</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">buy</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="n">buy</span>
+
+<span class="k">def</span> <span class="nf">total_demand</span><span class="p">(</span><span class="n">p</span><span class="p">):</span> <span class="c"># total demand equals the sum of demands of consumers n for all consumer_types</span>
+    <span class="n">demand_vector</span> <span class="o">=</span> <span class="p">[</span><span class="n">buy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">consumer_types</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">consumer_types</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">demand_vector</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="profits-and-reaction-functions">
+<h2>profits and reaction functions<a class="headerlink" href="#profits-and-reaction-functions" title="Permalink to this headline">¶</a></h2>
+<p>We consider a duopoly with firms 1 and 2. Consumers buy from the
+cheapest firm or choose a firm randomly if both charge the same price.
+Firm <span class="math">\(i\)</span> has constant marginal cost of production <span class="math">\(c_i\)</span> and
+no fixed cost.</p>
+<p>Let <span class="math">\(x(p)\)</span> denote total demand at price <span class="math">\(p\)</span>. Then profits
+equal:</p>
+<div class="math">
+\[\begin{split}\pi_i(p_i,p_j) =
+\begin{cases}
+0 &amp; \text{ if } p_i &gt; p_j \\
+0.5*x(p_i)(p_i-c_i) &amp;\text{ if } p_i = p_j \\
+x(p_i)(p_i-c_i) &amp;\text{ if } p_i &lt; p_j
+\end{cases}\end{split}\]</div>
+<p>With this profit function, firm <span class="math">\(i\)</span> chooses <span class="math">\(p_i\)</span> optimally,
+given <span class="math">\(p_j\)</span>. Analytically, this implies for
+<span class="math">\(p_j \in \langle c_1, p_1^m \rangle\)</span> setting
+<span class="math">\(p_i = p_j -\varepsilon\)</span> for <span class="math">\(\varepsilon &gt; 0\)</span> small.</p>
+<ul class="simple">
+<li>Why can&#8217;t we use this here?</li>
+<li>Give the intuition for the reaction function specified below; why is
+it not optimal?</li>
+</ul>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">profit</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="n">c1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">p1</span> <span class="o">&gt;</span> <span class="n">p2</span><span class="p">:</span>
+        <span class="n">profits</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">p1</span> <span class="o">==</span> <span class="n">p2</span><span class="p">:</span>
+        <span class="n">profits</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">total_demand</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">c1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">profits</span> <span class="o">=</span> <span class="n">total_demand</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">c1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">profits</span>
+
+<span class="k">def</span> <span class="nf">reaction</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span><span class="n">c1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">p2</span> <span class="o">&gt;</span> <span class="n">c1</span><span class="p">:</span>
+        <span class="n">reaction</span> <span class="o">=</span> <span class="n">c1</span><span class="o">+</span><span class="mf">0.8</span><span class="o">*</span><span class="p">(</span><span class="n">p2</span><span class="o">-</span><span class="n">c1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">reaction</span> <span class="o">=</span> <span class="n">c1</span>
+    <span class="k">return</span> <span class="n">reaction</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="equilibrium">
+<h2>equilibrium<a class="headerlink" href="#equilibrium" title="Permalink to this headline">¶</a></h2>
+<p>We define the Bertrand equilibrium as a fixed point to a mapping from
+<span class="math">\(p_1,p_2\)</span> to the optimal response of firm 1 and 2 to these values
+of <span class="math">\(p_1,p_2\)</span>. This is done in the same way as in the Cournot file.</p>
+<p>We specify symmetric firms <span class="math">\(c_1=c_2=0.0\)</span> and give initial guess
+<span class="math">\(p_0\)</span> for equilibrium prices.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">vector_reaction</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">param</span><span class="p">):</span> <span class="c"># vector param = (c1,c2)</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">-</span><span class="n">array</span><span class="p">([</span><span class="n">reaction</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">param</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">reaction</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">param</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+
+<span class="n">param</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span> <span class="c"># c1 = c2 =0</span>
+<span class="n">p0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span> <span class="c"># initial guess: p1 = p2 = 0.5</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">param</span><span class="p">))</span>
+<span class="k">print</span> <span class="n">ans</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>[  4.94065646e-324   4.94065646e-324]
+</pre></div>
+</div>
+<p>The outcome is what we would expect:
+<span class="math">\(p_1 = p_2 = c_1 = c_2 = 0.0\)</span>. Bertrand competition with
+homogeneous goods and constant average costs leads to price equal
+marginal costs.</p>
+</div>
+<div class="section" id="collusion">
+<h2>collusion<a class="headerlink" href="#collusion" title="Permalink to this headline">¶</a></h2>
+<p>Now we are going to see whether firms can collude on a price <span class="math">\(p\)</span>.
+As with Cournot, we focus on the symmetric case where
+<span class="math">\(c_1 = c_2 =c\)</span> and <span class="math">\(p_1 = p_2 =p\)</span>.</p>
+<p>With Cournot we defined the deviation (from collusion) profit using the
+firm&#8217;s optimal response.</p>
+<ul class="simple">
+<li>Why don&#8217;t we use this here?</li>
+<li>Why is the optimal deviation profit correct?</li>
+</ul>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">collusion_profits</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">delta</span><span class="p">):</span> <span class="c"># we only do this for the symmetric case: c1 = c2 = c</span>
+    <span class="n">profits</span> <span class="o">=</span> <span class="n">profit</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">([</span><span class="n">c</span><span class="p">,</span><span class="n">c</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">profits</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">delta</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">profits</span><span class="o">+</span><span class="n">delta</span><span class="o">*</span><span class="n">profit</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ans</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">c</span><span class="p">):</span>
+        <span class="n">industry_profits</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">profits</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">industry_profits</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">industry_profits</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="maximum-collusion-profits">
+<h2>maximum collusion profits<a class="headerlink" href="#maximum-collusion-profits" title="Permalink to this headline">¶</a></h2>
+<p>To see which prices can be sustained as collusion profits and to see
+which price maximizes collusion profits, let&#8217;s plot collusion profits as
+a function of <span class="math">\(p\)</span>. Here we work with constant marginal costs equal
+to <span class="math">\(c = 0.2\)</span>.</p>
+<p>The red line plots collusion profits for <span class="math">\(\delta_1 = 0.8\)</span> and the
+blue line for <span class="math">\(\delta_2 = 0.4\)</span>.</p>
+<ul class="simple">
+<li>Why is the blue line (if you can see it...) horizontal at 0?</li>
+<li>What is the profit maximizing price with the red line?</li>
+<li>How does this compare to the condition on collusion derived in the
+lecture?</li>
+</ul>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">range_p</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">delta1</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">delta2</span> <span class="o">=</span> <span class="mf">0.4</span>
+
+<span class="n">range_profits</span> <span class="o">=</span> <span class="p">[</span><span class="n">collusion_profits</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">delta1</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">range_p</span><span class="p">]</span>
+<span class="n">range_profits_2</span> <span class="o">=</span> <span class="p">[</span><span class="n">collusion_profits</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">delta2</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">range_p</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_p</span><span class="p">,</span> <span class="n">range_profits</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_p</span><span class="p">,</span> <span class="n">range_profits_2</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;Collusion profits&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;price&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;profits&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;collusion_Bertrand.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_12_0.png" src="../_images/output_12_0.png" />
+</div>
+<div class="section" id="welfare">
+<h2>welfare<a class="headerlink" href="#welfare" title="Permalink to this headline">¶</a></h2>
+<p>Finally, let&#8217;s consider total welfare as a function of price.</p>
+<ul class="simple">
+<li>At which price <span class="math">\(p\)</span> is welfare maximized? Why?</li>
+</ul>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">welfare</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="n">welfare</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">u</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">buy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">consumer_types</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">consumer_types</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">welfare</span>
+
+<span class="n">range_welfare</span> <span class="o">=</span> <span class="p">[</span><span class="n">welfare</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">range_p</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_p</span><span class="p">,</span> <span class="n">range_welfare</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;welfare&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;$p$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;$W$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;welfare.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_14_0.png" src="../_images/output_14_0.png" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Introduction_Lecture.html">Introduction to course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RulesOfTheGame.html">Rules of the Game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article101.html">Article 101</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VerticalRestraints.html">Vertical restraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article102Part1.html">Article 102: Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article102Part2.html">Article 102: Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mergers.html">Mergers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IPandInnovation.html">Innovation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation.html">Regulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HealthCare.html">Competition policy in health care</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Article101and102LectureNotes.html">Competition Policy Lectures Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LectureNotes_Mergers.html">Mergers and Acquisitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation_Innovation_Lecture_Notes.html">Innovation and Regulation Lecture Notes</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction_to_Python/Introduction_to_Python.html">Python: introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Collusion_Cournot/Collusion_Cournot.html">Python: collusion with Cournot competition</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Python: collusion with Bertrand competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HartTirole/HartTirole.html">Python: intrabrand competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pricediscrimination/pricediscrimination.html">Python: price discrimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Innovation/Innovation.html">Python: innovation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation/Regulation.html">Python: regulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Healthcare/Healthcare.html">Python: risk adjustment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+            </form>
+            <p class="searchtip" style="font-size: 90%">
+                Enter search terms or a module, class or function name.
+            </p>
+          </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../Collusion_Cournot/Collusion_Cournot.html" title="Python: collusion with Cournot competition"
+              >previous</a> |
+            <a href="../HartTirole/HartTirole.html" title="Python: intrabrand competition"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/Collusion_Bertrand/Collusion_Bertrand.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Jan Boone.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

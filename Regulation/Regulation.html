@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python: regulation &mdash; Competition Policy and Regulation 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Competition Policy and Regulation 1.0 documentation" href="../index.html" />
+    <link rel="next" title="Python: risk adjustment" href="../Healthcare/Healthcare.html" />
+    <link rel="prev" title="Python: innovation" href="../Innovation/Innovation.html" /> 
+  </head>
+  <body role="document">
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Competition Policy and Regulation 1.0 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../Innovation/Innovation.html" title="Python: innovation"
+             accesskey="P">previous</a> |
+          <a href="../Healthcare/Healthcare.html" title="Python: risk adjustment"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-regulation">
+<h1>Python: regulation<a class="headerlink" href="#python-regulation" title="Permalink to this headline">¶</a></h1>
+<p>This notebook programs the graphical approach to regulation. We follow
+the notation in the regulation lecture.</p>
+<p>So we have a public project with value <span class="math">\(S\)</span> to society. Cost of the
+firm doing this project is given by <span class="math">\(C=\beta -e\)</span> where
+<span class="math">\(\beta\)</span> either equals <span class="math">\(\beta^l &gt; 0\)</span> or
+<span class="math">\(\beta^h&gt;\beta^l\)</span>.</p>
+<p>By investing effort <span class="math">\(e\)</span> the firm can reduce the costs of the
+project. For the graphs we use a quadratic effort cost function
+<span class="math">\(\psi(e) = 0.5e^2\)</span> and <span class="math">\(\beta^h = 3.0, \beta^l = 2.5\)</span>.</p>
+<p>The planner pays the firm a transfer equal to <span class="math">\(T=C+t\)</span> at cost (to
+the planner) equal to <span class="math">\((1+\lambda)T\)</span> with <span class="math">\(\lambda \geq 0\)</span>.</p>
+<p>We import the libraries that we need below.</p>
+<div class="code python highlight-python"><div class="highlight"><pre>from scipy import optimize,arange
+from numpy import array, linspace
+import matplotlib.pyplot as plt
+%matplotlib inline
+</pre></div>
+</div>
+<p>First, we replicate the figure in the exercise. An indifference curve in
+<span class="math">\((C,t)\)</span> space takes the form <span class="math">\(u = t -\psi(e) = \bar u\)</span> for
+some value <span class="math">\(\bar u \geq 0\)</span>. Hence, we get
+<span class="math">\(t = \bar u + \psi(\beta - C)\)</span>. We draw these indifference curves
+for <span class="math">\(\bar u =0\)</span>; that is, the curves correspond to the IR
+constraints.</p>
+<p>The first best contract features <span class="math">\(e^*\)</span> that minimizes total costs
+<span class="math">\(\beta - e + \psi(e)\)</span>: <span class="math">\(\psi'(e^*) = 1\)</span>. Hence, we have
+<span class="math">\(\psi'(\beta-C)=1\)</span>. With the quadratic <span class="math">\(\psi\)</span> function that
+we have chosen, this yields <span class="math">\(\beta - C =1\)</span> or equivalently
+<span class="math">\(C = \beta -1\)</span>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">beta_h</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">beta_l</span> <span class="o">=</span> <span class="mf">2.5</span>
+
+<span class="k">def</span> <span class="nf">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">beta</span><span class="o">-</span><span class="n">C</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">rangeCh</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">rangeCl</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span><span class="s">&#39;text.fontsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">r&quot;$C$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">r&quot;$t$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">IRh</span> <span class="o">=</span> <span class="p">[</span><span class="n">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta_h</span><span class="p">)</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">rangeCh</span><span class="p">]</span> <span class="c"># this plots the indifference curve t = psi(beta-C) for beta^h</span>
+<span class="n">IRl</span> <span class="o">=</span> <span class="p">[</span><span class="n">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">rangeCl</span><span class="p">]</span> <span class="c"># here the indifference curve for beta^l</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rangeCh</span><span class="p">,</span><span class="n">IRh</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rangeCl</span><span class="p">,</span><span class="n">IRl</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">((),[])</span> <span class="c"># we don&#39;t need &quot;ticks&quot; on the axes</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">((),[])</span>
+<span class="n">alpha_point</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">),</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span> <span class="c"># here we mark the first best contract for beta^l on the IR constraint</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point</span><span class="p">,</span> <span class="s">&#39;markersize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>           <span class="c"># C = 2.5 - 1 = 1.5</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point</span><span class="p">,</span> <span class="s">&#39;markerfacecolor&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">beta_point</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">beta_h</span><span class="p">),</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>      <span class="c"># and for beta^h: C = 3 - 1 = 2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">beta_point</span><span class="p">,</span> <span class="s">&#39;markersize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">beta_point</span><span class="p">,</span> <span class="s">&#39;markerfacecolor&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$</span><span class="se">\\</span><span class="s">alpha$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="c"># here we define the labels and arrows in the graph</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$u^l = 0$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$</span><span class="se">\\</span><span class="s">beta$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">psi</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">beta_h</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$u^h = 0$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">psi</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,</span><span class="n">beta_h</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;Regulation_fig1.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_3_0.png" src="../_images/output_3_0.png" />
+<p>a Indifference curves are of the form
+<span class="math">\(t = \bar u - \psi(\beta - C)\)</span>. Hence,</p>
+<div class="math">
+\[\begin{split}\frac{dt}{dC} = -\psi'(\beta - C) &lt; 0\end{split}\]</div>
+<p>because <span class="math">\(\psi' &gt; 0\)</span>. In words, indifference curves are downward
+sloping.</p>
+<p>To see how steepness varies with <span class="math">\(\beta\)</span>, we consider the second
+derivative:</p>
+<div class="math">
+\[\begin{split}\frac{d^2t}{dCd\beta} = -\psi''(\beta - C) &lt; 0\end{split}\]</div>
+<p>because <span class="math">\(\psi'' &gt;0\)</span>. Hence, higher <span class="math">\(\beta\)</span> curves are
+steeper (have a &#8220;more negative slope&#8221;).</p>
+<p>In the first best contract we have <span class="math">\(\psi'(\beta -C)=1\)</span>. As
+<span class="math">\(\beta\)</span> increases, <span class="math">\(C\)</span> must increase as well to keep
+<span class="math">\(\beta -C\)</span> constant. Hence <span class="math">\(C\)</span> is higher for <span class="math">\(\beta^h\)</span>
+than for <span class="math">\(\beta^l\)</span>.</p>
+<p>b The slope is given by <span class="math">\(dt/dC = -\psi'(\beta-C) = -1\)</span> in first
+best as <span class="math">\(\psi'(\beta-C)=1\)</span> in first best.</p>
+<p>c Suppose contracts <span class="math">\(\alpha, \beta\)</span> would be implemented under
+asymmetric information. Then <span class="math">\(\beta^l\)</span> can raise her utility by
+choosing the &#8220;wrong&#8221; contract <span class="math">\(\beta\)</span>. This contract lies to the
+north east of her own contract <span class="math">\(\alpha\)</span>: higher <span class="math">\(t\)</span> and
+higher <span class="math">\(C\)</span> (and thus lower effort <span class="math">\(e\)</span>) which is prefered by
+<span class="math">\(\beta^l\)</span>.</p>
+<p>d To implement first best effort and cost levels while keeping the
+contracts IC, we need to raise <span class="math">\(t^l\)</span> such that</p>
+<div class="math">
+\[\begin{split}t^l-\psi(\beta^l-C^l) = t^h - \psi(\beta^l - C^h) &gt; 0\end{split}\]</div>
+<p>where <span class="math">\(t^h = \psi(\beta^h - C^h)\)</span> and hence the right hand side is
+strictly positive.</p>
+<p>This leads to a new contract <span class="math">\(\tilde \alpha\)</span> which gives type
+<span class="math">\(\beta^l\)</span> strictly positive utility <span class="math">\(\tilde u &gt;0\)</span>.</p>
+<p>Note that contract <span class="math">\(\tilde \alpha\)</span> lies to the south-west of
+<span class="math">\(\beta^h\)</span>&#8216;s indifference curve. Hence <span class="math">\(\beta^h\)</span> has no
+incentive to choose <span class="math">\(\tilde \alpha\)</span> (&#8220;mimic <span class="math">\(\beta^l\)</span>&#8221;).</p>
+<p>The dotted line gives <span class="math">\(\beta^l\)</span>&#8216;s indifference curve through the
+new contract <span class="math">\(\tilde \alpha\)</span>.</p>
+<p>Summarizing, with contracts <span class="math">\(\tilde \alpha, \beta\)</span>, the planner
+can implement first best.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span><span class="s">&#39;text.fontsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">r&quot;$C$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">r&quot;$t$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">IRh</span> <span class="o">=</span> <span class="p">[</span><span class="n">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta_h</span><span class="p">)</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">rangeCh</span><span class="p">]</span>
+<span class="n">IRl</span> <span class="o">=</span> <span class="p">[</span><span class="n">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">rangeCl</span><span class="p">]</span>
+<span class="n">rangeICl</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">ICl</span> <span class="o">=</span> <span class="p">[</span><span class="n">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span><span class="o">+</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">8.0</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">rangeICl</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rangeCh</span><span class="p">,</span><span class="n">IRh</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rangeCl</span><span class="p">,</span><span class="n">IRl</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rangeICl</span><span class="p">,</span><span class="n">ICl</span><span class="p">,</span><span class="s">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="c"># line style &#39;--&#39; draws a dashed line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">((),[])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">((),[])</span>
+<span class="n">alpha_point0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">),</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point0</span><span class="p">,</span> <span class="s">&#39;markersize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point0</span><span class="p">,</span> <span class="s">&#39;markerfacecolor&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">alpha_point</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span><span class="o">+</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">8.0</span><span class="p">,</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point</span><span class="p">,</span> <span class="s">&#39;markersize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point</span><span class="p">,</span> <span class="s">&#39;markerfacecolor&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">beta_point</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">beta_h</span><span class="p">),</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">beta_point</span><span class="p">,</span> <span class="s">&#39;markersize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">beta_point</span><span class="p">,</span> <span class="s">&#39;markerfacecolor&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$</span><span class="se">\\</span><span class="s">alpha$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$</span><span class="se">\\</span><span class="s">tilde{</span><span class="se">\\</span><span class="s">alpha}$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span><span class="o">+</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">8.0</span><span class="p">),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">+</span><span class="mi">30</span><span class="p">,</span> <span class="o">+</span><span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$u^l = 0$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$u^l = </span><span class="se">\\</span><span class="s">tilde u&gt;0$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.2</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">2.2</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span><span class="o">+</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">8.0</span><span class="p">),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$</span><span class="se">\\</span><span class="s">beta$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">psi</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">beta_h</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$u^h = 0$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">psi</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,</span><span class="n">beta_h</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;Regulation_fig2.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_8_0.png" src="../_images/output_8_0.png" />
+<p>e Implementing first best is only optimal if <span class="math">\(\lambda =0\)</span>. That
+is, the planner does not worry about paying high rents
+(<span class="math">\(\tilde u &gt;0\)</span>) to <span class="math">\(\beta^l\)</span>. If <span class="math">\(\lambda &gt; 0\)</span>, it
+becomes optimal to distort <span class="math">\(\beta^h\)</span>&#8216;s contract.</p>
+<p>This can be seen as follows. By distorting <span class="math">\(\beta^h\)</span>&#8216;s contract,
+we reduce welfare, but this is a second order effect (as we start from
+first best). By distorting this contract, we can reduce the rents we pay
+to <span class="math">\(\beta^l\)</span> which is a first order gain for <span class="math">\(\lambda &gt;0\)</span>.</p>
+<p>f Start from the first best contracts. Reduce the rents that the planner
+pays to <span class="math">\(\beta^l\)</span> by moving <span class="math">\(\beta^l\)</span>&#8216;s indifference curve
+downwards. This implies that <span class="math">\(\beta^h\)</span>&#8216;s contract moves to the
+right and downward; i.e. it gets distorted with inefficiently high costs
+<span class="math">\(C\)</span> (due to inefficiently low effort <span class="math">\(e\)</span>). By doing this, we
+reduce rents, without giving <span class="math">\(\beta^l\)</span> an incentive to mimic
+<span class="math">\(\beta^h\)</span>. We keep <span class="math">\(\beta^h\)</span> on her IR constraint.</p>
+<p>The trade off is: the further we reduce the rents paid to
+<span class="math">\(\beta^l\)</span> (move <span class="math">\(\beta^l\)</span>&#8216;s indifference curve downwards),
+the more we have distort <span class="math">\(\beta^h\)</span>&#8216;s effort and costs.</p>
+<p>g See figure below with second best contracts
+<span class="math">\(\hat \alpha, \hat \beta\)</span>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span><span class="s">&#39;text.fontsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">r&quot;$C$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">r&quot;$t$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">IRh</span> <span class="o">=</span> <span class="p">[</span><span class="n">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta_h</span><span class="p">)</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">rangeCh</span><span class="p">]</span>
+<span class="n">IRl</span> <span class="o">=</span> <span class="p">[</span><span class="n">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">rangeCl</span><span class="p">]</span>
+<span class="n">rangeICl</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">ICl</span> <span class="o">=</span> <span class="p">[</span><span class="n">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span><span class="o">+</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">8.0</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">rangeICl</span><span class="p">]</span>
+<span class="n">ICl2</span> <span class="o">=</span> <span class="p">[</span><span class="n">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span><span class="o">+</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">16.0</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">rangeICl</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rangeCh</span><span class="p">,</span><span class="n">IRh</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rangeCl</span><span class="p">,</span><span class="n">IRl</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rangeICl</span><span class="p">,</span><span class="n">ICl</span><span class="p">,</span><span class="s">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rangeICl</span><span class="p">,</span><span class="n">ICl2</span><span class="p">,</span><span class="s">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">((),[])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">((),[])</span>
+<span class="n">alpha_point0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">),</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point0</span><span class="p">,</span> <span class="s">&#39;markersize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point0</span><span class="p">,</span> <span class="s">&#39;markerfacecolor&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">alpha_point</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span><span class="o">+</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">8.0</span><span class="p">,</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point</span><span class="p">,</span> <span class="s">&#39;markersize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point</span><span class="p">,</span> <span class="s">&#39;markerfacecolor&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">alpha_point1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span><span class="o">+</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">16.0</span><span class="p">,</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point1</span><span class="p">,</span> <span class="s">&#39;markersize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">alpha_point1</span><span class="p">,</span> <span class="s">&#39;markerfacecolor&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">beta_point</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">beta_h</span><span class="p">),</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">beta_point</span><span class="p">,</span> <span class="s">&#39;markersize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">beta_point</span><span class="p">,</span> <span class="s">&#39;markerfacecolor&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">C_l</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">psi</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span><span class="o">+</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">16.0</span><span class="o">-</span><span class="n">psi</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">beta_h</span><span class="p">)</span> <span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">beta_point2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">C_l</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="n">C_l</span><span class="p">,</span><span class="n">beta_h</span><span class="p">),</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">beta_point2</span><span class="p">,</span> <span class="s">&#39;markersize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">beta_point2</span><span class="p">,</span> <span class="s">&#39;markerfacecolor&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$</span><span class="se">\\</span><span class="s">hat{</span><span class="se">\\</span><span class="s">alpha}$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)</span><span class="o">+</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">16.0</span><span class="p">),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$u^l = 0$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">psi</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">beta_l</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$</span><span class="se">\\</span><span class="s">hat{</span><span class="se">\\</span><span class="s">beta}$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">C_l</span><span class="p">,</span> <span class="n">psi</span><span class="p">(</span><span class="n">C_l</span><span class="p">,</span><span class="n">beta_h</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$u^h = 0$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">psi</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,</span><span class="n">beta_h</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+              <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;Regulation_fig3.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_12_01.png" src="../_images/output_12_01.png" />
+<p>h We keep <span class="math">\(\beta^h\)</span> on her IR constraint and hence <span class="math">\(IR_h\)</span> is
+binding. <span class="math">\(\beta^l\)</span> receives a rent and hence <span class="math">\(IR_l\)</span> is not
+binding.</p>
+<p>We want to avoid that <span class="math">\(\beta^l\)</span> mimics <span class="math">\(\beta^h\)</span> and hence
+<span class="math">\(IC_l\)</span> is binding. Further, <span class="math">\(\beta^h\)</span> strictly prefers
+contract <span class="math">\(\hat \beta\)</span> above <span class="math">\(\hat \alpha\)</span>
+(<span class="math">\(\hat \alpha\)</span> lies below the indifference curve <span class="math">\(u^h = 0\)</span>);
+hence <span class="math">\(IC_h\)</span> is not binding.</p>
+<p>i The second best contracts are determined by the trade off between the
+rents paid to <span class="math">\(\beta^l\)</span> and the distorted effort of
+<span class="math">\(\beta^h\)</span>. As the probability <span class="math">\(\nu\)</span> that a firm is
+<span class="math">\(\beta^l\)</span> increases, the rents become more important (in expected
+welfare) compared to <span class="math">\(\beta^h\)</span>&#8216;s distortion.</p>
+<p>Hence, in response to an increase in <span class="math">\(\nu\)</span>, it is optimal to push
+<span class="math">\(\beta^l\)</span>&#8216;s indifference curve downwards. This pushes contract
+<span class="math">\(\hat \beta\)</span> to the right, raising <span class="math">\(C^h\)</span>.</p>
+<p>Thus, the planner reduces <span class="math">\(\beta^l\)</span>&#8216;s rents (<span class="math">\(t^l\)</span> falls,
+while <span class="math">\(C^l\)</span> is unchanged) and increases <span class="math">\(\beta^h\)</span>&#8216;s effort
+distortion.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Introduction_Lecture.html">Introduction to course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RulesOfTheGame.html">Rules of the Game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article101.html">Article 101</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VerticalRestraints.html">Vertical restraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article102Part1.html">Article 102: Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article102Part2.html">Article 102: Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mergers.html">Mergers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IPandInnovation.html">Innovation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation.html">Regulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HealthCare.html">Competition policy in health care</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Article101and102LectureNotes.html">Competition Policy Lectures Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LectureNotes_Mergers.html">Mergers and Acquisitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation_Innovation_Lecture_Notes.html">Innovation and Regulation Lecture Notes</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction_to_Python/Introduction_to_Python.html">Python: introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Collusion_Cournot/Collusion_Cournot.html">Python: collusion with Cournot competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Collusion_Bertrand/Collusion_Bertrand.html">Python: collusion with Bertrand competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HartTirole/HartTirole.html">Python: intrabrand competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pricediscrimination/pricediscrimination.html">Python: price discrimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Innovation/Innovation.html">Python: innovation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Python: regulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Healthcare/Healthcare.html">Python: risk adjustment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+            </form>
+            <p class="searchtip" style="font-size: 90%">
+                Enter search terms or a module, class or function name.
+            </p>
+          </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../Innovation/Innovation.html" title="Python: innovation"
+              >previous</a> |
+            <a href="../Healthcare/Healthcare.html" title="Python: risk adjustment"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/Regulation/Regulation.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Jan Boone.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

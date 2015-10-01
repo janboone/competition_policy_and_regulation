@@ -1,0 +1,33 @@
+=======
+Mergers
+=======
+
+lecture
+-------
+
+
+:ref:`Lecture notes on Mergers and Acquisitions <Mergers>`
+
+screencasts
+-----------
+
+
+exercises
+---------
+
+From the :ref:`exercise <Exercises_mergers>` of this lecture, we discuss question 1 in class.
+ 
+ 
+python
+------
+
+TODO: python file maken en rst-file
+
+A very short introduction to python and how to install it can be found
+on `this page. <Introduction_to_Python/Introduction_to_Python.html>`_
+
+
+Here you can download these file in ipython notebook form (ipynb)
+
+* :download:`introduction <Introduction_to_Python.ipynb>`
+

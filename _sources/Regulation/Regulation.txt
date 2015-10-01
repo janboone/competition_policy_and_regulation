@@ -1,0 +1,335 @@
+
+Python: regulation
+==================
+
+This notebook programs the graphical approach to regulation. We follow
+the notation in the regulation lecture.
+
+So we have a public project with value :math:`S` to society. Cost of the
+firm doing this project is given by :math:`C=\beta -e` where
+:math:`\beta` either equals :math:`\beta^l > 0` or
+:math:`\beta^h>\beta^l`.
+
+By investing effort :math:`e` the firm can reduce the costs of the
+project. For the graphs we use a quadratic effort cost function
+:math:`\psi(e) = 0.5e^2` and :math:`\beta^h = 3.0, \beta^l = 2.5`.
+
+The planner pays the firm a transfer equal to :math:`T=C+t` at cost (to
+the planner) equal to :math:`(1+\lambda)T` with :math:`\lambda \geq 0`.
+
+We import the libraries that we need below.
+
+.. code:: python
+
+    from scipy import optimize,arange
+    from numpy import array, linspace
+    import matplotlib.pyplot as plt
+    %matplotlib inline
+
+First, we replicate the figure in the exercise. An indifference curve in
+:math:`(C,t)` space takes the form :math:`u = t -\psi(e) = \bar u` for
+some value :math:`\bar u \geq 0`. Hence, we get
+:math:`t = \bar u + \psi(\beta - C)`. We draw these indifference curves
+for :math:`\bar u =0`; that is, the curves correspond to the IR
+constraints.
+
+The first best contract features :math:`e^*` that minimizes total costs
+:math:`\beta - e + \psi(e)`: :math:`\psi'(e^*) = 1`. Hence, we have
+:math:`\psi'(\beta-C)=1`. With the quadratic :math:`\psi` function that
+we have chosen, this yields :math:`\beta - C =1` or equivalently
+:math:`C = \beta -1`.
+
+.. code:: python
+
+    beta_h = 3
+    beta_l = 2.5
+    
+    def psi(C,beta):
+            return 0.5*(beta-C)**2
+    
+    rangeCh = linspace(1.0,3,200)
+    rangeCl = linspace(0.0,2.5,200)
+    plt.clf()
+    plt.rcParams.update({'axes.labelsize': 20,'text.fontsize': 20, 'legend.fontsize': 20})
+    plt.xlabel(r"$C$",fontsize = 20)
+    plt.ylabel(r"$t$",fontsize = 20,rotation = 0)
+    IRh = [psi(C,beta_h) for C in rangeCh] # this plots the indifference curve t = psi(beta-C) for beta^h
+    IRl = [psi(C,beta_l) for C in rangeCl] # here the indifference curve for beta^l
+    plt.plot(rangeCh,IRh,'-', color = 'b', linewidth = 2)
+    plt.plot(rangeCl,IRl,'-', color = 'b', linewidth = 2)
+    plt.xticks((),[]) # we don't need "ticks" on the axes
+    plt.yticks((),[])
+    alpha_point = plt.plot(1.5,psi(1.5,beta_l), 'ro') # here we mark the first best contract for beta^l on the IR constraint
+    plt.setp(alpha_point, 'markersize', 10)           # C = 2.5 - 1 = 1.5
+    plt.setp(alpha_point, 'markerfacecolor', 'b')
+    beta_point = plt.plot(2,psi(2,beta_h), 'ro')      # and for beta^h: C = 3 - 1 = 2
+    plt.setp(beta_point, 'markersize', 10)
+    plt.setp(beta_point, 'markerfacecolor', 'b')
+    
+    
+    
+    plt.annotate('$\\alpha$', xy=(1.5,psi(1.5,beta_l)),  xycoords='data', # here we define the labels and arrows in the graph
+                  xytext=(-30, -40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$u^l = 0$', xy=(0.5,psi(0.5,beta_l)),  xycoords='data',
+                  xytext=(30, 40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$\\beta$', xy=(2, psi(2,beta_h)),  xycoords='data',
+                  xytext=(30, 40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$u^h = 0$', xy=(1.3, psi(1.3,beta_h)),  xycoords='data',
+                  xytext=(-30, 40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.savefig('Regulation_fig1.png')
+
+
+
+
+.. image:: output_3_0.png
+
+
+a Indifference curves are of the form
+:math:`t = \bar u - \psi(\beta - C)`. Hence,
+
+.. math::
+
+
+   \frac{dt}{dC} = -\psi'(\beta - C) < 0
+
+because :math:`\psi' > 0`. In words, indifference curves are downward
+sloping.
+
+To see how steepness varies with :math:`\beta`, we consider the second
+derivative:
+
+.. math::
+
+
+   \frac{d^2t}{dCd\beta} = -\psi''(\beta - C) < 0
+
+because :math:`\psi'' >0`. Hence, higher :math:`\beta` curves are
+steeper (have a "more negative slope").
+
+In the first best contract we have :math:`\psi'(\beta -C)=1`. As
+:math:`\beta` increases, :math:`C` must increase as well to keep
+:math:`\beta -C` constant. Hence :math:`C` is higher for :math:`\beta^h`
+than for :math:`\beta^l`.
+
+b The slope is given by :math:`dt/dC = -\psi'(\beta-C) = -1` in first
+best as :math:`\psi'(\beta-C)=1` in first best.
+
+c Suppose contracts :math:`\alpha, \beta` would be implemented under
+asymmetric information. Then :math:`\beta^l` can raise her utility by
+choosing the "wrong" contract :math:`\beta`. This contract lies to the
+north east of her own contract :math:`\alpha`: higher :math:`t` and
+higher :math:`C` (and thus lower effort :math:`e`) which is prefered by
+:math:`\beta^l`.
+
+d To implement first best effort and cost levels while keeping the
+contracts IC, we need to raise :math:`t^l` such that
+
+.. math::
+
+
+   t^l-\psi(\beta^l-C^l) = t^h - \psi(\beta^l - C^h) > 0
+
+where :math:`t^h = \psi(\beta^h - C^h)` and hence the right hand side is
+strictly positive.
+
+This leads to a new contract :math:`\tilde \alpha` which gives type
+:math:`\beta^l` strictly positive utility :math:`\tilde u >0`.
+
+Note that contract :math:`\tilde \alpha` lies to the south-west of
+:math:`\beta^h`'s indifference curve. Hence :math:`\beta^h` has no
+incentive to choose :math:`\tilde \alpha` ("mimic :math:`\beta^l`").
+
+The dotted line gives :math:`\beta^l`'s indifference curve through the
+new contract :math:`\tilde \alpha`.
+
+Summarizing, with contracts :math:`\tilde \alpha, \beta`, the planner
+can implement first best.
+
+.. code:: python
+
+    plt.clf()
+    plt.rcParams.update({'axes.labelsize': 20,'text.fontsize': 20, 'legend.fontsize': 20})
+    plt.xlabel(r"$C$",fontsize = 20)
+    plt.ylabel(r"$t$",fontsize = 20,rotation = 0)
+    IRh = [psi(C,beta_h) for C in rangeCh]
+    IRl = [psi(C,beta_l) for C in rangeCl]
+    rangeICl = linspace(1.0,2.5,200)
+    ICl = [psi(C,beta_l)+3.0/8.0 for C in rangeICl]
+    plt.plot(rangeCh,IRh,'-', color = 'b', linewidth = 2)
+    plt.plot(rangeCl,IRl,'-', color = 'b', linewidth = 2)
+    plt.plot(rangeICl,ICl,'--', color = 'b', linewidth = 2) # line style '--' draws a dashed line
+    plt.xticks((),[])
+    plt.yticks((),[])
+    alpha_point0 = plt.plot(1.5,psi(1.5,beta_l), 'ro')
+    plt.setp(alpha_point0, 'markersize', 10)
+    plt.setp(alpha_point0, 'markerfacecolor', 'b')
+    alpha_point = plt.plot(1.5,psi(1.5,beta_l)+3.0/8.0, 'ro')
+    plt.setp(alpha_point, 'markersize', 10)
+    plt.setp(alpha_point, 'markerfacecolor', 'b')
+    beta_point = plt.plot(2,psi(2,beta_h), 'ro')
+    plt.setp(beta_point, 'markersize', 10)
+    plt.setp(beta_point, 'markerfacecolor', 'b')
+    
+    
+    plt.annotate('$\\alpha$', xy=(1.5,psi(1.5,beta_l)),  xycoords='data',
+                  xytext=(-30, -40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$\\tilde{\\alpha}$', xy=(1.5,psi(1.5,beta_l)+3.0/8.0),  xycoords='data',
+                  xytext=(+30, +40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$u^l = 0$', xy=(0.5,psi(0.5,beta_l)),  xycoords='data',
+                  xytext=(30, 40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$u^l = \\tilde u>0$', xy=(2.2,psi(2.2,beta_l)+3.0/8.0),  xycoords='data',
+                  xytext=(30, 40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$\\beta$', xy=(2, psi(2,beta_h)),  xycoords='data',
+                  xytext=(30, 40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$u^h = 0$', xy=(1.3, psi(1.3,beta_h)),  xycoords='data',
+                  xytext=(-30, 40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.savefig('Regulation_fig2.png')
+
+
+
+
+.. image:: output_8_0.png
+
+
+e Implementing first best is only optimal if :math:`\lambda =0`. That
+is, the planner does not worry about paying high rents
+(:math:`\tilde u >0`) to :math:`\beta^l`. If :math:`\lambda > 0`, it
+becomes optimal to distort :math:`\beta^h`'s contract.
+
+This can be seen as follows. By distorting :math:`\beta^h`'s contract,
+we reduce welfare, but this is a second order effect (as we start from
+first best). By distorting this contract, we can reduce the rents we pay
+to :math:`\beta^l` which is a first order gain for :math:`\lambda >0`.
+
+f Start from the first best contracts. Reduce the rents that the planner
+pays to :math:`\beta^l` by moving :math:`\beta^l`'s indifference curve
+downwards. This implies that :math:`\beta^h`'s contract moves to the
+right and downward; i.e. it gets distorted with inefficiently high costs
+:math:`C` (due to inefficiently low effort :math:`e`). By doing this, we
+reduce rents, without giving :math:`\beta^l` an incentive to mimic
+:math:`\beta^h`. We keep :math:`\beta^h` on her IR constraint.
+
+The trade off is: the further we reduce the rents paid to
+:math:`\beta^l` (move :math:`\beta^l`'s indifference curve downwards),
+the more we have distort :math:`\beta^h`'s effort and costs.
+
+g See figure below with second best contracts
+:math:`\hat \alpha, \hat \beta`.
+
+.. code:: python
+
+    plt.clf()
+    plt.rcParams.update({'axes.labelsize': 20,'text.fontsize': 20, 'legend.fontsize': 20})
+    plt.xlabel(r"$C$",fontsize = 20)
+    plt.ylabel(r"$t$",fontsize = 20,rotation = 0)
+    IRh = [psi(C,beta_h) for C in rangeCh]
+    IRl = [psi(C,beta_l) for C in rangeCl]
+    rangeICl = linspace(1.0,2.5,200)
+    ICl = [psi(C,beta_l)+3.0/8.0 for C in rangeICl]
+    ICl2 = [psi(C,beta_l)+3.0/16.0 for C in rangeICl]
+    plt.plot(rangeCh,IRh,'-', color = 'b', linewidth = 2)
+    plt.plot(rangeCl,IRl,'-', color = 'b', linewidth = 2)
+    plt.plot(rangeICl,ICl,'--', color = 'b', linewidth = 2)
+    plt.plot(rangeICl,ICl2,'--', color = 'r', linewidth = 2)
+    plt.xticks((),[])
+    plt.yticks((),[])
+    alpha_point0 = plt.plot(1.5,psi(1.5,beta_l), 'ro')
+    plt.setp(alpha_point0, 'markersize', 10)
+    plt.setp(alpha_point0, 'markerfacecolor', 'b')
+    alpha_point = plt.plot(1.5,psi(1.5,beta_l)+3.0/8.0, 'ro')
+    plt.setp(alpha_point, 'markersize', 10)
+    plt.setp(alpha_point, 'markerfacecolor', 'b')
+    alpha_point1 = plt.plot(1.5,psi(1.5,beta_l)+3.0/16.0, 'ro')
+    plt.setp(alpha_point1, 'markersize', 10)
+    plt.setp(alpha_point1, 'markerfacecolor', 'r')
+    beta_point = plt.plot(2,psi(2,beta_h), 'ro')
+    plt.setp(beta_point, 'markersize', 10)
+    plt.setp(beta_point, 'markerfacecolor', 'b')
+    C_l = optimize.root(lambda x: psi(x,beta_l)+3.0/16.0-psi(x,beta_h) , 2.5).x[0]
+    beta_point2 = plt.plot(C_l,psi(C_l,beta_h), 'ro')
+    plt.setp(beta_point2, 'markersize', 10)
+    plt.setp(beta_point2, 'markerfacecolor', 'r')
+    
+    
+    plt.annotate('$\\hat{\\alpha}$', xy=(1.5,psi(1.5,beta_l)+3.0/16.0),  xycoords='data',
+                  xytext=(-50, -40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$u^l = 0$', xy=(0.5,psi(0.5,beta_l)),  xycoords='data',
+                  xytext=(30, 40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$\\hat{\\beta}$', xy=(C_l, psi(C_l,beta_h)),  xycoords='data',
+                  xytext=(30, 40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.annotate('$u^h = 0$', xy=(1.3, psi(1.3,beta_h)),  xycoords='data',
+                  xytext=(-30, 40), textcoords='offset points', size = 20,
+                  arrowprops=dict(arrowstyle="->", linewidth = 2,
+                                  connectionstyle="arc3,rad=.2"),
+                  )
+    plt.savefig('Regulation_fig3.png')
+
+
+
+
+.. image:: output_12_0.png
+
+
+h We keep :math:`\beta^h` on her IR constraint and hence :math:`IR_h` is
+binding. :math:`\beta^l` receives a rent and hence :math:`IR_l` is not
+binding.
+
+We want to avoid that :math:`\beta^l` mimics :math:`\beta^h` and hence
+:math:`IC_l` is binding. Further, :math:`\beta^h` strictly prefers
+contract :math:`\hat \beta` above :math:`\hat \alpha`
+(:math:`\hat \alpha` lies below the indifference curve :math:`u^h = 0`);
+hence :math:`IC_h` is not binding.
+
+i The second best contracts are determined by the trade off between the
+rents paid to :math:`\beta^l` and the distorted effort of
+:math:`\beta^h`. As the probability :math:`\nu` that a firm is
+:math:`\beta^l` increases, the rents become more important (in expected
+welfare) compared to :math:`\beta^h`'s distortion.
+
+Hence, in response to an increase in :math:`\nu`, it is optimal to push
+:math:`\beta^l`'s indifference curve downwards. This pushes contract
+:math:`\hat \beta` to the right, raising :math:`C^h`.
+
+Thus, the planner reduces :math:`\beta^l`'s rents (:math:`t^l` falls,
+while :math:`C^l` is unchanged) and increases :math:`\beta^h`'s effort
+distortion.
+

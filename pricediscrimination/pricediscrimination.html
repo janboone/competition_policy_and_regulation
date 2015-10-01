@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python: price discrimination &mdash; Competition Policy and Regulation 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Competition Policy and Regulation 1.0 documentation" href="../index.html" />
+    <link rel="next" title="Python: innovation" href="../Innovation/Innovation.html" />
+    <link rel="prev" title="Python: intrabrand competition" href="../HartTirole/HartTirole.html" /> 
+  </head>
+  <body role="document">
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Competition Policy and Regulation 1.0 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../HartTirole/HartTirole.html" title="Python: intrabrand competition"
+             accesskey="P">previous</a> |
+          <a href="../Innovation/Innovation.html" title="Python: innovation"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-price-discrimination">
+<h1>Python: price discrimination<a class="headerlink" href="#python-price-discrimination" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook we consider a monopolist who can use second degree
+price discrimination. That is, the firm cannot observe a consumer&#8217;s
+type. But the firm can make different offers that are attractive for
+different customers. Think of your mobile phone: do you want to pay
+either a low fee per month and high price per call or a high fee per
+month and low fee per call.</p>
+<p>The European Commission does not like price discrimination and tries to
+abolish it. In this notebook we compare welfare under both price
+discrimination and non-discrimination (the case where the firm cannot
+price discriminate).</p>
+<div class="code python highlight-python"><div class="highlight"><pre>from scipy import optimize,arange
+from numpy import array
+import matplotlib.pyplot as plt
+%matplotlib inline
+</pre></div>
+</div>
+<div class="section" id="utility-and-costs">
+<h2>utility and costs<a class="headerlink" href="#utility-and-costs" title="Permalink to this headline">¶</a></h2>
+<p>Assume that a consumer of type <span class="math">\(n\)</span> derives utility
+<span class="math">\(u(q,t,n) = nq-t\)</span> from consuming a quality <span class="math">\(q\)</span> product at
+price <span class="math">\(t\)</span>. The cost of producing quality <span class="math">\(q\)</span> is given by
+<span class="math">\(c(q)=0.5q^2\)</span>.</p>
+<p>Assume that there are two types of consumers <span class="math">\(n_a &gt; 0\)</span> and
+<span class="math">\(n_b &gt; n_a\)</span>, where the fraction of <span class="math">\(n_a\)</span> consumers is given
+by <span class="math">\(\phi \in [0,1]\)</span>.</p>
+<p>The firm creates two versions of the product: quality <span class="math">\(q_a\)</span> and
+<span class="math">\(q_b\)</span> at price <span class="math">\(t_a,t_b\)</span> resp. If each type buys the version
+created for this type (we will have constraints to ensure this), profits
+<span class="math">\(\pi\)</span> and total welfare <span class="math">\(W\)</span> are given by</p>
+<div class="math">
+\[\begin{split}\begin{split}
+\pi &amp; = \phi (t_a - 0.5q_a^2)+(1-\phi)(t_b - 0.5q_b^2)   \\
+W &amp;= \phi (n_a q_a - 0.5q_a^2)+(1-\phi)(n_b q_b - 0.5q_b^2)
+\end{split}\end{split}\]</div>
+<p>Hence, the efficient (welfare maximizing) quality levels satisfy
+<span class="math">\(q_i^* = n_i\)</span>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">u</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">n</span><span class="o">*</span><span class="n">q</span><span class="o">-</span><span class="n">t</span>
+
+<span class="k">def</span> <span class="nf">c</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">q</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">buy</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">):</span> <span class="c"># buy = 1 if type n buys (q,t) and buy = 0 if n does not buy</span>
+    <span class="k">if</span> <span class="n">u</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">buy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">buy</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">buy</span>
+
+<span class="n">na</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">nb</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="n">qa_fb</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">na</span><span class="p">))</span><span class="o">.</span><span class="n">x</span> <span class="c"># the x-attribute of optimize.minimize_scalar gives the value</span>
+<span class="n">qb_fb</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">nb</span><span class="p">))</span><span class="o">.</span><span class="n">x</span> <span class="c"># for which the function is minimized</span>
+
+<span class="k">print</span> <span class="s">&quot;Welfare maximizing qualities are given by: &quot;</span><span class="p">,</span> <span class="n">qa_fb</span><span class="p">,</span> <span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">qb_fb</span>
+
+<span class="k">def</span> <span class="nf">profit</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">ta</span><span class="p">,</span><span class="n">qb</span><span class="p">,</span><span class="n">tb</span><span class="p">,</span><span class="n">phi</span><span class="p">):</span> <span class="c"># these are first best profits: no IC constraints</span>
+    <span class="k">return</span> <span class="n">phi</span><span class="o">*</span><span class="n">buy</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">ta</span><span class="p">,</span><span class="n">na</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">ta</span><span class="o">-</span><span class="n">c</span><span class="p">(</span><span class="n">qa</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">buy</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="n">tb</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tb</span><span class="o">-</span><span class="n">c</span><span class="p">(</span><span class="n">qb</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">welfare</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">ta</span><span class="p">,</span><span class="n">qb</span><span class="p">,</span><span class="n">tb</span><span class="p">,</span><span class="n">phi</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">phi</span><span class="o">*</span><span class="n">buy</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">ta</span><span class="p">,</span><span class="n">na</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">ta</span><span class="p">,</span><span class="n">na</span><span class="p">)</span><span class="o">+</span><span class="n">ta</span><span class="o">-</span><span class="n">c</span><span class="p">(</span><span class="n">qa</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">buy</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="n">tb</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="n">tb</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span><span class="o">+</span><span class="n">tb</span><span class="o">-</span><span class="n">c</span><span class="p">(</span><span class="n">qb</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>Welfare maximizing qualities are given by:  0.5 ,  1.0
+</pre></div>
+</div>
+</div>
+<div class="section" id="no-discrimination">
+<h2>no discrimination<a class="headerlink" href="#no-discrimination" title="Permalink to this headline">¶</a></h2>
+<p>First, we consider the case where the firm cannot price discriminate:
+<span class="math">\(q_a=q_b=q\)</span> and <span class="math">\(t_a=t_b=t\)</span>.</p>
+<p>The firm has two choices:</p>
+<ul class="simple">
+<li>set <span class="math">\(t\)</span> such that <span class="math">\(u(q,t,n_a)=0\)</span> and sell to both
+consumer types</li>
+<li>set <span class="math">\(t\)</span> such that <span class="math">\(u(q,t,n_b)=0\)</span> and sell to type
+<span class="math">\(n_b\)</span> only</li>
+</ul>
+<p>When <span class="math">\(\phi = 0.5\)</span>, profits are maximized by setting <span class="math">\(q=1\)</span>
+and selling to <span class="math">\(n_b\)</span> only:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">range_q</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.51</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">range_profits_a</span> <span class="o">=</span> <span class="p">[</span><span class="n">profit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">q</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">q</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">range_q</span><span class="p">]</span>
+<span class="n">range_profits_b</span> <span class="o">=</span> <span class="p">[</span><span class="n">profit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">q</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">q</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">range_q</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_q</span><span class="p">,</span> <span class="n">range_profits_a</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_q</span><span class="p">,</span> <span class="n">range_profits_b</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;no price discrimination&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;$q$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;$\pi$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span><span class="p">)</span>
+<span class="c">#plt.xlim(0.0,1.0)</span>
+<span class="c">#plt.ylim(0.0,1.0)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;no_price_discrimination.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_5_0.png" src="../_images/output_5_0.png" />
+<p>The following function determines the optimal <span class="math">\(q\)</span> and <span class="math">\(t\)</span>
+set by the firm in case of non-discrimination. As suggested by the
+figure, <span class="math">\(\phi=0.5\)</span> implies that <span class="math">\(q=1\)</span> and with <span class="math">\(t=1\)</span>
+only type <span class="math">\(n_b\)</span> buys the product.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
+    <span class="n">qa</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fminbound</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">profit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="n">phi</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">qb</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fminbound</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">profit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="n">phi</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">profit</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">qa</span><span class="p">,</span><span class="n">qa</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">qa</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">profit</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">qb</span><span class="p">,</span><span class="n">qb</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">qb</span><span class="p">,</span><span class="n">phi</span><span class="p">):</span>
+        <span class="n">quality</span> <span class="o">=</span> <span class="n">qa</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">u</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">na</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">quality</span> <span class="o">=</span> <span class="n">qb</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">u</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">quality</span><span class="p">,</span><span class="n">t</span><span class="p">]</span>
+
+<span class="k">print</span> <span class="s">&quot;optimal quality and price are given by:&quot;</span><span class="p">,</span> <span class="n">quality_non_discr</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>optimal quality and price are given by: [0.99999999999999989, 0.99999999999999989]
+</pre></div>
+</div>
+</div>
+<div class="section" id="price-discrimination">
+<h2>price discrimination<a class="headerlink" href="#price-discrimination" title="Permalink to this headline">¶</a></h2>
+<p>When the firm can price discriminate, it needs to take 4 constraints
+into account:</p>
+<ul class="simple">
+<li>two Individual Rationality (IR) constraints:</li>
+</ul>
+<div class="math">
+\[\begin{split}\begin{split}
+u(q_a,t_a,n_a) &amp;\geq 0 \\
+u(q_b,t_b,n_b) &amp;\geq 0
+\end{split}\end{split}\]</div>
+<ul class="simple">
+<li>two incentive compatibility (IC) constraints:</li>
+</ul>
+<div class="math">
+\[\begin{split}\begin{split}
+u(q_a,t_a,n_a) &amp;\geq u(q_b,t_b,n_a) \\
+u(q_b,t_b,n_b) &amp;\geq u(q_a,t_a,n_b)
+\end{split}\end{split}\]</div>
+<p>The IR constraints make sure that both types want to buy at all. The IC
+constraints make sure that types buy the &#8220;right&#8221; product (i.e. the
+product meant for them).</p>
+<p>As shown in the lecture, with <span class="math">\(n_b &gt; n_a\)</span>, <span class="math">\(IR_a\)</span> and
+<span class="math">\(IC_b\)</span> are binding. Hence, <span class="math">\(t_a = n_a q_a\)</span> and
+<span class="math">\(t_b = n_b q_b - (n_b-n_a)q_a\)</span>.</p>
+<p>Further, we know from the lecture that <span class="math">\(q_b = q_b^*\)</span>: first best
+quality for the highest type (&#8220;no distortion at the top&#8221;).</p>
+<p>Quality <span class="math">\(q_a\)</span> then solves</p>
+<div class="math">
+\[\max_q \phi(n_a q -c(q))+(1-\phi)(n_b q_b^* - (n_b-n_a)q - c(q_b^*))\]</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
+    <span class="n">nh</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">na</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">na</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span>
+    <span class="n">opt_h</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">nh</span><span class="p">))</span> <span class="c"># first best quality for the highest type</span>
+    <span class="n">qh</span> <span class="o">=</span> <span class="n">opt_h</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">opt_l</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fminbound</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="p">(</span><span class="n">phi</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">nl</span><span class="p">)</span><span class="o">-</span><span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">qh</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">nh</span><span class="p">)</span><span class="o">-</span><span class="n">u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">nl</span><span class="p">),</span><span class="n">nh</span><span class="p">)</span><span class="o">-</span><span class="n">c</span><span class="p">(</span><span class="n">qh</span><span class="p">))),</span><span class="mi">0</span><span class="p">,</span><span class="n">qh</span><span class="p">)</span>
+    <span class="n">ql</span> <span class="o">=</span> <span class="n">opt_l</span>
+    <span class="n">tl</span> <span class="o">=</span> <span class="n">u</span><span class="p">(</span><span class="n">ql</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">nl</span><span class="p">)</span>
+    <span class="n">th</span> <span class="o">=</span> <span class="n">u</span><span class="p">(</span><span class="n">qh</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">nh</span><span class="p">)</span><span class="o">-</span><span class="n">u</span><span class="p">(</span><span class="n">ql</span><span class="p">,</span><span class="n">u</span><span class="p">(</span><span class="n">ql</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">nl</span><span class="p">),</span><span class="n">nh</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">ql</span><span class="p">,</span><span class="n">tl</span><span class="p">,</span><span class="n">qh</span><span class="p">,</span><span class="n">th</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For <span class="math">\(\phi =0.5\)</span>, the low type is not served: both <span class="math">\(q\)</span> and
+<span class="math">\(t\)</span> are (basically) zero. The high type gets efficient quality
+<span class="math">\(q_b=q_b^*=1.0\)</span> at <span class="math">\(t=1.0\)</span>.</p>
+<ul class="simple">
+<li>Why do we find <span class="math">\(q_a =0\)</span>; a positive profit can be made selling
+<span class="math">\(q_a&gt;0\)</span> at <span class="math">\(t_a&gt;0\)</span> to <span class="math">\(n_a\)</span>?</li>
+</ul>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">quality_discr</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mf">5.9608609865491405e-06</span><span class="p">,</span> <span class="mf">2.9804304932745702e-06</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.99999701956950671</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>We can define a function to check whether all constraints are satisfied.
+In this function, the variables <code class="docutils literal"><span class="pre">ira,</span> <span class="pre">ica,</span> <span class="pre">irb,</span> <span class="pre">icb</span></code> are booleans. A
+boolean takes on two values <code class="docutils literal"><span class="pre">True</span></code> (1) or <code class="docutils literal"><span class="pre">False</span></code> (0). Using <code class="docutils literal"><span class="pre">and</span></code>
+and <code class="docutils literal"><span class="pre">or</span></code> booleans can be combined.</p>
+<p>To illustrate, <code class="docutils literal"><span class="pre">True</span> <span class="pre">and</span> <span class="pre">False</span> <span class="pre">=</span> <span class="pre">False</span></code> while
+<code class="docutils literal"><span class="pre">True</span> <span class="pre">or</span> <span class="pre">False</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
+<p>At <span class="math">\(\phi =0.5\)</span> the menu generated by the function
+<code class="docutils literal"><span class="pre">quality_discr</span></code> satisfies all four constraints (as it should):</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">menu</span><span class="p">):</span>
+    <span class="n">qa</span> <span class="o">=</span> <span class="n">menu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ta</span> <span class="o">=</span> <span class="n">menu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">qb</span> <span class="o">=</span> <span class="n">menu</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">tb</span> <span class="o">=</span> <span class="n">menu</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">ira</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">ta</span><span class="p">,</span><span class="n">na</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">ica</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">ta</span><span class="p">,</span><span class="n">na</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">u</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="n">tb</span><span class="p">,</span><span class="n">na</span><span class="p">))</span>
+    <span class="n">irb</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="n">tb</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">icb</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="n">tb</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">u</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">ta</span><span class="p">,</span><span class="n">nb</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">ira</span> <span class="ow">and</span> <span class="n">ica</span> <span class="ow">and</span> <span class="n">irb</span> <span class="ow">and</span> <span class="n">icb</span><span class="p">)</span>
+
+<span class="n">check</span><span class="p">(</span><span class="n">quality_discr</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">True</span>
+</pre></div>
+</div>
+<p>Next we plot the quality level for the low type as a function of
+<span class="math">\(\phi\)</span>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">range_phi</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">range_ql</span> <span class="o">=</span> <span class="p">[</span><span class="n">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">range_phi</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_phi</span><span class="p">,</span> <span class="n">range_ql</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;quality low type&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;$\phi$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;quality&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span><span class="p">)</span>
+<span class="c">#plt.xlim(0.0,1.0)</span>
+<span class="c">#plt.ylim(0.0,1.0)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;price_discrimination.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_15_0.png" src="../_images/output_15_0.png" />
+<ul class="simple">
+<li>Why is quality for the low type increasing in <span class="math">\(\phi\)</span>?</li>
+<li>What happens to <span class="math">\(q_b\)</span> as a function of <span class="math">\(\phi\)</span>?</li>
+<li>What is the quality level <span class="math">\(q_a\)</span> at <span class="math">\(\phi =1.0\)</span>? Why?</li>
+</ul>
+</div>
+<div class="section" id="welfare">
+<h2>welfare<a class="headerlink" href="#welfare" title="Permalink to this headline">¶</a></h2>
+<p>Finally, we compare welfare under discrimination and non-discrimination.
+We plot welfare in each case as a function of <span class="math">\(\phi\)</span>. For each
+<span class="math">\(\phi\)</span> we consider the profit maximizing quality and price chosen
+by the firm.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">range_phi</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">range_W_non_disrc</span> <span class="o">=</span> <span class="p">[</span><span class="n">welfare</span><span class="p">(</span><span class="n">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="n">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span><span class="n">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="n">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span><span class="n">phi</span><span class="p">)</span> <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">range_phi</span><span class="p">]</span>
+<span class="n">range_W_discr</span> <span class="o">=</span> <span class="p">[</span><span class="n">welfare</span><span class="p">(</span><span class="n">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="n">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span><span class="n">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">2</span><span class="p">],</span><span class="n">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">3</span><span class="p">],</span><span class="n">phi</span><span class="p">)</span> <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">range_phi</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_phi</span><span class="p">,</span> <span class="n">range_W_non_disrc</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_phi</span><span class="p">,</span> <span class="n">range_W_discr</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;Welfare&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;$\phi$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;$W$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span><span class="p">)</span>
+<span class="c">#plt.xlim(0.0,1.0)</span>
+<span class="c">#plt.ylim(0.0,1.0)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;Welfare_price_discrimination.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_18_0.png" src="../_images/output_18_0.png" />
+<ul class="simple">
+<li>Why do the welfare levels of discrimination and non-discrimination
+coincide for <span class="math">\(\phi \leq 0.5\)</span>?</li>
+<li>Why is welfare higher under discrimination than non-discrimination
+for <span class="math">\(\phi &gt; 0.5\)</span>?</li>
+<li>What explains the jump in welfare for the non-discrimination case
+around <span class="math">\(\phi = 0.75\)</span>? What happens here?</li>
+<li>Why do the two welfare levels coincide at <span class="math">\(\phi = 1.0\)</span>?</li>
+<li>What do you think of the European Commision&#8217;s bias against price
+discrimination?</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Introduction_Lecture.html">Introduction to course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RulesOfTheGame.html">Rules of the Game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article101.html">Article 101</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VerticalRestraints.html">Vertical restraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article102Part1.html">Article 102: Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article102Part2.html">Article 102: Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mergers.html">Mergers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IPandInnovation.html">Innovation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation.html">Regulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HealthCare.html">Competition policy in health care</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Article101and102LectureNotes.html">Competition Policy Lectures Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LectureNotes_Mergers.html">Mergers and Acquisitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation_Innovation_Lecture_Notes.html">Innovation and Regulation Lecture Notes</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction_to_Python/Introduction_to_Python.html">Python: introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Collusion_Cournot/Collusion_Cournot.html">Python: collusion with Cournot competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Collusion_Bertrand/Collusion_Bertrand.html">Python: collusion with Bertrand competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HartTirole/HartTirole.html">Python: intrabrand competition</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Python: price discrimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Innovation/Innovation.html">Python: innovation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation/Regulation.html">Python: regulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Healthcare/Healthcare.html">Python: risk adjustment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+            </form>
+            <p class="searchtip" style="font-size: 90%">
+                Enter search terms or a module, class or function name.
+            </p>
+          </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../HartTirole/HartTirole.html" title="Python: intrabrand competition"
+              >previous</a> |
+            <a href="../Innovation/Innovation.html" title="Python: innovation"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/pricediscrimination/pricediscrimination.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Jan Boone.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

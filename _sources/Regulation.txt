@@ -1,0 +1,44 @@
+==========
+Regulation
+==========
+
+
+lecture
+-------
+
+:ref:`Lecture notes on Regulation <Regulation>`
+
+
+screencasts
+-----------
+
+`part 1 <screencasts/Regulation/Regulation_1.mov>`_
+
+`part 2 <screencasts/Regulation/Regulation_2.mov>`_
+
+`part 3 <screencasts/Regulation/Regulation_3.mov>`_
+
+`part 4 <screencasts/Regulation/Regulation_4.mov>`_
+
+`part 5 <screencasts/Regulation/Regulation_5.mov>`_
+
+`part 6 <screencasts/Regulation/Regulation_6.mov>`_
+
+`part 7 <screencasts/Regulation/Regulation_7.mov>`_
+
+`part 8 <screencasts/Regulation/Regulation_8.mov>`_
+
+
+exercises
+---------
+
+In class we discuss question 1 from the :ref:`exercises <exercisesRegulation>`. 
+
+python
+------
+
+In the python file for this lecture, we consider the graphical
+approach to 
+`regulation. <Regulation/Regulation.html>`_
+
+* :download:`regulation <Regulation.ipynb>`

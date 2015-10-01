@@ -1,0 +1,317 @@
+
+Python: innovation
+==================
+
+Here we consider a simple market set up where firms need to invest
+:math:`f > 0` to find a product that they can produce.
+
+Once the product is invented, a firm can enter the market. We consider
+three different set ups for the market environment:
+
+-  Bertrand competition with perfect substitutes
+-  Cournot competition with perfect substitutes
+-  Cournot competition with product differentiation
+
+First, we import the standard libraries:
+
+.. code:: python
+
+    from scipy import optimize,arange
+    from numpy import array
+    import matplotlib.pyplot as plt
+    %matplotlib inline
+
+utility function
+----------------
+
+We assume that utility takes the form
+
+.. math::
+
+
+   u(q) = \sum_{i=1}^n \left\{q_i - 0.5(1-b)q_i^2\right\} - 0.5 b(\sum_{j=1}^n q_j)^2 + y
+
+where :math:`q_i` denotes the quantity consumed from firm :math:`i`'s
+product and :math:`y` utility from the outside good ("all other goods in
+the economy"). Let :math:`w` denote the agent's wealth, then we have
+:math:`y = w - \sum_{i=1}^n p_i q_i`.
+
+-  Derive that this utility structure leads to (inverse) demand of the
+   form :math:`p_i = 1 - q_i - b\sum_{j \neq i}^n q_j`.
+
+.. code:: python
+
+    def utility(vector_q):
+        u = sum([q - 0.5*(1-b)*q**2 for q in vector_q])-0.5*b*(sum(vector_q))**2
+        return u
+
+demand and costs
+----------------
+
+We assume that firms (once a good is invented) produce with constant
+marginal costs :math:`c` which we normalize to 0. There are at max. 5
+firms that can enter the industry if they invent a product to enter the
+market with.
+
+The R&D technology is simple: a firm that invests :math:`f>0` finds a
+new product (with probability 1.0).
+
+The function ``profit`` defines profits without taking the cost
+:math:`f` into account. That is, ``profit`` is the profit from the
+production stage. The costs :math:`f` from the R&D stage are sunk at
+this moment.
+
+.. code:: python
+
+    c = 0.0
+    max_N = 5
+    
+    def demand(q,Q_others):
+        return max(0,1-q-b*Q_others)
+    
+    def cost(q):
+        return c*q
+    
+    def profit(q,Q_others):
+        return demand(q,Q_others)*q-cost(q)
+
+equilibrium number of firms
+---------------------------
+
+We consider three different market environments below, this leads to
+different profit functions for firms. The next function determines how
+many firms enter the industry as a function of the function ``profit``
+and the cost :math:`f`. The function ``profit`` is a function of the
+number of firms :math:`n` that enter the market, and this function is
+passed as an argument to the function ``number_of_firms``.
+
+The function ``number of firms`` then determines how many firms can
+profitably enter: what is the highest number :math:`i` such that
+``profit(i)-f`` :math:`\geq 0`?
+
+.. code:: python
+
+    def number_of_firms(profit,f): # profit is a function here
+        for i in range(max_N+1): # if max_N = 5, we need range (0,1,2,3,4,5) = range(max_N+1)
+            if profit(i+1)-f < 0:
+                break
+            else: continue
+        return i  
+
+Bertrand competition with perfect substitutes
+---------------------------------------------
+
+We consider perfect substitutes here: :math:`b=1`. With Betrand
+competition, perfect substitutes and constant marginal costs, a firm's
+optimal response is: if the lowest price exceeds marginal costs, price
+somewhere between this price and your marginal costs. This is how we
+define ``reaction_B``. Of course, if you are the only firm in the market
+(monopolist) there is no need to undercut opponents. With :math:`n=1`
+the firm sets the price that maximizes profits (without competitors).
+
+If the equilibrium price is given by :math:`p` while there are :math:`n`
+firms active, profits equal :math:`p(1-p)/n-c((1-p)/n)`.
+
+The function ``profits_Bertrand`` gives profits as a function of
+:math:`n`; hence this function is passed to ``number_of_firms`` to
+determine the equilibrium number of firms.
+
+The function ``price_Bertrand``, first determines how many firms enter
+the industry and then the equilibrium price under Bertrand competition.
+
+With :math:`f = 0.1`, the equilibrium price turns out to be 0.5.
+
+-  What is this price?
+-  Why don't we find price equal to marginal costs?
+
+.. code:: python
+
+    b = 1.0
+    
+    def reaction_B(i,vector_p):
+        p = min(vector_p)
+        if vector_p[i] >= p:
+            reaction = c+0.5*(p-c)
+        else:
+            reaction = c
+        return reaction
+        
+    def vector_reaction(vector_p):
+        if len(vector_p) == 1:
+            react = optimize.fminbound(lambda x: -profit(x,0),0,1,full_output=1)[0]
+        else:
+            react = [reaction_B(i,vector_p) for i in range(len(vector_p))]
+        return array(vector_p)-array(react)
+    
+    def profits_Bertrand(n):
+        p0 = [0.1 for i in range(n)]
+        price = optimize.root(vector_reaction, p0, args=(), method='hybr', jac=None, tol=10**(-10), callback=None, options=None).x[0]
+        return price*(1-price)/n-cost((1-price)/n)
+        
+    def price_Bertrand(f):
+        n = number_of_firms(profits_Bertrand,f)
+        if n == 0:
+            print "no firm is active, price is undetermined"
+            price = "n.a"
+        else:
+            p0 = [0.1 for i in range(n)]
+            price = optimize.root(vector_reaction, p0, args=(), method='hybr', jac=None, tol=10**(-10), callback=None, options=None).x[0]
+        return price
+    
+    print "The equilibrium price under Bertrand competition with f =", f, "equals:", price_Bertrand(0.1)
+
+
+.. parsed-literal::
+
+    The equilibrium price under Bertrand competition with f = 0.1 equals: 0.5
+
+
+Cournot competition with perfect substitutes
+--------------------------------------------
+
+Here we consider Cournot competition with perfect substitutes
+(:math:`b=1.0`). We define a firm's reaction function: profit maximizing
+response to its competitors producing the vector :math:`Q_{others}`.
+Then we look for a fixed point of the optimal response (as we did in the
+lecture with collusion under Cournot competition).
+
+As all active firms have the same marginal costs (equal to zero), we
+focus here on the symmetric equilibrium where all active firms produce
+the same output level. Hence, we take the first element "[0]" out of the
+vector output.x, which gives the vector of the fixed point.
+
+The function ``profits_Cournot`` gives profits as a function of the
+number of active firms :math:`n`. Hence we can pass this function to
+``number_of_firms`` to find the equilibrium number of firms.
+
+For a given :math:`f>0`, the function ``outcome_Cournot`` returns of
+vector with two elements: equilibrium price and output.
+
+The equilibrium price under Cournot competition is lower than under
+Bertrand competition.
+
+-  Usually Bertrand gives lower equilibrium prices than Cournot; why is
+   it the other way around here?
+
+.. code:: python
+
+    b = 1.0
+    
+    def profit(q,Q_others):
+        return demand(q,Q_others)*q-cost(q)
+        
+    def reaction(Q_others):
+        q =  optimize.fminbound(lambda x, Q_others = Q_others: -profit(x,Q_others),0,1,full_output=1)
+        if q[1] > 0: # because of minus sign: fval > 0 implies that profit < 0: better produce nothing
+            q_i = 0
+        else:
+            q_i = q[0]
+        return q_i
+        
+    def fixed_point(vector_q):
+        total_q = sum(vector_q)
+        vector_reaction = [reaction(total_q-vector_q[i]) for i in range(len(vector_q))]
+        return vector_q-vector_reaction
+    
+    def profits_Cournot(n):
+        x0 = array([0.1 for i in range(n)])
+        output = optimize.root(fixed_point, x0, args=(), method='hybr', jac=None, tol=10**(-10), callback=None, options=None).x[0]
+        return profit(output,(n-1)*output)
+    
+    def outcome_Cournot(f):
+        n = number_of_firms(profits_Cournot,f)
+        if n == 0:
+            print "no firm is active, price is undetermined"
+            price = "n.a"
+        else:
+            x0 = [0.1 for i in range(n)]
+            output = optimize.root(fixed_point, x0, args=(), method='hybr', jac=None, tol=10**(-10), callback=None, options=None).x[0]
+            price = demand(output,(n-1)*output)
+        return [price,output]
+    
+    print "The equilibrium price under Cournot competition with f =", f, "equals:", outcome_Cournot(0.1)[0]
+
+
+.. parsed-literal::
+
+    The equilibrium price under Cournot competition with f = 0.1 equals: 0.333333333333
+
+
+Cournot competition with product differentiation
+------------------------------------------------
+
+Finally, we consider Cournot competition with differentiated products
+(:math:`b<1`). To present the results in a nice table, we introduce the
+following class. Don't worry about this; you do not need to
+know/understand classes in python.
+
+.. code:: python
+
+    class ListTable(list):
+        """ Overridden list class which takes a 2-dimensional list of 
+            the form [[1,2,3],[4,5,6]], and renders an HTML Table in 
+            IPython Notebook. """
+        
+        def _repr_html_(self):
+            html = ["<table>"]
+            for row in self:
+                html.append("<tr>")
+                
+                for col in row:
+                    html.append("<td>{0}</td>".format(col))
+                
+                html.append("</tr>")
+            html.append("</table>")
+            return ''.join(html)
+
+We are interested in the question whether the number of firms that enter
+under Cournot competition is the welfare maximizing number of firms.
+Hence, we need to define welfare. Here we work with total welfare (sum
+of producer and consumer surplus); hence the price :math:`p` drops out
+as it is a transfer from consumers to producers.
+
+If :math:`n` firms enter under Cournot competition and each firm
+produces output :math:`q`, total welfare is given by
+
+.. math::
+
+
+   W = u(q_1,...,q_n) - \sum_{i=1}^n (c(q_i)+f)
+
+.. code:: python
+
+    def W(n,f):
+        vector_q = [outcome_Cournot(f)[1] for firm in range(n)]
+        return utility(vector_q)-n*f-sum([cost(q) for q in vector_q])
+        
+
+.. code:: python
+
+    f = 0.1
+    b = 0.5
+    print number_of_firms(profits_Cournot,f)
+    table = ListTable()
+    table.append(['n', 'welfare','profits'])
+    for n in range(1,max_N+1):
+        welfare = W(n,f)
+        profits = profits_Cournot(n)-f
+        table.append([n, welfare,profits])
+    table
+
+
+.. parsed-literal::
+
+    3
+
+
+
+
+.. raw:: html
+
+    <table><tr><td>n</td><td>welfare</td><td>profits</td></tr><tr><td>1</td><td>0.177777777778</td><td>0.15</td></tr><tr><td>2</td><td>0.3</td><td>0.06</td></tr><tr><td>3</td><td>0.366666666667</td><td>0.0111111111111</td></tr><tr><td>4</td><td>0.377777777778</td><td>-0.0183673469388</td></tr><tr><td>5</td><td>0.333333333333</td><td>-0.0375</td></tr></table>
+
+
+
+-  Why is welfare maximized at :math:`n=4` while only three firms enter?
+-  What are the relevant externalities in this case?
+

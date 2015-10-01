@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python: collusion with Cournot competition &mdash; Competition Policy and Regulation 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Competition Policy and Regulation 1.0 documentation" href="../index.html" />
+    <link rel="next" title="Python: collusion with Bertrand competition" href="../Collusion_Bertrand/Collusion_Bertrand.html" />
+    <link rel="prev" title="Python: introduction" href="../Introduction_to_Python/Introduction_to_Python.html" /> 
+  </head>
+  <body role="document">
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Competition Policy and Regulation 1.0 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../Introduction_to_Python/Introduction_to_Python.html" title="Python: introduction"
+             accesskey="P">previous</a> |
+          <a href="../Collusion_Bertrand/Collusion_Bertrand.html" title="Python: collusion with Bertrand competition"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-collusion-with-cournot-competition">
+<h1>Python: collusion with Cournot competition<a class="headerlink" href="#python-collusion-with-cournot-competition" title="Permalink to this headline">¶</a></h1>
+<p>In the lecture, we considered collusion with Bertrand competition. Here
+we are going to consider the case where firms without collusion compete
+in quantities, that is Cournot competition.</p>
+<p>Here we consider collusion in a Cournot duopoly market. We use markdown
+to explain what we do in the code.</p>
+<p>First, we import some libraries that we will use:</p>
+<div class="code python highlight-python"><div class="highlight"><pre>from scipy import optimize,arange
+from numpy import array
+import matplotlib.pyplot as plt
+%matplotlib inline
+</pre></div>
+</div>
+<div class="section" id="demand-and-costs">
+<h2>demand and costs<a class="headerlink" href="#demand-and-costs" title="Permalink to this headline">¶</a></h2>
+<p>We define a linear demand curve, <span class="math">\(p_i(x_i,x_j) = 1- x_i - b x_j\)</span>
+where <span class="math">\(b \in \langle 0,1]\)</span> determines the elasticity of
+substitution between the goods. With <span class="math">\(b=1\)</span> the goods are perfect
+substitutes, with <span class="math">\(b&lt;1\)</span> the goods are differentiated.</p>
+<p>We assume constant marginal costs, that is total costs are given by
+<span class="math">\(c(x)=cx\)</span>. If we would like to introduce a fixed cost,
+<span class="math">\(c(x) = cx+f\)</span> for some <span class="math">\(f&gt;0\)</span> we need to say explicitly that
+<span class="math">\(c(0)=0\)</span>: if the firm is not active, it does not incur the fixed
+cost. For this we use the <code class="docutils literal"><span class="pre">if</span></code>-statement below in the definition of
+the function <code class="docutils literal"><span class="pre">cost(x,c)</span></code>.</p>
+<p>Note that <code class="docutils literal"><span class="pre">demand</span></code> is defined for the firm indexed as 1 with the other
+firm indexed as 2.</p>
+<p>When we do the math, we write <span class="math">\(p_i(x_i,x_j)\)</span> without mentioning
+that <span class="math">\(b\)</span> is a parameter as well. We could do the same in Python,
+but then it is not so straightforward to change <span class="math">\(b\)</span> later on.
+Therefore the function <code class="docutils literal"><span class="pre">demand</span></code> is written as a function of <span class="math">\(b\)</span>
+explicitly.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">demand</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">-</span><span class="n">x1</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">x2</span>
+
+<span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+     <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+     <span class="n">cost</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="n">x</span>
+    <span class="k">return</span> <span class="n">cost</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="profits">
+<h2>profits<a class="headerlink" href="#profits" title="Permalink to this headline">¶</a></h2>
+<p>With demand and costs, we can define profits as</p>
+<div class="math">
+\[\pi(x_i,x_j) = p_i(x_i,x_j)x_i-c(x_i)\]</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">profit</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">demand</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">x1</span><span class="o">-</span><span class="n">cost</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">c1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reaction-functions">
+<h2>reaction functions<a class="headerlink" href="#reaction-functions" title="Permalink to this headline">¶</a></h2>
+<p>Under Cournot competition, firm <span class="math">\(i\)</span> chooses <span class="math">\(x_i\)</span> to
+maximize profits, taking <span class="math">\(x_2\)</span> as given. That is,
+<span class="math">\(x_1^*,x_2^*\)</span> is a Nash equilibrium if and only if</p>
+<div class="math">
+\[x_i^* = \arg\max_{x_i} \pi(x_i,x_j^*)\]</div>
+<p>for each <span class="math">\(i \neq j \in \{1,2\}\)</span>.</p>
+<p>Hence, we first determine what the optimal output level of one firm is,
+given the choice <span class="math">\(x_2\)</span> of the other firm. The function
+<code class="docutils literal"><span class="pre">reaction</span></code> does exactly that. When we do this in an exercise, we take
+the first order condition. That is, we calculate the Nash equilibrium as
+the solution <span class="math">\(x_1^*,x_2^*\)</span> to</p>
+<div class="math">
+\[\left. \frac{\partial \pi(x_i,x_j)}{\partial x_i} \right|_{x_i=x_i^*,x_j=x_j^*} = 0\]</div>
+<p>provided that <span class="math">\(\pi\)</span> is concave in <span class="math">\(x_i\)</span>. So one way to go is
+to let Python calculate the derivative and solve this equation for each
+firm. However, Python (in particular, the scipy-library) can also
+directly look for the profit maximizing outcome. Below we use the
+function <code class="docutils literal"><span class="pre">brute</span></code> to look for the global maximum of <span class="math">\(\pi\)</span>. In
+principle, the first derivative may give us a local maximum but not the
+global one. In particular, if <span class="math">\(f&gt;0\)</span> it may be the case that
+<span class="math">\(x_i^*=0\)</span> (one firm is not active), while the first order
+condition gives <span class="math">\(x_i^* &gt;0\)</span> (but with negative profits).</p>
+<p>The <a class="reference external" href="http://docs.scipy.org/doc/scipy-0.14.0/reference/optimize.html">scipy
+optimize</a>
+library has a number of routines to optimize functions. They are all
+defined as minimization problems. So if we want to maximize a function
+<span class="math">\(f(x)\)</span>, we need to minimize <span class="math">\(-f(x)\)</span>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">reaction</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">brute</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">profit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">b</span><span class="p">),</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,),))</span> <span class="c"># brute minimizes the function;</span>
+                                                                 <span class="c"># when we minimize -profits, we maximize profits</span>
+    <span class="k">return</span> <span class="n">x1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="equilibrium-as-fixed-point">
+<h2>equilibrium as fixed point<a class="headerlink" href="#equilibrium-as-fixed-point" title="Permalink to this headline">¶</a></h2>
+<p>To find an equilibrium, we are looking for a (so called) fixed point.
+That is, we have a function <span class="math">\(f(x)\)</span> and look for the point where
+<span class="math">\(x = f(x)\)</span>. In this case, <span class="math">\(x\)</span> and <span class="math">\(f\)</span> are two
+dimensional vectors.</p>
+<p>Let <span class="math">\(r_i(x_j)\)</span> denote firm <span class="math">\(i\)</span>&#8216;s optimal response to
+<span class="math">\(j\)</span>&#8216;s output level <span class="math">\(x_j\)</span>. Then we need to find a point such
+that</p>
+<div class="math">
+\[\begin{split}\pmatrix{x_1^* \\ x_2^*} = \pmatrix{r_1(x_2^*) \\ r_2(x_1^*)}\end{split}\]</div>
+<p>Defining the vector function <span class="math">\(f(x_1,x_2)\)</span> as</p>
+<div class="math">
+\[\begin{split}f(x) = \pmatrix{r_1(x_2^*) \\ r_2(x_1^*)}\end{split}\]</div>
+<p>we are looking for a point <span class="math">\(x^*=(x_1^*,x_2^*)\)</span> such that
+<span class="math">\(x^*=f(x^*)\)</span>.</p>
+<p>The function <code class="docutils literal"><span class="pre">vector_reaction</span></code> is defined as <span class="math">\(x-f(x)\)</span> in this
+notation. Hence, to find the fixed point, we are looking for <span class="math">\(x^*\)</span>
+such that <code class="docutils literal"><span class="pre">vector_reaction</span></code> <span class="math">\(= 0\)</span>; or put differently,
+<span class="math">\(x^*-f(x^*)=0\)</span>.</p>
+<p>We pass <span class="math">\(b,c_1,c_2\)</span> as a vector of parameters <code class="docutils literal"><span class="pre">param</span></code>
+<span class="math">\(= [b, c_1, c_2]\)</span>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">vector_reaction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">param</span><span class="p">):</span> <span class="c"># vector param = (b,c1,c2)</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">array</span><span class="p">([</span><span class="n">reaction</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">param</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">param</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">reaction</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">param</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">param</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cournot-equilibrium">
+<h2>Cournot equilibrium<a class="headerlink" href="#cournot-equilibrium" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s calulate the Cournot equilibrium in case both firms have zero
+costs (<span class="math">\(c=0\)</span>) and they produce homogeneous goods (<span class="math">\(b=1\)</span>). We
+use the routine <code class="docutils literal"><span class="pre">fsolve</span></code> (again from <code class="docutils literal"><span class="pre">scipy.optimize</span></code>) to find
+<span class="math">\(x\)</span> where <code class="docutils literal"><span class="pre">vector_reaction</span></code> <span class="math">\(=0\)</span>. That is, <code class="docutils literal"><span class="pre">fsolve</span></code>
+finds the point of a function where it equals 0. We need to give
+<code class="docutils literal"><span class="pre">fsolve</span></code> an initial guess <span class="math">\(x_0\)</span>. Further, we pass the paramter
+vector <code class="docutils literal"><span class="pre">param</span></code> as arguments (<code class="docutils literal"><span class="pre">args</span></code>) to <code class="docutils literal"><span class="pre">fsolve</span></code>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">param</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">param</span><span class="p">))</span>
+<span class="k">print</span> <span class="n">ans</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>[ 0.33332648  0.33332648]
+</pre></div>
+</div>
+<p>The variable <code class="docutils literal"><span class="pre">ans</span></code> contains the values of <span class="math">\(x_1,x_2\)</span> for which
+<code class="docutils literal"><span class="pre">vector_reaction</span></code> <span class="math">\(=0\)</span>.</p>
+<p>You can see that we are dealing with numerical procedures here.</p>
+<ul class="simple">
+<li>What is the Cournot equilibrium exactly in this case? Although what
+we find is (very) close, it is not exact!</li>
+</ul>
+<p>We denote the symmetric Cournot equilibrium by <span class="math">\(x^*\)</span>.</p>
+</div>
+<div class="section" id="collusion">
+<h2>collusion<a class="headerlink" href="#collusion" title="Permalink to this headline">¶</a></h2>
+<p>We want to understand what the industry profits are if the firms collude
+on output levels <span class="math">\(x_1,x_2\)</span>. To simplify, we focus on the case
+where firms are symmetric <span class="math">\(c_1 = c_2 =c\)</span>. Further, the firms
+collude on symmetric output <span class="math">\(x_1=x_2=x\)</span>. We plot industry profits
+<span class="math">\(\pi(x,x)+\pi(x,x)=2\pi(x,x)\)</span> as a function of <span class="math">\(x\)</span>, where we
+check whether <span class="math">\(x\)</span> can be sustained under collusion.</p>
+<p>As we saw in the lecture, the condition for <span class="math">\(x\)</span> to be sustained as
+a collusive outcome is given by</p>
+<div class="math">
+\[\pi(x,x) \frac{1}{1-\delta} \geq \max_{\hat x} \pi(\hat x,x) + \frac{\delta}{1-\delta} \pi(x^*,x^*)\]</div>
+<p>where <span class="math">\(\delta \in [0,1]\)</span> denotes the discount factor, <span class="math">\(x^*\)</span>
+denotes the Nash equilibrium output level and <span class="math">\(\hat x\)</span> denotes the
+firm&#8217;s optimal response to its opponent choosing output level <span class="math">\(x\)</span>.</p>
+<ul class="simple">
+<li>Check that we can rewrite this inequality as:</li>
+</ul>
+<div class="math">
+\[\pi(x,x) \geq (1-\delta) \max_{\hat x} \pi(\hat x,x) + \delta \pi(x^*,x^*)\]</div>
+<ul class="simple">
+<li>Check that <span class="math">\(x=x^*\)</span> satisfies this inequality. What is the
+interpretation of this?</li>
+</ul>
+<p>Hence the function <code class="docutils literal"><span class="pre">collusion_profits</span></code> can be defined as follows:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">collusion_profits</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">delta</span><span class="p">):</span> <span class="c"># we only do this for the symmetric case: c1 = c2 = c</span>
+    <span class="n">profits</span> <span class="o">=</span> <span class="n">profit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">([</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">c</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">profits</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">delta</span><span class="p">)</span><span class="o">*</span><span class="n">profit</span><span class="p">(</span><span class="n">reaction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">b</span><span class="p">),</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="o">+</span><span class="n">delta</span><span class="o">*</span><span class="n">profit</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ans</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">c</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+        <span class="n">industry_profits</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">profits</span> <span class="c"># profits can be sustained as collusion profits</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">industry_profits</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># profits cannot be sustained as collusion profits</span>
+    <span class="k">return</span> <span class="n">industry_profits</span>
+</pre></div>
+</div>
+<p>Note that profits <span class="math">\(=0\)</span> when collusion cannot be sustained. This is
+just to signal (in the graph) where collusion breaks down. It is not a
+prediction of the collusion profits. Indeed, if parties collude, they
+will choose <span class="math">\(x\)</span> to maximize their profits.</p>
+<p>The next graph shows collusion profits for the case where
+<span class="math">\(b=1.0,c_1=c_2=0.0\)</span> and two values for <span class="math">\(\delta\)</span>.</p>
+<ul class="simple">
+<li>When <span class="math">\(\delta\)</span> is high enough (0.8 in this case), for which
+<span class="math">\(x\)</span> are profits maximized?</li>
+<li>What is the interpretation of this <span class="math">\(x\)</span>?</li>
+</ul>
+<p>When <span class="math">\(\delta\)</span> is low (0.3), collusion profits are lower (and
+output is higher).</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">range_x</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span><span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">delta1</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">delta2</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">range_profits</span> <span class="o">=</span> <span class="p">[</span><span class="n">collusion_profits</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">delta1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">range_x</span><span class="p">]</span>
+<span class="n">range_profits2</span> <span class="o">=</span> <span class="p">[</span><span class="n">collusion_profits</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">delta2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">range_x</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_x</span><span class="p">,</span> <span class="n">range_profits</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_x</span><span class="p">,</span> <span class="n">range_profits2</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;Collusion profits&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;output&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;profits&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.33</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;collusion.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_16_0.png" src="../_images/output_16_0.png" />
+</div>
+<div class="section" id="imperfect-substitutes">
+<h2>imperfect substitutes<a class="headerlink" href="#imperfect-substitutes" title="Permalink to this headline">¶</a></h2>
+<p>Exercise: plot profits for the case where <span class="math">\(b = 0.5\)</span>, that is goods
+are imperfect substitutes.</p>
+<ul class="simple">
+<li>Why are collusion profits maximized for higher <span class="math">\(x\)</span> in this
+case?</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Introduction_Lecture.html">Introduction to course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RulesOfTheGame.html">Rules of the Game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article101.html">Article 101</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VerticalRestraints.html">Vertical restraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article102Part1.html">Article 102: Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article102Part2.html">Article 102: Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mergers.html">Mergers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IPandInnovation.html">Innovation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation.html">Regulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HealthCare.html">Competition policy in health care</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Article101and102LectureNotes.html">Competition Policy Lectures Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LectureNotes_Mergers.html">Mergers and Acquisitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation_Innovation_Lecture_Notes.html">Innovation and Regulation Lecture Notes</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction_to_Python/Introduction_to_Python.html">Python: introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Python: collusion with Cournot competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Collusion_Bertrand/Collusion_Bertrand.html">Python: collusion with Bertrand competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HartTirole/HartTirole.html">Python: intrabrand competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pricediscrimination/pricediscrimination.html">Python: price discrimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Innovation/Innovation.html">Python: innovation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation/Regulation.html">Python: regulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Healthcare/Healthcare.html">Python: risk adjustment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+            </form>
+            <p class="searchtip" style="font-size: 90%">
+                Enter search terms or a module, class or function name.
+            </p>
+          </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../Introduction_to_Python/Introduction_to_Python.html" title="Python: introduction"
+              >previous</a> |
+            <a href="../Collusion_Bertrand/Collusion_Bertrand.html" title="Python: collusion with Bertrand competition"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/Collusion_Cournot/Collusion_Cournot.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Jan Boone.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

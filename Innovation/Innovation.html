@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python: innovation &mdash; Competition Policy and Regulation 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Competition Policy and Regulation 1.0 documentation" href="../index.html" />
+    <link rel="next" title="Python: regulation" href="../Regulation/Regulation.html" />
+    <link rel="prev" title="Python: price discrimination" href="../pricediscrimination/pricediscrimination.html" /> 
+  </head>
+  <body role="document">
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Competition Policy and Regulation 1.0 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../pricediscrimination/pricediscrimination.html" title="Python: price discrimination"
+             accesskey="P">previous</a> |
+          <a href="../Regulation/Regulation.html" title="Python: regulation"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-innovation">
+<h1>Python: innovation<a class="headerlink" href="#python-innovation" title="Permalink to this headline">¶</a></h1>
+<p>Here we consider a simple market set up where firms need to invest
+<span class="math">\(f &gt; 0\)</span> to find a product that they can produce.</p>
+<p>Once the product is invented, a firm can enter the market. We consider
+three different set ups for the market environment:</p>
+<ul class="simple">
+<li>Bertrand competition with perfect substitutes</li>
+<li>Cournot competition with perfect substitutes</li>
+<li>Cournot competition with product differentiation</li>
+</ul>
+<p>First, we import the standard libraries:</p>
+<div class="code python highlight-python"><div class="highlight"><pre>from scipy import optimize,arange
+from numpy import array
+import matplotlib.pyplot as plt
+%matplotlib inline
+</pre></div>
+</div>
+<div class="section" id="utility-function">
+<h2>utility function<a class="headerlink" href="#utility-function" title="Permalink to this headline">¶</a></h2>
+<p>We assume that utility takes the form</p>
+<div class="math">
+\[u(q) = \sum_{i=1}^n \left\{q_i - 0.5(1-b)q_i^2\right\} - 0.5 b(\sum_{j=1}^n q_j)^2 + y\]</div>
+<p>where <span class="math">\(q_i\)</span> denotes the quantity consumed from firm <span class="math">\(i\)</span>&#8216;s
+product and <span class="math">\(y\)</span> utility from the outside good (&#8220;all other goods in
+the economy&#8221;). Let <span class="math">\(w\)</span> denote the agent&#8217;s wealth, then we have
+<span class="math">\(y = w - \sum_{i=1}^n p_i q_i\)</span>.</p>
+<ul class="simple">
+<li>Derive that this utility structure leads to (inverse) demand of the
+form <span class="math">\(p_i = 1 - q_i - b\sum_{j \neq i}^n q_j\)</span>.</li>
+</ul>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">utility</span><span class="p">(</span><span class="n">vector_q</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">q</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">q</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">vector_q</span><span class="p">])</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">b</span><span class="o">*</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">vector_q</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">u</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="demand-and-costs">
+<h2>demand and costs<a class="headerlink" href="#demand-and-costs" title="Permalink to this headline">¶</a></h2>
+<p>We assume that firms (once a good is invented) produce with constant
+marginal costs <span class="math">\(c\)</span> which we normalize to 0. There are at max. 5
+firms that can enter the industry if they invent a product to enter the
+market with.</p>
+<p>The R&amp;D technology is simple: a firm that invests <span class="math">\(f&gt;0\)</span> finds a
+new product (with probability 1.0).</p>
+<p>The function <code class="docutils literal"><span class="pre">profit</span></code> defines profits without taking the cost
+<span class="math">\(f\)</span> into account. That is, <code class="docutils literal"><span class="pre">profit</span></code> is the profit from the
+production stage. The costs <span class="math">\(f\)</span> from the R&amp;D stage are sunk at
+this moment.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">max_N</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="k">def</span> <span class="nf">demand</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">Q_others</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">Q_others</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">c</span><span class="o">*</span><span class="n">q</span>
+
+<span class="k">def</span> <span class="nf">profit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">Q_others</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">demand</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">Q_others</span><span class="p">)</span><span class="o">*</span><span class="n">q</span><span class="o">-</span><span class="n">cost</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="equilibrium-number-of-firms">
+<h2>equilibrium number of firms<a class="headerlink" href="#equilibrium-number-of-firms" title="Permalink to this headline">¶</a></h2>
+<p>We consider three different market environments below, this leads to
+different profit functions for firms. The next function determines how
+many firms enter the industry as a function of the function <code class="docutils literal"><span class="pre">profit</span></code>
+and the cost <span class="math">\(f\)</span>. The function <code class="docutils literal"><span class="pre">profit</span></code> is a function of the
+number of firms <span class="math">\(n\)</span> that enter the market, and this function is
+passed as an argument to the function <code class="docutils literal"><span class="pre">number_of_firms</span></code>.</p>
+<p>The function <code class="docutils literal"><span class="pre">number</span> <span class="pre">of</span> <span class="pre">firms</span></code> then determines how many firms can
+profitably enter: what is the highest number <span class="math">\(i\)</span> such that
+<code class="docutils literal"><span class="pre">profit(i)-f</span></code> <span class="math">\(\geq 0\)</span>?</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">number_of_firms</span><span class="p">(</span><span class="n">profit</span><span class="p">,</span><span class="n">f</span><span class="p">):</span> <span class="c"># profit is a function here</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span> <span class="c"># if max_N = 5, we need range (0,1,2,3,4,5) = range(max_N+1)</span>
+        <span class="k">if</span> <span class="n">profit</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span> <span class="k">continue</span>
+    <span class="k">return</span> <span class="n">i</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bertrand-competition-with-perfect-substitutes">
+<h2>Bertrand competition with perfect substitutes<a class="headerlink" href="#bertrand-competition-with-perfect-substitutes" title="Permalink to this headline">¶</a></h2>
+<p>We consider perfect substitutes here: <span class="math">\(b=1\)</span>. With Betrand
+competition, perfect substitutes and constant marginal costs, a firm&#8217;s
+optimal response is: if the lowest price exceeds marginal costs, price
+somewhere between this price and your marginal costs. This is how we
+define <code class="docutils literal"><span class="pre">reaction_B</span></code>. Of course, if you are the only firm in the market
+(monopolist) there is no need to undercut opponents. With <span class="math">\(n=1\)</span>
+the firm sets the price that maximizes profits (without competitors).</p>
+<p>If the equilibrium price is given by <span class="math">\(p\)</span> while there are <span class="math">\(n\)</span>
+firms active, profits equal <span class="math">\(p(1-p)/n-c((1-p)/n)\)</span>.</p>
+<p>The function <code class="docutils literal"><span class="pre">profits_Bertrand</span></code> gives profits as a function of
+<span class="math">\(n\)</span>; hence this function is passed to <code class="docutils literal"><span class="pre">number_of_firms</span></code> to
+determine the equilibrium number of firms.</p>
+<p>The function <code class="docutils literal"><span class="pre">price_Bertrand</span></code>, first determines how many firms enter
+the industry and then the equilibrium price under Bertrand competition.</p>
+<p>With <span class="math">\(f = 0.1\)</span>, the equilibrium price turns out to be 0.5.</p>
+<ul class="simple">
+<li>What is this price?</li>
+<li>Why don&#8217;t we find price equal to marginal costs?</li>
+</ul>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">b</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="k">def</span> <span class="nf">reaction_B</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">vector_p</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">vector_p</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">vector_p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">p</span><span class="p">:</span>
+        <span class="n">reaction</span> <span class="o">=</span> <span class="n">c</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">reaction</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="k">return</span> <span class="n">reaction</span>
+
+<span class="k">def</span> <span class="nf">vector_reaction</span><span class="p">(</span><span class="n">vector_p</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vector_p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">react</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fminbound</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">profit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">full_output</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">react</span> <span class="o">=</span> <span class="p">[</span><span class="n">reaction_B</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">vector_p</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vector_p</span><span class="p">))]</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">(</span><span class="n">vector_p</span><span class="p">)</span><span class="o">-</span><span class="n">array</span><span class="p">(</span><span class="n">react</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">profits_Bertrand</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">p0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">price</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">price</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="o">-</span><span class="n">cost</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">price</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">price_Bertrand</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">number_of_firms</span><span class="p">(</span><span class="n">profits_Bertrand</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;no firm is active, price is undetermined&quot;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="s">&quot;n.a&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">price</span>
+
+<span class="k">print</span> <span class="s">&quot;The equilibrium price under Bertrand competition with f =&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="s">&quot;equals:&quot;</span><span class="p">,</span> <span class="n">price_Bertrand</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>The equilibrium price under Bertrand competition with f = 0.1 equals: 0.5
+</pre></div>
+</div>
+</div>
+<div class="section" id="cournot-competition-with-perfect-substitutes">
+<h2>Cournot competition with perfect substitutes<a class="headerlink" href="#cournot-competition-with-perfect-substitutes" title="Permalink to this headline">¶</a></h2>
+<p>Here we consider Cournot competition with perfect substitutes
+(<span class="math">\(b=1.0\)</span>). We define a firm&#8217;s reaction function: profit maximizing
+response to its competitors producing the vector <span class="math">\(Q_{others}\)</span>.
+Then we look for a fixed point of the optimal response (as we did in the
+lecture with collusion under Cournot competition).</p>
+<p>As all active firms have the same marginal costs (equal to zero), we
+focus here on the symmetric equilibrium where all active firms produce
+the same output level. Hence, we take the first element &#8220;[0]&#8221; out of the
+vector output.x, which gives the vector of the fixed point.</p>
+<p>The function <code class="docutils literal"><span class="pre">profits_Cournot</span></code> gives profits as a function of the
+number of active firms <span class="math">\(n\)</span>. Hence we can pass this function to
+<code class="docutils literal"><span class="pre">number_of_firms</span></code> to find the equilibrium number of firms.</p>
+<p>For a given <span class="math">\(f&gt;0\)</span>, the function <code class="docutils literal"><span class="pre">outcome_Cournot</span></code> returns of
+vector with two elements: equilibrium price and output.</p>
+<p>The equilibrium price under Cournot competition is lower than under
+Bertrand competition.</p>
+<ul class="simple">
+<li>Usually Bertrand gives lower equilibrium prices than Cournot; why is
+it the other way around here?</li>
+</ul>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">b</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="k">def</span> <span class="nf">profit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">Q_others</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">demand</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">Q_others</span><span class="p">)</span><span class="o">*</span><span class="n">q</span><span class="o">-</span><span class="n">cost</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">reaction</span><span class="p">(</span><span class="n">Q_others</span><span class="p">):</span>
+    <span class="n">q</span> <span class="o">=</span>  <span class="n">optimize</span><span class="o">.</span><span class="n">fminbound</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">Q_others</span> <span class="o">=</span> <span class="n">Q_others</span><span class="p">:</span> <span class="o">-</span><span class="n">profit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Q_others</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">full_output</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># because of minus sign: fval &gt; 0 implies that profit &lt; 0: better produce nothing</span>
+        <span class="n">q_i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">q_i</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">q_i</span>
+
+<span class="k">def</span> <span class="nf">fixed_point</span><span class="p">(</span><span class="n">vector_q</span><span class="p">):</span>
+    <span class="n">total_q</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">vector_q</span><span class="p">)</span>
+    <span class="n">vector_reaction</span> <span class="o">=</span> <span class="p">[</span><span class="n">reaction</span><span class="p">(</span><span class="n">total_q</span><span class="o">-</span><span class="n">vector_q</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vector_q</span><span class="p">))]</span>
+    <span class="k">return</span> <span class="n">vector_q</span><span class="o">-</span><span class="n">vector_reaction</span>
+
+<span class="k">def</span> <span class="nf">profits_Cournot</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mf">0.1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">fixed_point</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">profit</span><span class="p">(</span><span class="n">output</span><span class="p">,(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">output</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">outcome_Cournot</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">number_of_firms</span><span class="p">(</span><span class="n">profits_Cournot</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;no firm is active, price is undetermined&quot;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="s">&quot;n.a&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">fixed_point</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">demand</span><span class="p">(</span><span class="n">output</span><span class="p">,(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">output</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">price</span><span class="p">,</span><span class="n">output</span><span class="p">]</span>
+
+<span class="k">print</span> <span class="s">&quot;The equilibrium price under Cournot competition with f =&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="s">&quot;equals:&quot;</span><span class="p">,</span> <span class="n">outcome_Cournot</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>The equilibrium price under Cournot competition with f = 0.1 equals: 0.333333333333
+</pre></div>
+</div>
+</div>
+<div class="section" id="cournot-competition-with-product-differentiation">
+<h2>Cournot competition with product differentiation<a class="headerlink" href="#cournot-competition-with-product-differentiation" title="Permalink to this headline">¶</a></h2>
+<p>Finally, we consider Cournot competition with differentiated products
+(<span class="math">\(b&lt;1\)</span>). To present the results in a nice table, we introduce the
+following class. Don&#8217;t worry about this; you do not need to
+know/understand classes in python.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ListTable</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Overridden list class which takes a 2-dimensional list of</span>
+<span class="sd">        the form [[1,2,3],[4,5,6]], and renders an HTML Table in</span>
+<span class="sd">        IPython Notebook. &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;&lt;table&gt;&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;tr&gt;&quot;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;td&gt;{0}&lt;/td&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
+
+            <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;/tr&gt;&quot;</span><span class="p">)</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;/table&gt;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We are interested in the question whether the number of firms that enter
+under Cournot competition is the welfare maximizing number of firms.
+Hence, we need to define welfare. Here we work with total welfare (sum
+of producer and consumer surplus); hence the price <span class="math">\(p\)</span> drops out
+as it is a transfer from consumers to producers.</p>
+<p>If <span class="math">\(n\)</span> firms enter under Cournot competition and each firm
+produces output <span class="math">\(q\)</span>, total welfare is given by</p>
+<div class="math">
+\[W = u(q_1,...,q_n) - \sum_{i=1}^n (c(q_i)+f)\]</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">W</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
+    <span class="n">vector_q</span> <span class="o">=</span> <span class="p">[</span><span class="n">outcome_Cournot</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">utility</span><span class="p">(</span><span class="n">vector_q</span><span class="p">)</span><span class="o">-</span><span class="n">n</span><span class="o">*</span><span class="n">f</span><span class="o">-</span><span class="nb">sum</span><span class="p">([</span><span class="n">cost</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">vector_q</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="k">print</span> <span class="n">number_of_firms</span><span class="p">(</span><span class="n">profits_Cournot</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">ListTable</span><span class="p">()</span>
+<span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="s">&#39;welfare&#39;</span><span class="p">,</span><span class="s">&#39;profits&#39;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">max_N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">welfare</span> <span class="o">=</span> <span class="n">W</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">profits</span> <span class="o">=</span> <span class="n">profits_Cournot</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">-</span><span class="n">f</span>
+    <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">n</span><span class="p">,</span> <span class="n">welfare</span><span class="p">,</span><span class="n">profits</span><span class="p">])</span>
+<span class="n">table</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">3</span>
+</pre></div>
+</div>
+<table><tr><td>n</td><td>welfare</td><td>profits</td></tr><tr><td>1</td><td>0.177777777778</td><td>0.15</td></tr><tr><td>2</td><td>0.3</td><td>0.06</td></tr><tr><td>3</td><td>0.366666666667</td><td>0.0111111111111</td></tr><tr><td>4</td><td>0.377777777778</td><td>-0.0183673469388</td></tr><tr><td>5</td><td>0.333333333333</td><td>-0.0375</td></tr></table><ul class="simple">
+<li>Why is welfare maximized at <span class="math">\(n=4\)</span> while only three firms enter?</li>
+<li>What are the relevant externalities in this case?</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Introduction_Lecture.html">Introduction to course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RulesOfTheGame.html">Rules of the Game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article101.html">Article 101</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VerticalRestraints.html">Vertical restraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article102Part1.html">Article 102: Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article102Part2.html">Article 102: Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mergers.html">Mergers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IPandInnovation.html">Innovation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation.html">Regulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HealthCare.html">Competition policy in health care</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Article101and102LectureNotes.html">Competition Policy Lectures Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LectureNotes_Mergers.html">Mergers and Acquisitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation_Innovation_Lecture_Notes.html">Innovation and Regulation Lecture Notes</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction_to_Python/Introduction_to_Python.html">Python: introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Collusion_Cournot/Collusion_Cournot.html">Python: collusion with Cournot competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Collusion_Bertrand/Collusion_Bertrand.html">Python: collusion with Bertrand competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HartTirole/HartTirole.html">Python: intrabrand competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pricediscrimination/pricediscrimination.html">Python: price discrimination</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Python: innovation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regulation/Regulation.html">Python: regulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Healthcare/Healthcare.html">Python: risk adjustment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+            </form>
+            <p class="searchtip" style="font-size: 90%">
+                Enter search terms or a module, class or function name.
+            </p>
+          </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../pricediscrimination/pricediscrimination.html" title="Python: price discrimination"
+              >previous</a> |
+            <a href="../Regulation/Regulation.html" title="Python: regulation"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/Innovation/Innovation.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Jan Boone.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

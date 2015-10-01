@@ -1,0 +1,210 @@
+Rules of the Game
+=================
+
+Overview of the course
+----------------------
+
+In this course we explain how economic methods are used to decide
+cases in competition policy and in regulatory policy. The course
+consists of a sequence of lectures, a set of 3 (mandatory) homework
+assignments and a final exam. Below, we describe the detailed contents
+of each of the lectures.
+
+For more details on the assignments, see the "Assignments" section on
+Blackboard. To stimulate active class discussion, students will
+regularly be asked to either do preparatory reading before a class or
+prepare exercises that are discussed in class. Some lectures contain
+exercises (either from the Motta book or new ones in the lecture file)
+that will be discussed in class.
+
+.. Preliminary schedule, may be updated by announcements on BB:
+.. 
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | date      | teacher    | topic                       | exercises                               | assignment due         |
+.. +===========+============+=============================+=========================================+========================+
+.. | Feb. 4    | Jan        | Introduction                |                                         |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Feb. 11   | Jan        | Article 101                 | questions 1 and 2 after lecture notes   |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Feb. 25   | Lapo       | Demand estimation           |                                         |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Mar. 4    | Jan        | Vertical Restraints         | questions 1 and 2 after lecture notes   |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Mar. 11   | Jan        | Article 102 (1)             | Q and A python assignment               |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Mar. 18   | Lapo       | Mergers                     |                                         | Python assignment 1    |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Mar. 25   | Jan        | Article 102 (2)             | questions 1 and 2 after lecture notes   |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Apr. 1    | Jan        | Innovation                  | question 1 at end of lecture notes      |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Apr. 8    | Jan        | Regulation                  | question 1 at end of lecture notes      |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Apr. 15   | Lapo       | Two sided markets           |                                         | Empirical assignment   |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Apr. 22   | Jan        | Health care                 | question 1 at end of lecture notes      |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | Apr. 29   | Minke      | regulation in health care   | Q and A python assignment               |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | May 13    | Reserve    |                             |                                         |                        |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. | May 20    | Reserve    |                             |                                         | Python assignment 2    |
+.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
+.. 
+..
+
+Here we provide detailed contents of the lectures and the associated
+literature.
+
+-  Introduction: We provide an overview of the field and of what
+   students can expect to learn during the course. We discuss the aims
+   of competition policy and the instruments that competition agencies
+   have at their disposal. We review some basic economic concepts
+   relevant for competition policy: Consumer Surplus, Producer Surplus
+   and Total Welfare; Allocative, Productive and Dynamic Efficiency. We
+   also define the concept of Market Power and discuss the relationships
+   between Market Power, the structure of the market and the different
+   types of efficiency. *Literature*: Motta, Chapters 1,2; Competition
+   website of the European Commission.
+
+-  Agreements between Firms (Art 101 TFEU): Agreements between firms
+   that restrict competition are forbidden, unless they are efficiency
+   enhancing and are benefiting consumers. In this lecture, we provide a
+   general overview of the different types of agreements. We distinguish
+   between horizontal and vertical agreements and address the following
+   questions: when do agreements restrict competition?, when can they be
+   classified as cartels?, when are they allowed, on the basis of Art
+   101.3 TFEU? We also introduce collusion and why it is bad for
+   consumers and for total welfare. We determine factors that facilitate
+   collusion and ways for the government to discourage it. *Literature*:
+   Motta, Chapter 4.
+
+-  Horizontal Mergers: in this lecture it is explained why mergers need
+   to be notified to antitrust authorities. We will in the meantime
+   introduce the EU Merger regulation and the EU Horizontal Mergers
+   Guidelines. We will discuss why a merger can raise concerns of
+   unilateral and/or coordinated effects. *Literature*: Motta, Chapter 5.
+
+-  Vertical Agreements: Vertical agreements are agreements between firms
+   that are active at different levels of the value chain, that is,
+   between producers and distributors. Such agreements are treated more
+   leniently than horizontal agreements. In this lecture, we describe
+   different types of vertical agreements and explain why they are
+   treated more leniently. We explain the double marginalization problem
+   and also discuss whether or not Resale Price Maintenance (RPM) should
+   be allowed. Vertical agreements can also be anti-competitive,
+   especially when either the producer or the distributor has market
+   power and forces exclusive contracts. We discuss concerns of
+   foreclosure and the conditions under which these are justified.
+   *Literature*: Motta, Chapter 6.
+
+-  Article 102: Abuse of a dominant position (two lectures). Article 102
+   TFEU forbids a firm with a dominant position to abuse that position.
+   But what does it mean for a firm to have a dominant position, and
+   when is behavior abusive? In this lecture we introduce these issues.
+   We also distinguish between dominant positions that are permanent (in
+   which case regulation is called for) and dominant positions that may
+   be eroded by market forces themselves (in which case competition
+   policy may suffice as an instrument). We discuss under which
+   conditions the competition laws force a firm to supply inputs to its
+   rivals. Further, we analyze predatory pricing and exclusive dealing.
+   Finally, we discuss tying and bundling. We also discuss the various
+   antitrust cases that Microsoft has been involved in. *Literature*:
+   Motta, Chapter 7.
+
+-  Innovation: most of the lectures focus on the effects of competition
+   on static efficiency. In this lecture, we analyze the effects on
+   dynamic efficiency: innovation. Does more intense competition lead to
+   more or to less innovation? Patents create a (temporary) monopoly
+   position; is this desirable? How do we trade off the effects of this
+   market power on static and dynamic efficiency?
+
+-  Regulating a monopolist: if there is only one firm in the market,
+   competition may not restrain this firm's behaviour. The government
+   can then decide to regulate the firm. We introduce mechanism design
+   to analyze the optimal way to regulate a monopolist.
+
+-  Competition in health care markets: countries like the US and the
+   Netherlands have private firms competing in health care markets. This
+   introduces a number of competition policy issues that we will analyze
+   in this lecture. For instance, should a vertical merger between an
+   insurer and a hospital be allowed?
+
+.. Web-lectures
+.. ------------
+.. 
+.. In the weeks that Jan teaches, you can watch screencasts of the
+.. lectures at home on your computer *before* that week's
+.. lecture.
+.. 
+.. The first lecture can be found here: `<screencasts/Article101/Article101_1.m4v>`_
+.. 
+.. In the "live" lecture, you can ask questions that you have
+.. about the web-lecture. Hence, it is important that you watch the
+.. web-lecture beforehand. The live lecture will further be used to teach
+.. you some python that you will need for two of the assignments. Further,
+.. we go over exercises to practice for the exam.
+.. 
+
+Home work assignments
+---------------------
+
+There will be 3 assignments. Students are allowed
+to form teams to do the assignments; however, the maximum number of
+students per group is 2. Students will not need to communicate the
+teams. They will simply need to write two names and exam numbers on an
+assignment. The TA will assume that names appearing on the same
+assignment will form a group from that point onwards. Importantly,
+students should stick to the same partner for all assignments. In case
+of serious disagreements with the partner, students can ask the
+lecturer and the TA (by email) to be allowed to do the assignments
+alone from that point onwards. However, in no case they will be allowed
+to form a new team with another student.
+
+.. 
+.. Assignments are due on Thursdays in the weeks mentioned in the schedule
+.. above.
+.. 
+.. ???no email addresses on line???
+.. 
+.. You have to email your solutions to Xue Xu:
+.. `x.xu\_1@tilburguniversity.edu <x.xu_1@tilburguniversity.edu>`__. The
+.. deadline for submission is 16:00 on Thursdays on the weeks indicated in
+.. the table above. One submission per team is sufficient but it should
+.. bear the names of all team members. If we receive several files from the
+.. members of a team, we will randomly pick one and disregard all others.
+.. The consequence of a submission after the deadline (no matter by how
+.. little the deadline was missed) is that the authors will receive a grade
+.. of one for the respective assignment. All members of the team are
+.. responsible for making sure that the assignment is handed-in on time. A
+.. submission after the deadline will affect all team members equally
+.. irrespective of who bears the fault among the team members.
+.. 
+
+Assignments are posted on BB.
+
+
+
+Final grade
+-----------
+
+Your final grade is the unweighted average of the assignments and the
+final exam. Let :math:`A_i` denote your grade on assignment :math:`i`
+and :math:`E` your grade on the exam. Then the final grade :math:`F` is
+determined by
+
+.. math::
+
+   \label{eq:1}
+   F = (A_1+A_2+A_3+E)/4
+
+Hence the assignments are mandatory and very important!
+
+The grades of the assignments can only be used in this academic year
+2015-2016. Next year a student does the whole course again including the
+assignments.
+
+It is important that you understand things; not learn things by
+heart. Therefore, at the final (written) exam, you are allowed to
+bring a handwritten A4 page with notes. You can write on this page
+what you want: equations, law texts, poetry.

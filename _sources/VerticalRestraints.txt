@@ -1,0 +1,49 @@
+===================
+Vertical restraints
+===================
+
+
+lecture
+-------
+
+:ref:`Lecture notes on Vertical Restraints <Vertical>`
+
+screencasts
+-----------
+
+`part 1 <screencasts/VerticalRestraints/VerticalRestraints_1.mov>`_
+
+`part 2 <screencasts/VerticalRestraints/VerticalRestraints_2.mov>`_
+
+`part 3 <screencasts/VerticalRestraints/VerticalRestraints_3.mov>`_
+
+`part 4 <screencasts/VerticalRestraints/VerticalRestraints_4.mov>`_
+
+`part 5 <screencasts/VerticalRestraints/VerticalRestraints_5.mov>`_
+
+`part 6 <screencasts/VerticalRestraints/VerticalRestraints_6.mov>`_
+
+`part 7 <screencasts/VerticalRestraints/VerticalRestraints_7.mov>`_
+
+`part 8 <screencasts/VerticalRestraints/VerticalRestraints_8.mov>`_
+
+
+
+exercises
+---------
+
+
+
+From the :ref:`exercises <Exercises_vertical>` of this lecture, we discuss questions 1 and 2 in class.
+
+
+python
+------
+
+In the python file for this lecture, we consider 
+`public and private contracts.
+<HartTirole/HartTirole.html>`_
+
+Here you can download this file in ipython notebook form (ipynb)
+
+* :download:`Hart and Tirole <HartTirole.ipynb>`

@@ -1,0 +1,49 @@
+==========
+Innovation
+==========
+
+
+lecture
+-------
+
+:ref:`Lecture notes on Innovation <Innovation>`
+
+screencasts
+-----------
+
+`part 1 <screencasts/Innovation/Innovation_1.mov>`_
+
+`part 2 <screencasts/Innovation/Innovation_2.mov>`_
+
+`part 3 <screencasts/Innovation/Innovation_3.mov>`_
+
+`part 4 <screencasts/Innovation/Innovation_4.mov>`_
+
+`part 5 <screencasts/Innovation/Innovation_5.mov>`_
+
+`part 6 <screencasts/Innovation/Innovation_6.mov>`_
+
+`part 7 <screencasts/Innovation/Innovation_7.mov>`_
+
+`part 8 <screencasts/Innovation/Innovation_8.mov>`_
+
+`part 9 <screencasts/Innovation/Innovation_9.mov>`_
+
+
+
+exercises
+---------
+
+In class we discuss question 1 from the :ref:`exercises <exercisesInnovation>`. 
+
+
+
+python
+------
+
+In the python file for this lecture, we consider 
+`innovation. <Innovation/Innovation.html>`_
+
+Here you can download this file in ipython notebook form (ipynb)
+
+* :download:`innovation <Innovation.ipynb>`
