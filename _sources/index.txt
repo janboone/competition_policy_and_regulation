@@ -23,7 +23,7 @@ this course!
 
 The Introduction Lecture can be found :download:`here <IntroductionLecture.html>`.
 
-.. change the link above using :download:
+
   
 Contents:
 =========

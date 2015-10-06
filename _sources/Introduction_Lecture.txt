@@ -10,8 +10,8 @@ This lecture
 
     -  first, how the course is organized
     -  then introduction to competition policy
-    -  Massimo Motta, 2004, *Competition Policy: theory and practice*,
-	   Cambridge University Press.
+    -  recommended reading: Massimo Motta, 2004, *Competition Policy:
+       theory and practice*, Cambridge University Press.
 
 expectations
 ------------
@@ -20,11 +20,7 @@ expectations
 -  when Jan teaches:
 
    -  watch video lecture beforehand
-   -  prepare exercises discussed in class
-
--  when Lapo teaches:
-
-   -  read material beforehand
+   -  prepare exercises to be discussed in class
 
 -  attend guest lectures/Tilec seminars
 
@@ -37,21 +33,21 @@ grade
    -  1 exam
 
 -  each has the same weight (25%)
--  assignments are mandatory
--  one assignment: empirical
--  two assignments: programming
+-  assignments are mandatory and involve programming in python
 -  grades for assignments can only be used this academic year
 
 assignments
 -----------
 
 -  assignments can be done alone or in a team of 2 students
--  for the empirical assignment you analyse a dataset
 -  for the programming assignments, you will do simulations
 -  during the lectures, I will show you how to program in python
 -  I know this is new for (most of) you
 -  with python we can bring the theory to life
+-  as python is new, you are allowed to help each other a bit with this
+-  however, assignments are made independently by each team
 
+   
 python
 ------
 
@@ -65,7 +61,7 @@ python
 details
 -------
 
--  `Rules of the Game <RulesOfTheGame.html>`_ gives further details and outline
+-  :ref:`Rules of the game <Rules>` of the game gives further details and an outline
    of the lectures
 
 Competition law
@@ -133,7 +129,7 @@ efficiency
 
 -  Nickell (JPE, 1996): firms with market power are less efficient
 
-   -  with market power, less reason to ''worry''
+   -  with market power, less reason to "worry"
    -  moral hazard: more competitive the market, firms and managers work
       harder to survive
    -  selection: with market power, inefficient firm can survive; cannot
@@ -290,7 +286,7 @@ SSNIP test
 -  this is known as SSNIP test: small but significant non-transitory
    increase in prices
 
-   -  ''small but significant'' is often taken to mean 5-10%
+   -  "small but significant" is often taken to mean 5-10%
    -  "non-transitory": if this could be profitably done for 5 days
       only, the market is not worth monopolizing
 
@@ -305,7 +301,7 @@ SSNIP test
 fallacies
 ---------
 
--  applying SSNIP test can lead to two ''famous mistakes'':
+-  applying SSNIP test can lead to two "famous mistakes":
 
    -  *toothless fallacy*: marginal vs average consumer
    -  *cellophane fallacy*: starting point for price increase
@@ -346,6 +342,8 @@ other examples
       cartridge prices is not profitable
    -  if so, market for :math:`X` cartridges is not a relevant market
 
+-----------
+	  
 -  are Rolex and Casio watches in the same market?
 
    -  some people argue they are not because they sell at completely
@@ -454,3 +452,6 @@ summary
    -  how to define relevant market and avoid two fallacies
 
 
+
+	  
+.. <!-- pandoc -s --mathjax --slide-level 2 --toc --toc-depth=1 -t revealjs Introduction_Lecture.rst -V theme=solarized -o IntroductionLecture.html -->

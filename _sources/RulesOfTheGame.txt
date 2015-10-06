@@ -1,6 +1,8 @@
 Rules of the Game
 =================
 
+.. _Rules:
+
 Overview of the course
 ----------------------
 
