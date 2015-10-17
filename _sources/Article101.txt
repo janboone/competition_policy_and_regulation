@@ -49,3 +49,10 @@ Here you can download these file in ipython notebook form (ipynb)
 * :download:`Cournot <Collusion_Cournot.ipynb>`
 * :download:`Bertrand <Collusion_Bertrand.ipynb>`
 
+With browsers like Safari, Chrome etc., you can see the notebook
+online, rendered by GitHub:
+
+* `<https://github.com/janboone/competition_policy_and_regulation/blob/gh-pages/_downloads/Introduction_to_Python.ipynb>`_
+* `<https://github.com/janboone/competition_policy_and_regulation/blob/gh-pages/_downloads/Collusion_Cournot.ipynb>`_
+* `<https://github.com/janboone/competition_policy_and_regulation/blob/gh-pages/_downloads/Collusion_Bertrand.ipynb>`_
+  

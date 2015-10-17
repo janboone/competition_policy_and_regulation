@@ -457,8 +457,8 @@ Exercises
 
 
 	  
--  question 1: :download:`exam June 2014 <exam_June_2014.pdf>`
-   question 2. 
+-  question 1: question 2 from :download:`exam June 2014 <exam_June_2014.pdf>`
+    
 -  question 2 [exam 2011]: Article 101 TFEU
 
    (a) [10 Points] Assume that, in each of two cities, there is one
@@ -2087,7 +2087,8 @@ Exercises
    Discuss whether you think that there is predatory behaviour by the
    monopolist in this case.
 
--  question 2: question 2 from :download:`exam June 2014 <exam_May_2014.pdf>`
+-  question 2: question 2 from :download:`exam May 2014 <exam_May_2014.pdf>`
+
 -  question 3 [exam 2010]: Negotiating the price of a raw material
 
    Consider an industry in which a final product is produced from a
