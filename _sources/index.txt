@@ -10,7 +10,7 @@ Welcome to Competition Policy and Regulation's documentation!
 =============================================================
 
 **Note that this webpage is under construction; lectures are not
-complete and most links to screencasts do not work yet**
+complete yet and some links to screencasts do not work**
 
 In 2015-2016 this course is taught by:
 
@@ -33,6 +33,7 @@ Contents:
 
    Introduction_Lecture 
    RulesOfTheGame
+   Python
    Article101			  
    VerticalRestraints
    Article102Part1			  
@@ -68,11 +69,7 @@ Python files
    /Collusion_Bertrand/*
    /HartTirole/*
    /pricediscrimination/*			  
+   /Mergers/*
    /Innovation/*   
    /Regulation/*
    /Healthcare/*
-
-
-
-
-   

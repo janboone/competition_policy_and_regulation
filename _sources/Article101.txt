@@ -34,9 +34,6 @@ From the :ref:`exercises <Exercises_101>` of this lecture, we discuss questions 
 python
 ------
 
-A very short introduction to python and how to install it can be found
-on `this page. <Introduction_to_Python/Introduction_to_Python.html>`_
-
 In the python files for this lecture, we consider collusion with 
 `Cournot competition
 <Collusion_Cournot/Collusion_Cournot.html>`_
@@ -45,14 +42,11 @@ and collusion with
 
 Here you can download these file in ipython notebook form (ipynb)
 
-* :download:`introduction <Introduction_to_Python.ipynb>`
 * :download:`Cournot <Collusion_Cournot.ipynb>`
 * :download:`Bertrand <Collusion_Bertrand.ipynb>`
 
-With browsers like Safari, Chrome etc., you can see the notebook
-online, rendered by GitHub:
+You can see the notebooks online, rendered by GitHub:
 
-* `<https://github.com/janboone/competition_policy_and_regulation/blob/gh-pages/_downloads/Introduction_to_Python.ipynb>`_
 * `<https://github.com/janboone/competition_policy_and_regulation/blob/gh-pages/_downloads/Collusion_Cournot.ipynb>`_
 * `<https://github.com/janboone/competition_policy_and_regulation/blob/gh-pages/_downloads/Collusion_Bertrand.ipynb>`_
   

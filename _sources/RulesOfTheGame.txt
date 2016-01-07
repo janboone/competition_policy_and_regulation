@@ -13,47 +13,32 @@ assignments and a final exam. Below, we describe the detailed contents
 of each of the lectures.
 
 For more details on the assignments, see the "Assignments" section on
-Blackboard. To stimulate active class discussion, students will
-regularly be asked to either do preparatory reading before a class or
-prepare exercises that are discussed in class. Some lectures contain
-exercises (either from the Motta book or new ones in the lecture file)
-that will be discussed in class.
+Blackboard. To stimulate active class discussion, students are expected
+to prepare the exercises that are discussed in class.
 
-.. Preliminary schedule, may be updated by announcements on BB:
-.. 
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | date      | teacher    | topic                       | exercises                               | assignment due         |
-.. +===========+============+=============================+=========================================+========================+
-.. | Feb. 4    | Jan        | Introduction                |                                         |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Feb. 11   | Jan        | Article 101                 | questions 1 and 2 after lecture notes   |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Feb. 25   | Lapo       | Demand estimation           |                                         |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Mar. 4    | Jan        | Vertical Restraints         | questions 1 and 2 after lecture notes   |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Mar. 11   | Jan        | Article 102 (1)             | Q and A python assignment               |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Mar. 18   | Lapo       | Mergers                     |                                         | Python assignment 1    |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Mar. 25   | Jan        | Article 102 (2)             | questions 1 and 2 after lecture notes   |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Apr. 1    | Jan        | Innovation                  | question 1 at end of lecture notes      |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Apr. 8    | Jan        | Regulation                  | question 1 at end of lecture notes      |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Apr. 15   | Lapo       | Two sided markets           |                                         | Empirical assignment   |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Apr. 22   | Jan        | Health care                 | question 1 at end of lecture notes      |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | Apr. 29   | Minke      | regulation in health care   | Q and A python assignment               |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | May 13    | Reserve    |                             |                                         |                        |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. | May 20    | Reserve    |                             |                                         | Python assignment 2    |
-.. +-----------+------------+-----------------------------+-----------------------------------------+------------------------+
-.. 
-..
+
+.. csv-table:: Preliminary schedule, may be updated by announcements on BB:
+   :header: "day", "date", "time", "room", "topic", "exercises", "assignment due"
+   :widths: 5, 15, 25, 15, 20, 30, 20
+
+   Wed, Feb 03,  08:45-11:30,  PZ 044,  Introduction, ,
+   Wed, Feb 17,  08:45-11:30,  PZ 044,  Python, install python at home,
+   Wed, Feb 24,  08:45-11:30,  PZ 044,  Article 101, questions 1 and 2 after lecture notes,
+   Wed, Mar 02,  08:45-11:30,  PZ 044,  Vertical restraints, questions 1 and 2 after lecture notes,
+   Wed, Mar 09,  08:45-11:30,  PZ 044,  no class, ,
+   Wed, Mar 16,  08:45-11:30,  PZ 044,  Article 102 (1), Q and A assignment, Assignment 1
+   Wed, Mar 23,  08:45-11:30,  PZ 044,  Article 102 (2), questions 1 and 2 after lecture notes,
+   Wed, Mar 30,  08:45-11:30,  PZ 044,  Mergers, question 1 at the end of lecture notes,
+   Wed, Apr 06,  08:45-11:30,  PZ 044,  Innovation, question 1 at the end of lecture notes,
+   Wed, Apr 13,  08:45-11:30,  PZ 044,  Q and A assignment 2, , Assignment 2
+   Wed, Apr 20,  08:45-11:30,  PZ 044,  Regulation, question 1 at the end of lecture notes,
+   Tue, Apr 26,  08:45-11:30,  DZ 008,  no class, ,
+   Wed, May 11,  08:45-11:30,  PZ 044,  Health care, question 1 at the end of lecture notes and Q and A assignment 3,
+   Wed, May 18,  08:45-11:30,  PZ 044,  no class, , Assignment 3
+
+
+Assignments are due on Thursdays in the weeks indicated in the table above at 12:00 (noon).
+   
 
 Here we provide detailed contents of the lectures and the associated
 literature.
@@ -66,26 +51,19 @@ literature.
    and Total Welfare; Allocative, Productive and Dynamic Efficiency. We
    also define the concept of Market Power and discuss the relationships
    between Market Power, the structure of the market and the different
-   types of efficiency. *Literature*: Motta, Chapters 1,2; Competition
-   website of the European Commission.
+   types of efficiency. *Literature*: Motta, Chapters 1,2.
 
--  Agreements between Firms (Art 101 TFEU): Agreements between firms
+-  Agreements between Firms (Article 101): Agreements between firms
    that restrict competition are forbidden, unless they are efficiency
    enhancing and are benefiting consumers. In this lecture, we provide a
    general overview of the different types of agreements. We distinguish
    between horizontal and vertical agreements and address the following
    questions: when do agreements restrict competition?, when can they be
-   classified as cartels?, when are they allowed, on the basis of Art
-   101.3 TFEU? We also introduce collusion and why it is bad for
+   classified as cartels?, when are they allowed, on the basis of Article
+   101.3? We also introduce collusion and why it is bad for
    consumers and for total welfare. We determine factors that facilitate
    collusion and ways for the government to discourage it. *Literature*:
    Motta, Chapter 4.
-
--  Horizontal Mergers: in this lecture it is explained why mergers need
-   to be notified to antitrust authorities. We will in the meantime
-   introduce the EU Merger regulation and the EU Horizontal Mergers
-   Guidelines. We will discuss why a merger can raise concerns of
-   unilateral and/or coordinated effects. *Literature*: Motta, Chapter 5.
 
 -  Vertical Agreements: Vertical agreements are agreements between firms
    that are active at different levels of the value chain, that is,
@@ -101,7 +79,7 @@ literature.
    *Literature*: Motta, Chapter 6.
 
 -  Article 102: Abuse of a dominant position (two lectures). Article 102
-   TFEU forbids a firm with a dominant position to abuse that position.
+   forbids a firm with a dominant position to abuse that position.
    But what does it mean for a firm to have a dominant position, and
    when is behavior abusive? In this lecture we introduce these issues.
    We also distinguish between dominant positions that are permanent (in
@@ -113,6 +91,10 @@ literature.
    Finally, we discuss tying and bundling. We also discuss the various
    antitrust cases that Microsoft has been involved in. *Literature*:
    Motta, Chapter 7.
+
+-  Horizontal Mergers: in this lecture it is explained why mergers need
+   to be notified to antitrust authorities. We will discuss why and when a merger can raise concerns of
+   unilateral and/or coordinated effects. *Literature*: Motta, Chapter 5.
 
 -  Innovation: most of the lectures focus on the effects of competition
    on static efficiency. In this lecture, we analyze the effects on
@@ -132,21 +114,18 @@ literature.
    in this lecture. For instance, should a vertical merger between an
    insurer and a hospital be allowed?
 
-.. Web-lectures
-.. ------------
-.. 
-.. In the weeks that Jan teaches, you can watch screencasts of the
-.. lectures at home on your computer *before* that week's
-.. lecture.
-.. 
-.. The first lecture can be found here: `<screencasts/Article101/Article101_1.m4v>`_
-.. 
-.. In the "live" lecture, you can ask questions that you have
-.. about the web-lecture. Hence, it is important that you watch the
-.. web-lecture beforehand. The live lecture will further be used to teach
-.. you some python that you will need for two of the assignments. Further,
-.. we go over exercises to practice for the exam.
-.. 
+Web-lectures
+------------
+
+The competition policy lectures can be viewed on line. Each lecture page contains the links to the screencasts.
+
+In the "live" lecture, you can ask questions that you have
+about the web-lecture. Hence, it is important that you watch the
+web-lecture beforehand. Also the web-lecture will be useful to understand the exercises which allow you to practice for the exam. These exercises are discussed in the live lecture.
+
+Finally, the live lecture will be used to teach
+python which you need for the assignments.
+
 
 Home work assignments
 ---------------------
@@ -163,27 +142,21 @@ lecturer and the TA (by email) to be allowed to do the assignments
 alone from that point onwards. However, in no case they will be allowed
 to form a new team with another student.
 
-.. 
-.. Assignments are due on Thursdays in the weeks mentioned in the schedule
-.. above.
-.. 
-.. ???no email addresses on line???
-.. 
-.. You have to email your solutions to Xue Xu:
-.. `x.xu\_1@tilburguniversity.edu <x.xu_1@tilburguniversity.edu>`__. The
-.. deadline for submission is 16:00 on Thursdays on the weeks indicated in
-.. the table above. One submission per team is sufficient but it should
-.. bear the names of all team members. If we receive several files from the
-.. members of a team, we will randomly pick one and disregard all others.
-.. The consequence of a submission after the deadline (no matter by how
-.. little the deadline was missed) is that the authors will receive a grade
-.. of one for the respective assignment. All members of the team are
-.. responsible for making sure that the assignment is handed-in on time. A
-.. submission after the deadline will affect all team members equally
-.. irrespective of who bears the fault among the team members.
-.. 
 
-Assignments are posted on BB.
+Assignments are due on Thursdays in the weeks mentioned in the schedule
+above. The
+deadline for submission is 12:00 on Thursdays on the weeks indicated in
+the table above. One submission per team is sufficient but it should
+bear the names of all team members. If we receive several files from the
+members of a team, we will randomly pick one and disregard all others.
+The consequence of a submission after the deadline (no matter by how
+little the deadline was missed) is that the authors will receive a grade
+of one for the respective assignment. All members of the team are
+responsible for making sure that the assignment is handed in on time. A
+submission after the deadline will affect all team members equally
+irrespective of who bears the fault among the team members.
+
+Assignments will be posted on BB.
 
 
 
@@ -206,7 +179,9 @@ The grades of the assignments can only be used in this academic year
 2015-2016. Next year a student does the whole course again including the
 assignments.
 
-It is important that you understand things; not learn things by
-heart. Therefore, at the final (written) exam, you are allowed to
+For the exam, it is important that you understand things; not learn them by
+heart. Therefore, at the (written) exam, you are allowed to
 bring a handwritten A4 page with notes. You can write on this page
 what you want: equations, law texts, poetry.
+
+The exam is planned at Friday, May 27 2016. The resit at Tuesday, June 28 2016.

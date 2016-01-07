@@ -17,12 +17,11 @@ expectations
 ------------
 
 -  we expect you to prepare each lecture
--  when Jan teaches:
+-  watch video lecture beforehand
+-  prepare exercises to be discussed in class
+-  for next lecture: install python
 
-   -  watch video lecture beforehand
-   -  prepare exercises to be discussed in class
-
--  attend guest lectures/Tilec seminars
+   - look `here <http://janboone.github.io/competition_policy_and_regulation/Introduction_to_Python/Introduction_to_Python.html>`_ to see how this should be done
 
 grade
 -----
@@ -41,7 +40,8 @@ assignments
 
 -  assignments can be done alone or in a team of 2 students
 -  for the programming assignments, you will do simulations
--  during the lectures, I will show you how to program in python
+-  next lecture will be an introduction to python 
+-  during the other lectures, I will also show you how to program in python
 -  I know this is new for (most of) you
 -  with python we can bring the theory to life
 -  as python is new, you are allowed to help each other a bit with this
@@ -61,7 +61,7 @@ python
 details
 -------
 
--  :ref:`Rules of the game <Rules>` of the game gives further details and an outline
+-  `Rules of the game <http://janboone.github.io/competition_policy_and_regulation/RulesOfTheGame.html>`_ gives further details and an outline
    of the lectures
 
 Competition law
@@ -211,7 +211,6 @@ network effects
       :math:`v_1 + \nu(n_1) - p_1 >   v_2 + \nu(0) - p_2`
 
 -  network effect gives incumbent market power
--  example VHS vs Betamax standard in videos
 
    -  small differences at the start lead to completely different
       outcomes
