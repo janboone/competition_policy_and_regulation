@@ -26,14 +26,14 @@ Not every lecture will start at 8:45. Check Blackboard to see at which time we s
    Wed, Feb 15, 8:45-12:30,	PZ 045,  Article 101         , questions 1 and 2 after lecture notes                          ,				, Basics (Variables&Types - Can Python handle everything?)     
    Wed, Feb 22, 8:45-12:30,	PZ 045,  Vertical restraints , questions 1 and 2 after lecture notes                          ,				, Python Lists (Lists what are they? - Subset and calculate)   
    Wed, Mar 08, 8:45-12:30,	PZ 045,  no class            ,                                                                ,				, Python Lists (Subset and calculate - Inner workings of lists)
-   Wed, Mar 15, 8:45-12:30,	PZ 045,  Article 102 (1)     , question 1 after lecture notes and Q and A assignment          ,             , Functions and Packages                             		   
+   Wed, Mar 15, 8:45-12:30,	PZ 045,  Article 102 (1)     , question 1 after lecture notes                                 ,             , Functions and Packages                             		   
    Wed, Mar 22, 8:45-12:30,	PZ 045,  Article 102 (2)     , questions 2 and 3 after lecture notes                          ,				, Numpy (Numpy - 2D Numpy Arrays)                              
    Wed, Mar 29, 8:45-12:30,	PZ 045,  Mergers             , question 1 at the end of lecture notes                         ,				, Numpy (2D Numpy Arrays - Blend it all together)              
    Wed, Apr 05, 8:45-12:30,	PZ 045,  Innovation          , question 1 at the end of lecture notes                         ,             ,
-   Wed, Apr 12, 8:45-12:30,	PZ 045,  Q and A assignment 2,                                                                , Assignment 1,
+   Wed, Apr 12, 8:45-12:30,	PZ 045,  Q and A assignment 1,                                                                , Assignment 1,
    Wed, Apr 19, 8:45-12:30,	PZ 045,  Regulation          , question 1 at the end of lecture notes                         ,             ,
    Wed, May 03, 8:45-12:30,	PZ 045,  no class            ,                                                                ,             ,
-   Wed, May 10, 8:45-12:30,	PZ 045,  Health care         , question 1 at the end of lecture notes and Q and A assignment 3,             ,
+   Wed, May 10, 8:45-12:30,	PZ 045,  Health care         , question 1 at the end of lecture notes and Q and A assignment 2,             ,
    Wed, May 17, 8:45-12:30,	PZ 045,  no class            ,                                                                , Assignment 2,
 
 Assignments are due on Thursdays in the weeks indicated in the table above at 12:00 (noon).
