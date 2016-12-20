@@ -8,38 +8,36 @@ Overview of the course
 
 In this course we explain how economic methods are used to decide
 cases in competition policy and in regulatory policy. The course
-consists of a sequence of lectures, a set of 3 (mandatory) homework
+consists of a sequence of lectures, active participation in class, a set of 2 (mandatory) homework
 assignments and a final exam. Below, we describe the detailed contents
 of each of the lectures.
 
 For more details on the assignments, see the "Assignments" section on
-Blackboard. To stimulate active class discussion, students are expected
-to prepare the exercises that are discussed in class.
+Blackboard. For active participation, students should prepare the exercises that are discussed in class.
 
+Not every lecture will start at 8:45. Check Blackboard to see at which time we start. We will also announce this in class (for the next week).
 
 .. csv-table:: Preliminary schedule, may be updated by announcements on BB:
-   :header: "day", "date", "time", "room", "topic", "exercises", "assignment due"
-   :widths: 5, 15, 25, 15, 20, 30, 20
+   :header: "day", "date", "time", "room", "topic", "exercises", "assignment due", "datacamp"
+   :widths: 5, 15, 25, 15, 20, 30, 20, 70
 
-   Wed, Feb 03,  08:45-11:30,  PZ 044,  Introduction, ,
-   Wed, Feb 17,  08:45-11:30,  PZ 044,  Python, install python at home,
-   Wed, Feb 24,  08:45-11:30,  PZ 044,  Article 101, questions 1 and 2 after lecture notes,
-   Wed, Mar 02,  08:45-11:30,  PZ 044,  Vertical restraints, questions 1 and 2 after lecture notes,
-   Wed, Mar 09,  08:45-11:30,  PZ 044,  no class, ,
-   Wed, Mar 16,  08:45-11:30,  PZ 044,  Article 102 (1), Q and A assignment, Assignment 1
-   Wed, Mar 23,  08:45-11:30,  PZ 044,  Article 102 (2), questions 1 and 2 after lecture notes,
-   Wed, Mar 30,  08:45-11:30,  PZ 044,  Mergers, question 1 at the end of lecture notes,
-   Wed, Apr 06,  08:45-11:30,  PZ 044,  Innovation, question 1 at the end of lecture notes,
-   Wed, Apr 13,  08:45-11:30,  PZ 044,  Q and A assignment 2, , Assignment 2
-   Wed, Apr 20,  08:45-11:30,  PZ 044,  Regulation, question 1 at the end of lecture notes,
-   Tue, Apr 26,  08:45-11:30,  DZ 008,  no class, ,
-   Wed, May 11,  08:45-11:30,  PZ 044,  Health care, question 1 at the end of lecture notes and Q and A assignment 3,
-   Wed, May 18,  08:45-11:30,  PZ 044,  no class, , Assignment 3
-
+   Wed, Feb 01, 8:45-12:30,	PZ 045,  Introduction        ,                                                                ,             ,
+   Wed, Feb 08, 8:45-12:30,	PZ 045,  Python              , install python at home                                         ,             , Python Basics (Hello Python! - Variables&Types)              
+   Wed, Feb 15, 8:45-12:30,	PZ 045,  Article 101         , questions 1 and 2 after lecture notes                          ,				, Basics (Variables&Types - Can Python handle everything?)     
+   Wed, Feb 22, 8:45-12:30,	PZ 045,  Vertical restraints , questions 1 and 2 after lecture notes                          ,				, Python Lists (Lists what are they? - Subset and calculate)   
+   Wed, Mar 08, 8:45-12:30,	PZ 045,  no class            ,                                                                ,				, Python Lists (Subset and calculate - Inner workings of lists)
+   Wed, Mar 15, 8:45-12:30,	PZ 045,  Article 102 (1)     , question 1 after lecture notes and Q and A assignment          ,             , Functions and Packages                             		   
+   Wed, Mar 22, 8:45-12:30,	PZ 045,  Article 102 (2)     , questions 2 and 3 after lecture notes                          ,				, Numpy (Numpy - 2D Numpy Arrays)                              
+   Wed, Mar 29, 8:45-12:30,	PZ 045,  Mergers             , question 1 at the end of lecture notes                         ,				, Numpy (2D Numpy Arrays - Blend it all together)              
+   Wed, Apr 05, 8:45-12:30,	PZ 045,  Innovation          , question 1 at the end of lecture notes                         ,             ,
+   Wed, Apr 12, 8:45-12:30,	PZ 045,  Q and A assignment 2,                                                                , Assignment 1,
+   Wed, Apr 19, 8:45-12:30,	PZ 045,  Regulation          , question 1 at the end of lecture notes                         ,             ,
+   Wed, May 03, 8:45-12:30,	PZ 045,  no class            ,                                                                ,             ,
+   Wed, May 10, 8:45-12:30,	PZ 045,  Health care         , question 1 at the end of lecture notes and Q and A assignment 3,             ,
+   Wed, May 17, 8:45-12:30,	PZ 045,  no class            ,                                                                , Assignment 2,
 
 Assignments are due on Thursdays in the weeks indicated in the table above at 12:00 (noon).
    
-
 Here we provide detailed contents of the lectures and the associated
 literature.
 
@@ -119,24 +117,26 @@ Web-lectures
 
 The competition policy lectures can be viewed on line. Each lecture page contains the links to the screencasts.
 
+Also we use `datacamp <https://campus.datacamp.com/courses/intro-to-python-for-data-science/chapter-1-python-basics?ex=1>`_ weblectures for python.
+The schedule above suggests a way to go through these lectures so that you finish them in time for your first assignment. 
+
 In the "live" lecture, you can ask questions that you have
 about the web-lecture. Hence, it is important that you watch the
 web-lecture beforehand. Also the web-lecture will be useful to understand the exercises which allow you to practice for the exam. These exercises are discussed in the live lecture.
 
-Finally, the live lecture will be used to teach
-python which you need for the assignments.
+Finally, the live lecture will be used to teach python which you need for the assignments.
 
 
 Home work assignments
 ---------------------
 
-There will be 3 assignments. Students are allowed
+There will be 2 assignments. Students are allowed
 to form teams to do the assignments; however, the maximum number of
 students per group is 2. Students will not need to communicate the
-teams. They will simply need to write two names and exam numbers on an
+teams. They will simply need to write two names and exam numbers on each
 assignment. The TA will assume that names appearing on the same
 assignment will form a group from that point onwards. Importantly,
-students should stick to the same partner for all assignments. In case
+students should stick to the same partner for both assignments. In case
 of serious disagreements with the partner, students can ask the
 lecturer and the TA (by email) to be allowed to do the assignments
 alone from that point onwards. However, in no case they will be allowed
@@ -151,37 +151,69 @@ bear the names of all team members. If we receive several files from the
 members of a team, we will randomly pick one and disregard all others.
 The consequence of a submission after the deadline (no matter by how
 little the deadline was missed) is that the authors will receive a grade
-of one for the respective assignment. All members of the team are
+of one (1) for the respective assignment. All members of the team are
 responsible for making sure that the assignment is handed in on time. A
 submission after the deadline will affect all team members equally
 irrespective of who bears the fault among the team members.
 
 Assignments will be posted on BB.
 
+Class participation
+-------------------
+
+In class we focus on questions from previous exams. Students are
+supposed to prepare the class by watching the lectures and studying
+the material beforehand, including making the questions to be
+discussed. We will call out student names to answer questions. What we
+are looking for is that you prepared for class; not necessarily that
+you give the right answer. If we believe that you prepared for class,
+we give you 1 point; if you didn't prepare (or are absent from class)
+when called to answer a question, you get 0. 
+
+Your grade for partipation :math:`P` is determined as
+follows. Suppose, we called your name :math:`n` times during the
+semester and summing over the grades (0's and 1's) you received :math:`x`
+points, then 
+
+.. math::
+
+   P = 25*x/n
+
+
+Hence :math:`P` lies between 0 and 25.
+
+It is your responsibility to make sure that we call out your name
+during the semester (we will publish the list that we use on
+Blackboard; so you can check). If :math:`n=0` for you, then
+:math:`P=0` as well.
 
 
 Final grade
 -----------
 
-Your final grade is the unweighted average of the assignments and the
-final exam. Let :math:`A_i` denote your grade on assignment :math:`i`
+Your final grade is the unweighted average of your participation in
+class, the two assignments and the
+final exam. Let :math:`P` denote the grade for your participation in
+class, :math:`A_i` denote your grade on assignment :math:`i`
 and :math:`E` your grade on the exam. Then the final grade :math:`F` is
 determined by
 
 .. math::
 
    \label{eq:1}
-   F = (A_1+A_2+A_3+E)/4
+   F = (P+A_1+A_2+E)/4
 
-Hence the assignments are mandatory and very important!
+Hence class participation and assignments are mandatory and very important!
 
-The grades of the assignments can only be used in this academic year
-2015-2016. Next year a student does the whole course again including the
-assignments.
+The grades for participation and the assignments can only be used in this academic year
+2016-2017. Next year a student does the whole course again including the
+assignments and class participation.
 
 For the exam, it is important that you understand things; not learn them by
 heart. Therefore, at the (written) exam, you are allowed to
 bring a handwritten A4 page with notes. You can write on this page
 what you want: equations, law texts, poetry.
 
-The exam is planned at Friday, May 27 2016. The resit at Tuesday, June 28 2016.
+The exam is planned at T.B.A.
+
+.. at Friday, May 27 2016. The resit at Tuesday, June 28 2016.
