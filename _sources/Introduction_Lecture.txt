@@ -19,6 +19,7 @@ expectations
 -  we expect you to prepare each lecture
 -  watch video lecture beforehand
 -  prepare exercises to be discussed in class
+-  follow the datacamp lectures on python
 -  for next lecture: install python
 
    - look `here <http://janboone.github.io/competition_policy_and_regulation/Introduction_to_Python/Introduction_to_Python.html>`_ to see how this should be done
@@ -28,12 +29,14 @@ grade
 
 -  your grade is the average of
 
-   -  3 assignments
+   -  2 assignments
    -  1 exam
+   -  class participation
 
 -  each has the same weight (25%)
 -  assignments are mandatory and involve programming in python
--  grades for assignments can only be used this academic year
+-  class participation is mandatory and involves exercises from previous exams
+-  grades for assignments and class participation can only be used this academic year
 
 assignments
 -----------
@@ -42,6 +45,7 @@ assignments
 -  for the programming assignments, you will do simulations
 -  next lecture will be an introduction to python 
 -  during the other lectures, I will also show you how to program in python
+-  attend (on the web) the datacamp courses on python
 -  I know this is new for (most of) you
 -  with python we can bring the theory to life
 -  as python is new, you are allowed to help each other a bit with this
@@ -54,8 +58,7 @@ python
 -  good idea to look into python in the following weeks
 -  when you get stuck, you can google
 -  but some basic knowledge saves you a lot of time!
--  with python notebooks you can program and explain what you do in the
-   same file
+-  with python notebooks you can program and explain what you do in the same file
 -  learn a bit of markdown and latex
 
 details

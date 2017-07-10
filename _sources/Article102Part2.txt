@@ -30,14 +30,14 @@ exercises
 ---------
 
 From the :ref:`exercises <Exercises_102>`
-of this lecture, we discuss questions 1 and 2 in class.
+of this lecture, we discuss questions 2 and 3 in class.
 
 
 
 python
 ------
 
-In the python file for this lecture, we consider 
+In the python file for this lecture, we consider
 `price discrimination
 <pricediscrimination/pricediscrimination.html>`_
 

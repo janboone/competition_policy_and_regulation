@@ -9,19 +9,19 @@
 Welcome to Competition Policy and Regulation's documentation!
 =============================================================
 
-**Note that this webpage is under construction; lectures are not
-complete yet and some links to screencasts do not work**
-
-In 2015-2016 this course is taught by:
+In 2016-2017 this course is taught by:
 
 * Jan Boone
 * Clemens Fiedler
+* Moritz Suppliet
 
 Make sure that you read the Rules of the Game if you want to attend
 this course!
 
 The Introduction Lecture can be found :download:`here <IntroductionLecture.html>`.
 
+.. TODO: adjust introduction lecture (presentation and
+   html-presentation) to include new rules on participation!!!!!
 
   
 Contents:

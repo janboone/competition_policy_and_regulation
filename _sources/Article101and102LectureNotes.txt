@@ -459,56 +459,7 @@ Exercises
 	  
 -  question 1: question 2 from :download:`exam June 2014 <exam_June_2014.pdf>`
     
--  question 2 [exam 2011]: Article 101 TFEU
-
-   (a) [10 Points] Assume that, in each of two cities, there is one
-   supplier of a certain product. Supplier \\(i=1,2\\) has marginal
-   production cost \\(c=2\\) in its home city and larger marginal cost
-   \\(C=3\\) in the other city. In each city, demand is given by
-   \\(D(p)=10-p\\) and the good is procured by the local municipality
-   according to the following rules:
-
-   (i) The city invites both firms to bid;
-   (ii) The city announces which firms are interested to provide the product;
-   (iii) The interested bidders submit their bid prices;
-   (iv) The lowest bidder is awarded the contract for the price of its
-		bid.
-
-   It turns out that each firm bids only in its home market and charges
-   a price \\(p=6\\) there. The competition authorities suspect that the
-   firms have concluded a market sharing agreement, however, they do not
-   (yet) have direct evidence; they just observed the market behaviour.
-   In your opinion, is the behaviour of the firms ("restrict to the home
-   market") a violation of `Article 101`_ TFEU?
-
-   (b) [5 points] Article `Article 101`_ TFEU states that agreements
-   between firms that restrict competition (and that limit trade) are
-   forbidden unless 4 conditions are satisfied. State these 4 legal
-   conditions as well as you can and translate them into economic
-   terminology.
-
-   (c) [5 points] Three firms are active on a market for which demand is
-   given by \\(D(p)=18-p\\). Each firm has marginal production costs
-   \\(c=2\\) and firms compete a la Cournot. Calculate the market
-   equilibrium price and the quantity that each firm will produce.
-
-   (d) [5 points] Assume that, in the situation described in part c, the
-   production is polluting. As a result, the Net Consumer Surplus
-   (\\(NCS\\)) is given by
-
-   \\begin{equation} \\label{eq:1} NCS = CS - \\alpha (Q+Q^2)
-   \\end{equation}
-
-   Where \\(CS\\) is the consumer surplus resulting from the product
-   (with demand as in part c) and \\(Q\\) is total production. To reduce
-   pollution, the companies agree that each will reduce output
-   \\(q\_i\\) such that \\(q\_i \\leq 3\\). Is this agreement allowed by
-   `Article 101`_ TFEU, or is it prohibited? Make sure you
-   motivate your answer. In the process, discuss whether the answer
-   depends on the value of \\(\\alpha\\) and on whether or not the
-   agreement between the firms is a response to pressure from consumer
-   organisations.
-
+-  question 2: question 1 from :download:`exam June 2016 <exam_June_2016.pdf>`
 
 
 .. _Vertical:
@@ -1996,7 +1947,10 @@ Exercises
    -  exercise 7.7
    -  exercise 7.8
 
--  question 1
+
+-  question 1: question 1 from :download:`exam May 2016 <exam_May_2016.pdf>`
+
+-  question 2
 
    This question is on price discrimination and abuse of a dominant
    position. Consider a monopolist that can produce quantity \\(q\\)
@@ -2087,119 +2041,8 @@ Exercises
    Discuss whether you think that there is predatory behaviour by the
    monopolist in this case.
 
--  question 2: question 2 from :download:`exam May 2014 <exam_May_2014.pdf>`
+-  question 3: question 2 from :download:`exam May 2014 <exam_May_2014.pdf>`
 
--  question 3 [exam 2010]: Negotiating the price of a raw material
-
-   Consider an industry in which a final product is produced from a
-   certain raw material, say oil. To get the oil, a firm first has to
-   drill, which involves fixed cost \\(F = 6\\). The marginal cost for
-   pumping the oil is 1 per unit. Converting 1 unit of oil into 1 unit
-   of the final product is associated with marginal cost equal to 2.
-   These numbers are the same for each firm in the industry. Demand for
-   the final product is given by \\(D(p)=15-p\\). Currently, there is
-   one active firm in the market; it has already incurred the fixed
-   cost. There is a second firm that has access to another well, but it
-   still has to incur the fixed cost before it can actually start
-   producing. If the second firm enters the market, there will be
-   Cournot competition.
-
-   (a) [5 points]
-   What price will the monopolist set?
-
-   (b) [10 points] Give the definition of a dominant
-   position. Does the current monopolist have a
-   dominant position on the market? Motivate
-   your answer!
-
-   (c) [5 points] The second firm realises that it can save on the fixed
-   cost of drilling if it buys the oil from the monopolist. It
-   negotiates with the monopolist to buy the oil, but the monopolist
-   refuses to sell. The second firm complains to the competition
-   authority. Should the authority intervene (for example, on the basis
-   of Art. 102 TFEU) and force the monopolist to supply the
-   oil to the competitor?
-
-   (d) [5 points; can be skipped because this was not discussed this
-   year] Suppose the monopolist would be forced to supply according to
-   the Efficient Component Pricing Rule (ECPR). At what unit price is
-   the monopolist then forced to sell to the competitor?
-
-   (e) [5 points] Suppose the monopolist charges a wholesale price of 6
-   per unit for the oil. What profit will the competitor make if it buys
-   oil from the monopolist at this price? Will the competitor be willing
-   to pay this price?
-
-   (f) [5 points] Suppose the second firm decides to drill the well
-   itself. What will be the profit of the second firm?
-
-   (g) [5 points] Suppose that you are the monopolist and you consider
-   seriously the threat that the second firm will drill itself. You
-   consider that you could make more profit by selling oil to the
-   competitor. Suppose you decide to make an offer of the following
-   type: "In return for a fixed fee of \\(X\\), I am willing to sell you
-   as much oil as you want at marginal cost prices, that is 1 per unit".
-   Which fixed fee \\(X\\) will you include in your offer?
-
-   (h) [10 points] Suppose the two companies make an agreement as in
-   part (g). Would you consider that such an agreement is a violation of
-   the European competition laws, or not? If so, which law is violated?
-   If not, why not? Whether you answer yes, or no, make sure to motivate
-   your answer!
-
--  question 4 [exam 2009]: Competition, regulation and different modes
-   of entry
-
-   Consider a market with demand function \\(D(p)=12-p\\) that is
-   currently served by a monopolist \\(M\\) with cost function
-   \\(c\_M(q) =2+3q\\). An entrant \\(E\\) is contemplating to enter
-   into this market. There are two entry modes: facilities-based entry,
-   or unbundling based entry. In the former, the entrant sets up its own
-   facilities, which implies that \\(E\\) will have cost function
-   \\(c\_E(q)=F\\): hence, in this case, \\(E\\) only has fixed costs.
-   In the latter mode, \\(E\\) uses the facilities of the monopolist; in
-   order to be allowed to do so, when \\(E\\) produces quantity
-   \\(q\_e\\), \\(E\\) will have to pay \\(K(q\_e)\\) to the monopolist,
-   but the advantage is that \\(E\\) will not incur any other cost
-   (details on \\(K(.)\\) are given below). Assume that, if \\(E\\)
-   enters, there will be Cournot competition between \\(M\\) and
-   \\(E\\).
-
-   (a) [5 points] Show that if \\(E\\) chooses for facilities-based
-   entry, the profit of \\(E\\) will be \\(25-F\\), while the profit of
-   \\(M\\) will be 2 in that case. (Note, therefore, that \\(E\\) will
-   not chose this entry mode if \\(F>25\\).)
-
-   (b) [5 points] Assume \\(F>25\\) and suppose \\(E\\) negotiates with
-   \\(M\\) on using its network. \\(M\\) insists that \\(E\\) pays
-   \\(K(q\_e) = 1 + wq\_e\\) where \\(w >3\\). \\(M\\) argues that this
-   is reasonable: the fixed charge of 1 is 50% of \\(M\\)'s fixed cost,
-   and \\(w>2\\) compensates somewhat for the lost profits of \\(M\\).
-   Show that, by choosing \\(w\\) large enough, \\(M\\) can make this
-   mode of entry unprofitable for \\(E\\). (It suffices to provide the
-   argument, you do not need to make an explicit calculation.)
-
-   (c) [5 points] Assume \\(F > 25\\), suppose that \\(w\\) is large and
-   that \\(E\\) complains to the European Commission that \\(M\\) is
-   violating the competition laws. What instrument (which Article of the
-   EC Treaty) does the Commission have, to address the claim of \\(E\\)?
-
-   (d) [5 points] Assume \\(F > 25\\), and suppose that, to stimulate
-   competition, \\(M\\) is forced to make its facilities available to
-   \\(E\\) at cost-based terms. Specifically, \\(M\\) is forced to set
-   \\(K(q\_e) = 1 + 3q\_e\\). Will \\(E\\) purchase from \\(M\\) on
-   these terms, and what will be the resulting market price?
-
-   (e) [5 points; can be skipped because this was not discussed this
-   year] Now assume \\(F = 16.5\\) and there is no explicit regulation
-   of the access charges \\(K(q\_e)\\), hence, \\(M\\) is allowed to set
-   these freely, subject to not violating the competition laws. Suppose
-   \\(M\\) chooses \\(K(q\_e)= 3q\_e\\), hence, \\(M\\) only charges the
-   marginal cost and does not insist on \\(E\\) paying a contribution to
-   the fixed cost. The competition authority believes it would be
-   desirable if \\(M\\) would set an access charge as in (d). Is there
-   an instrument (an Article of the EC Treaty) that allows the authority
-   to force \\(M\\) to raise its price? If so, which one?
 
 
 .. |fig1| image:: ./images/horizontalVertical.png
