@@ -1,0 +1,49 @@
+==========
+Innovation
+==========
+
+
+lecture
+-------
+
+:ref:`Lecture notes on Innovation <Innovation>`
+
+screencasts
+-----------
+
+`part 1 <https://tilburgutube.uvt.nl/asset/player/qYkdjNhGlTnfaWVML8QE5k96>`_
+
+`part 2 <https://tilburgutube.uvt.nl/asset/player/G2HMlFKfTWNXSYYTKL6ZRrKR>`_
+
+`part 3 <https://tilburgutube.uvt.nl/asset/player/nYphnWGFsi5KUGWVwogSHqaN>`_
+
+`part 4 <https://tilburgutube.uvt.nl/asset/player/Y2UVVfpRGVqlkLTUQUMArapR>`_
+
+`part 5 <https://tilburgutube.uvt.nl/asset/player/M1RehWKF9UmCUZkOeiTK0I1S>`_
+
+`part 6 <https://tilburgutube.uvt.nl/asset/player/y2Sa9RSLSpJsIVnkOVJ9TeOx>`_
+
+`part 7 <https://tilburgutube.uvt.nl/asset/player/zlCUTFLZN9hqkKCPEij6B5H3>`_
+
+`part 8 <https://tilburgutube.uvt.nl/asset/player/p1aQCvkYZDqdWb6KsHWgnEPu>`_
+
+`part 9 <https://tilburgutube.uvt.nl/asset/player/i2ZLSka94W7TIYKITR3qQTjO>`_
+
+
+
+exercises
+---------
+
+In class we discuss question 1 from the :ref:`exercises <exercisesInnovation>`. 
+
+
+
+python
+------
+
+In the python file for this lecture, we consider 
+`innovation. <Innovation/Innovation.html>`_
+
+Here you can download this file in ipython notebook form (ipynb)
+
+* :download:`innovation <Innovation.ipynb>`

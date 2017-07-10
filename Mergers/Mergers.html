@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Python: merger simulations &mdash; Competition Policy and Regulation 1.0 documentation</title>
+    <title>Python: merger simulations &#8212; Competition Policy and Regulation 1.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,22 +17,27 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Competition Policy and Regulation 1.0 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Python: innovation" href="../Innovation/Innovation.html" />
     <link rel="prev" title="Python: price discrimination" href="../pricediscrimination/pricediscrimination.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -88,11 +93,11 @@ up to 1.</li>
 <p>Although these assumptions are not unreasonable, they are not &#8220;innocent&#8221;
 either.</p>
 <p>First, we import some libraries that we will use:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>from scipy import optimize,arange
-from numpy import array
-import matplotlib.pyplot as plt
-from math import log
-%matplotlib inline
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">optimize</span><span class="p">,</span><span class="n">arange</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">log</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
 </div>
@@ -148,22 +153,22 @@ this parameter.</p>
 the example in table 1 on page 895 of Epstein and Rubinfeld (2001).</p>
 <p>Don&#8217;t worry about this class definition, we use it below to get decent
 tables with results in the notebook.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ListTable</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ListTable</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Overridden list class which takes a 2-dimensional list of</span>
 <span class="sd">        the form [[1,2,3],[4,5,6]], and renders an HTML Table in</span>
 <span class="sd">        IPython Notebook. &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">html</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;&lt;table&gt;&quot;</span><span class="p">]</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&lt;table&gt;&quot;</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;tr&gt;&quot;</span><span class="p">)</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;tr&gt;&quot;</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
-                <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;td&gt;{0}&lt;/td&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;td&gt;</span><span class="si">{0}</span><span class="s2">&lt;/td&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
 
-            <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;/tr&gt;&quot;</span><span class="p">)</span>
-        <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;/table&gt;&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;/tr&gt;&quot;</span><span class="p">)</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;/table&gt;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We create python dictionaries for firms&#8217; market shares and elasticities.
@@ -181,29 +186,29 @@ or buy it from another firm.</p>
 \end{cases}\end{split}\]</div>
 <p>If you use this file to do your own merger simulation, adjust the values
 below.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">market_share</span> <span class="o">=</span> <span class="p">{}</span> <span class="c"># creates a dictionary with market shares</span>
-<span class="n">elasticity</span> <span class="o">=</span> <span class="p">{}</span>   <span class="c"># dictionaries of firm level own and cross elasticities</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">market_share</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># creates a dictionary with market shares</span>
+<span class="n">elasticity</span> <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># dictionaries of firm level own and cross elasticities</span>
 
-<span class="n">firms</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">,</span><span class="s">&#39;firm2&#39;</span><span class="p">,</span><span class="s">&#39;firm3&#39;</span><span class="p">]</span> <span class="c"># names of the firms in a python list</span>
-<span class="n">market_share</span><span class="p">[</span><span class="s">&#39;firm2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
-<span class="n">market_share</span><span class="p">[</span><span class="s">&#39;firm3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">market_share</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span> <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;firm2&#39;</span><span class="p">,</span><span class="s">&#39;firm3&#39;</span><span class="p">])</span>
+<span class="n">firms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">,</span><span class="s1">&#39;firm2&#39;</span><span class="p">,</span><span class="s1">&#39;firm3&#39;</span><span class="p">]</span> <span class="c1"># names of the firms in a python list</span>
+<span class="n">market_share</span><span class="p">[</span><span class="s1">&#39;firm2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">market_share</span><span class="p">[</span><span class="s1">&#39;firm3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">market_share</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span> <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;firm2&#39;</span><span class="p">,</span><span class="s1">&#39;firm3&#39;</span><span class="p">])</span>
 
 <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="n">firms</span><span class="p">:</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">market_share</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="k">print</span> <span class="s">&quot;market share of firm: &quot;</span><span class="o">+</span> <span class="n">firm</span> <span class="o">+</span> <span class="s">&quot; is given by </span><span class="si">%1.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">market_share</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;something wrong with the market share of the firm: &quot;</span><span class="o">+</span><span class="n">firm</span>
+        <span class="nb">print</span> <span class="s2">&quot;market share of firm: &quot;</span><span class="o">+</span> <span class="n">firm</span> <span class="o">+</span> <span class="s2">&quot; is given by </span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">market_share</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;something wrong with the market share of the firm: &quot;</span><span class="o">+</span><span class="n">firm</span>
 
-<span class="n">market_elasticity</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="c"># market demand elasticity</span>
-<span class="n">elasticity</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">,</span><span class="s">&#39;firm1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span> <span class="c"># own elasticity of firm1</span>
+<span class="n">market_elasticity</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="c1"># market demand elasticity</span>
+<span class="n">elasticity</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">,</span><span class="s1">&#39;firm1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span> <span class="c1"># own elasticity of firm1</span>
 
-<span class="k">if</span> <span class="n">market_elasticity</span> <span class="o">&lt;</span> <span class="n">elasticity</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">,</span><span class="s">&#39;firm1&#39;</span><span class="p">]:</span>
-    <span class="k">print</span> <span class="s">&quot;error: a firm&#39;s own elasticity exceeds (in absolute value) the market elasticity&quot;</span>
+<span class="k">if</span> <span class="n">market_elasticity</span> <span class="o">&lt;</span> <span class="n">elasticity</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">,</span><span class="s1">&#39;firm1&#39;</span><span class="p">]:</span>
+    <span class="nb">print</span> <span class="s2">&quot;error: a firm&#39;s own elasticity exceeds (in absolute value) the market elasticity&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>market share of firm: firm1 is given by 0.20
-market share of firm: firm2 is given by 0.30
-market share of firm: firm3 is given by 0.50
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">market</span> <span class="n">share</span> <span class="n">of</span> <span class="n">firm</span><span class="p">:</span> <span class="n">firm1</span> <span class="ow">is</span> <span class="n">given</span> <span class="n">by</span> <span class="mf">0.20</span>
+<span class="n">market</span> <span class="n">share</span> <span class="n">of</span> <span class="n">firm</span><span class="p">:</span> <span class="n">firm2</span> <span class="ow">is</span> <span class="n">given</span> <span class="n">by</span> <span class="mf">0.30</span>
+<span class="n">market</span> <span class="n">share</span> <span class="n">of</span> <span class="n">firm</span><span class="p">:</span> <span class="n">firm3</span> <span class="ow">is</span> <span class="n">given</span> <span class="n">by</span> <span class="mf">0.50</span>
 </pre></div>
 </div>
 <p>Now we can calculate the relevant parameters of the demand structure.
@@ -215,16 +220,16 @@ The assumption is that the <span class="math">\(b_{ij}\)</span>-coefficients are
 i.e. do not change after the merger.</p>
 <p>As the merger affects firms&#8217; market shares, it does change the firm
 elasticities.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">b</span> <span class="o">=</span> <span class="p">{}</span> <span class="c"># dictionary of b-coefficients of demand system (D) above</span>
-<span class="n">b</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">,</span><span class="s">&#39;firm1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">market_share</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">elasticity</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">,</span><span class="s">&#39;firm1&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">market_elasticity</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># dictionary of b-coefficients of demand system (D) above</span>
+<span class="n">b</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">,</span><span class="s1">&#39;firm1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">market_share</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">elasticity</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">,</span><span class="s1">&#39;firm1&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">market_elasticity</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="n">firms</span><span class="p">:</span>
-    <span class="n">b</span><span class="p">[</span><span class="n">firm</span><span class="p">,</span><span class="n">firm</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="n">firm</span><span class="p">]))</span><span class="o">/</span><span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">]))</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">,</span><span class="s">&#39;firm1&#39;</span><span class="p">]</span>
+    <span class="n">b</span><span class="p">[</span><span class="n">firm</span><span class="p">,</span><span class="n">firm</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="n">firm</span><span class="p">]))</span><span class="o">/</span><span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">]))</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">,</span><span class="s1">&#39;firm1&#39;</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">one_firm</span> <span class="ow">in</span> <span class="n">firms</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">other_firm</span> <span class="ow">in</span> <span class="n">firms</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">one_firm</span> <span class="o">==</span> <span class="n">other_firm</span><span class="p">:</span>
-            <span class="n">b</span><span class="p">[</span><span class="n">one_firm</span><span class="p">,</span><span class="n">one_firm</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="n">one_firm</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="n">one_firm</span><span class="p">]))</span><span class="o">/</span><span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">]))</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">,</span><span class="s">&#39;firm1&#39;</span><span class="p">]</span>
+            <span class="n">b</span><span class="p">[</span><span class="n">one_firm</span><span class="p">,</span><span class="n">one_firm</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="n">one_firm</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="n">one_firm</span><span class="p">]))</span><span class="o">/</span><span class="p">(</span><span class="n">market_share</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">]))</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">,</span><span class="s1">&#39;firm1&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">b</span><span class="p">[</span><span class="n">one_firm</span><span class="p">,</span><span class="n">other_firm</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span> <span class="n">market_share</span><span class="p">[</span><span class="n">one_firm</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">market_share</span><span class="p">[</span><span class="n">other_firm</span><span class="p">])</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="n">other_firm</span><span class="p">,</span><span class="n">other_firm</span><span class="p">]</span>
 
@@ -236,33 +241,33 @@ elasticities.</p>
             <span class="n">elasticity</span><span class="p">[</span><span class="n">one_firm</span><span class="p">,</span><span class="n">other_firm</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">one_firm</span><span class="p">,</span><span class="n">other_firm</span><span class="p">]</span><span class="o">/</span><span class="n">market_share</span><span class="p">[</span><span class="n">one_firm</span><span class="p">]</span><span class="o">+</span><span class="n">market_share</span><span class="p">[</span><span class="n">other_firm</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">market_elasticity</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">table</span> <span class="o">=</span> <span class="n">ListTable</span><span class="p">()</span>
-<span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s">&#39;b-coeff.&#39;</span><span class="p">,</span> <span class="s">&#39;firm1&#39;</span><span class="p">,</span><span class="s">&#39;firm2&#39;</span><span class="p">,</span><span class="s">&#39;firm3&#39;</span><span class="p">])</span>
+<span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;b-coeff.&#39;</span><span class="p">,</span> <span class="s1">&#39;firm1&#39;</span><span class="p">,</span><span class="s1">&#39;firm2&#39;</span><span class="p">,</span><span class="s1">&#39;firm3&#39;</span><span class="p">])</span>
 <span class="k">for</span> <span class="n">one_firm</span> <span class="ow">in</span> <span class="n">firms</span><span class="p">:</span>
     <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">one_firm</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">other_firm</span> <span class="ow">in</span> <span class="n">firms</span><span class="p">:</span>
-        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%0.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">b</span><span class="p">[</span><span class="n">one_firm</span><span class="p">,</span><span class="n">other_firm</span><span class="p">])</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%0.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">b</span><span class="p">[</span><span class="n">one_firm</span><span class="p">,</span><span class="n">other_firm</span><span class="p">])</span>
     <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-<span class="k">print</span> <span class="s">&quot;table of b coefficients:&quot;</span>
+<span class="nb">print</span> <span class="s2">&quot;table of b coefficients:&quot;</span>
 <span class="n">table</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>table of b coefficients:
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="n">of</span> <span class="n">b</span> <span class="n">coefficients</span><span class="p">:</span>
 </pre></div>
 </div>
-<table><tr><td>b-coeff.</td><td>firm1</td><td>firm2</td><td>firm3</td></tr><tr><td>firm1</td><td>-0.400</td><td>0.150</td><td>0.250</td></tr><tr><td>firm2</td><td>0.150</td><td>-0.525</td><td>0.375</td></tr><tr><td>firm3</td><td>0.250</td><td>0.375</td><td>-0.625</td></tr></table><div class="code python highlight-python"><div class="highlight"><pre><span class="n">table</span> <span class="o">=</span> <span class="n">ListTable</span><span class="p">()</span>
-<span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s">&#39;elast.&#39;</span><span class="p">,</span> <span class="s">&#39;firm1&#39;</span><span class="p">,</span><span class="s">&#39;firm2&#39;</span><span class="p">,</span><span class="s">&#39;firm3&#39;</span><span class="p">])</span>
+<table><tr><td>b-coeff.</td><td>firm1</td><td>firm2</td><td>firm3</td></tr><tr><td>firm1</td><td>-0.400</td><td>0.150</td><td>0.250</td></tr><tr><td>firm2</td><td>0.150</td><td>-0.525</td><td>0.375</td></tr><tr><td>firm3</td><td>0.250</td><td>0.375</td><td>-0.625</td></tr></table><div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">ListTable</span><span class="p">()</span>
+<span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;elast.&#39;</span><span class="p">,</span> <span class="s1">&#39;firm1&#39;</span><span class="p">,</span><span class="s1">&#39;firm2&#39;</span><span class="p">,</span><span class="s1">&#39;firm3&#39;</span><span class="p">])</span>
 <span class="k">for</span> <span class="n">one_firm</span> <span class="ow">in</span> <span class="n">firms</span><span class="p">:</span>
     <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">one_firm</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">other_firm</span> <span class="ow">in</span> <span class="n">firms</span><span class="p">:</span>
-        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%0.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">elasticity</span><span class="p">[</span><span class="n">one_firm</span><span class="p">,</span><span class="n">other_firm</span><span class="p">])</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%0.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">elasticity</span><span class="p">[</span><span class="n">one_firm</span><span class="p">,</span><span class="n">other_firm</span><span class="p">])</span>
     <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-<span class="k">print</span> <span class="s">&quot;table of elasticities:&quot;</span>
+<span class="nb">print</span> <span class="s2">&quot;table of elasticities:&quot;</span>
 <span class="n">table</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>table of elasticities:
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="n">of</span> <span class="n">elasticities</span><span class="p">:</span>
 </pre></div>
 </div>
 <table><tr><td>elast.</td><td>firm1</td><td>firm2</td><td>firm3</td></tr><tr><td>firm1</td><td>-3.000</td><td>0.750</td><td>1.250</td></tr><tr><td>firm2</td><td>0.500</td><td>-2.750</td><td>1.250</td></tr><tr><td>firm3</td><td>0.500</td><td>0.750</td><td>-2.250</td></tr></table><p>A profit maximizing firm <span class="math">\(i\)</span> sets its margin equal to
@@ -277,7 +282,7 @@ chooses its price level <span class="math">\(p_i\)</span> to maximize profits:</
 <div class="math">
 \[\mu_i = \frac{p_i - c_q}{p_i} = \frac{dp_i}{dq_i} \frac{q_i}{p_i} = \frac{-1}{e_{ii}}\]</div>
 <p>Hence we can calculate the margin for each firm as follows:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">margin</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">margin</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="n">firms</span><span class="p">:</span>
     <span class="n">margin</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="n">elasticity</span><span class="p">[</span><span class="n">firm</span><span class="p">,</span><span class="n">firm</span><span class="p">]</span>
 </pre></div>
@@ -309,9 +314,9 @@ firm (consisting of <span class="math">\(j\)</span> and <span class="math">\(k\)
 \[s_j^p =  -\varepsilon_{jj}^p s_j^p \mu_j^p -\varepsilon_{kj}^p s_k^p \mu_k^p\]</div>
 <p>Finally, the expression for <span class="math">\(\mu_i^p\)</span> follows from the definitions
 of <span class="math">\(\gamma_i,\delta_i\)</span> and <span class="math">\(\mu_i\)</span>.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">merging_firms</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;firm1&#39;</span><span class="p">,</span><span class="s">&#39;firm2&#39;</span><span class="p">]</span>                      <span class="c"># list of the merging firms</span>
-<span class="n">nonmerging_firms</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">firms</span><span class="p">)</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">merging_firms</span><span class="p">))</span> <span class="c"># list of non-merging firms</span>
-<span class="n">efficiency_gains</span> <span class="o">=</span> <span class="p">{}</span> <span class="c"># dictionary with efficiency gains --due to the merger-- for the firms</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">merging_firms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;firm1&#39;</span><span class="p">,</span><span class="s1">&#39;firm2&#39;</span><span class="p">]</span>                      <span class="c1"># list of the merging firms</span>
+<span class="n">nonmerging_firms</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">firms</span><span class="p">)</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">merging_firms</span><span class="p">))</span> <span class="c1"># list of non-merging firms</span>
+<span class="n">efficiency_gains</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># dictionary with efficiency gains --due to the merger-- for the firms</span>
 <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="n">merging_firms</span><span class="p">:</span>
     <span class="n">efficiency_gains</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="n">nonmerging_firms</span><span class="p">:</span>
@@ -329,7 +334,7 @@ given guess of the values <span class="math">\(s_i^p,e_{ij}^p,\mu_i^p,\delta_i\)
 <code class="docutils literal"><span class="pre">equations</span></code> returns the extent to which the equations are satisfied.
 If <code class="docutils literal"><span class="pre">equations</span></code>=0, all equations are satisfied and we find the post
 merger equilibrium.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">post_marketshare</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">post_marketshare</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">post_elasticity</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">post_margin</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">price_change</span> <span class="o">=</span> <span class="p">{}</span>
@@ -353,7 +358,7 @@ merger equilibrium.</p>
 collection of dictionaries), we define a wrapper function which turns
 <span class="math">\(x\)</span> to the values in the dictionaries. Once we have the solution
 <span class="math">\(x\)</span> we &#8216;unwrap&#8217; it into values for our dictionaries.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">wrapper_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="c"># the solver used below needs a vector x as input, not a collection of dictionaries</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">wrapper_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="c1"># the solver used below needs a vector x as input, not a collection of dictionaries</span>
     <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="nb">dict</span> <span class="ow">in</span> <span class="p">[</span><span class="n">post_marketshare</span><span class="p">,</span><span class="n">post_margin</span><span class="p">,</span><span class="n">price_change</span><span class="p">]:</span>
         <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">firms</span><span class="p">):</span>
@@ -368,8 +373,8 @@ collection of dictionaries), we define a wrapper function which turns
             <span class="n">counter</span> <span class="o">+=</span><span class="mi">1</span>
     <span class="k">return</span> <span class="n">vector_function</span><span class="p">(</span><span class="n">post_marketshare</span><span class="p">,</span><span class="n">post_elasticity</span><span class="p">,</span><span class="n">post_margin</span><span class="p">,</span><span class="n">price_change</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">unwrap</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>   <span class="c"># once we have the equilibrium solution as a vector x, we go back to dictionaries</span>
-    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c"># as they are easier to work with</span>
+<span class="k">def</span> <span class="nf">unwrap</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>   <span class="c1"># once we have the equilibrium solution as a vector x, we go back to dictionaries</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># as they are easier to work with</span>
     <span class="k">for</span> <span class="nb">dict</span> <span class="ow">in</span> <span class="p">[</span><span class="n">post_marketshare</span><span class="p">,</span><span class="n">post_margin</span><span class="p">,</span><span class="n">price_change</span><span class="p">]:</span>
         <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">firms</span><span class="p">):</span>
             <span class="nb">dict</span><span class="p">[</span><span class="n">firm</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span>
@@ -386,13 +391,13 @@ collection of dictionaries), we define a wrapper function which turns
 </div>
 <p>The solver needs an initial guess for the post merger solution; we use
 the pre-merger values as initial guess.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">initial_value</span><span class="p">():</span> <span class="c"># initial value based on before merger values</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">initial_value</span><span class="p">():</span> <span class="c1"># initial value based on before merger values</span>
     <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="nb">dict</span> <span class="ow">in</span> <span class="p">[</span><span class="n">market_share</span><span class="p">,</span><span class="n">margin</span><span class="p">]:</span>
         <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">firms</span><span class="p">):</span>
             <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="n">firm</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">firms</span><span class="p">):</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span> <span class="c"># price change</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span> <span class="c1"># price change</span>
     <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nonmerging_firms</span><span class="p">):</span>
         <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elasticity</span><span class="p">[</span><span class="n">firm</span><span class="p">,</span> <span class="n">firm</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">merging_firms</span><span class="p">):</span>
@@ -406,20 +411,20 @@ the pre-merger values as initial guess.</p>
 &#8220;via&#8221; <code class="docutils literal"><span class="pre">wrapper_function</span></code> as <code class="docutils literal"><span class="pre">fsolve</span></code> expects a vector <span class="math">\(x\)</span> as
 input, not a list of dictionaries. We print the relevant post merger
 values in a table.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">after_merger_values</span><span class="p">():</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">after_merger_values</span><span class="p">():</span>
     <span class="n">outcome</span> <span class="o">=</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">wrapper_function</span><span class="p">,</span> <span class="n">initial_value</span><span class="p">()))</span>
     <span class="n">table</span> <span class="o">=</span> <span class="n">ListTable</span><span class="p">()</span>
-    <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s">&#39;firm&#39;</span><span class="p">,</span> <span class="s">&#39;marketshare&#39;</span><span class="p">,</span><span class="s">&#39;margin&#39;</span><span class="p">,</span><span class="s">&#39;price increase&#39;</span><span class="p">])</span>
+    <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;firm&#39;</span><span class="p">,</span> <span class="s1">&#39;marketshare&#39;</span><span class="p">,</span><span class="s1">&#39;margin&#39;</span><span class="p">,</span><span class="s1">&#39;price increase&#39;</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="n">firms</span><span class="p">:</span>
-        <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">firm</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">%0.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">outcome</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">firm</span><span class="p">],</span><span class="s">&quot;</span><span class="si">%0.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">outcome</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">firm</span><span class="p">],</span><span class="s">&quot;</span><span class="si">%0.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">outcome</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">firm</span><span class="p">]])</span>
-    <span class="k">print</span> <span class="s">&quot;table of post merger outcomes:&quot;</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">firm</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%0.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outcome</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">firm</span><span class="p">],</span><span class="s2">&quot;</span><span class="si">%0.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outcome</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">firm</span><span class="p">],</span><span class="s2">&quot;</span><span class="si">%0.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outcome</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">firm</span><span class="p">]])</span>
+    <span class="nb">print</span> <span class="s2">&quot;table of post merger outcomes:&quot;</span>
     <span class="k">return</span> <span class="n">table</span>
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">after_merger_values</span><span class="p">()</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">after_merger_values</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>table of post merger outcomes:
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="n">of</span> <span class="n">post</span> <span class="n">merger</span> <span class="n">outcomes</span><span class="p">:</span>
 </pre></div>
 </div>
 <table><tr><td>firm</td><td>marketshare</td><td>margin</td><td>price increase</td></tr><tr><td>firm1</td><td>0.174</td><td>0.414</td><td>0.138</td></tr><tr><td>firm2</td><td>0.281</td><td>0.425</td><td>0.108</td></tr><tr><td>firm3</td><td>0.546</td><td>0.466</td><td>0.041</td></tr></table><p>As one would expect, a merger between firms producing substitutes with
@@ -457,21 +462,18 @@ merger as prices increase more for the merging firms.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/Mergers/Mergers.txt"
+      <li><a href="../_sources/Mergers/Mergers.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -482,11 +484,11 @@ merger as prices increase more for the merging firms.</p>
       &copy;2015, Jan Boone.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="../_sources/Mergers/Mergers.txt"
+      <a href="../_sources/Mergers/Mergers.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

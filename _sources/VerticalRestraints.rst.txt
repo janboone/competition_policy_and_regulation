@@ -1,0 +1,49 @@
+===================
+Vertical restraints
+===================
+
+
+lecture
+-------
+
+:ref:`Lecture notes on Vertical Restraints <Vertical>`
+
+screencasts
+-----------
+
+`part 1 <https://tilburgutube.uvt.nl/asset/player/gEYcTYugMc6ERifsoQ84HtVD>`_
+
+`part 2 <https://tilburgutube.uvt.nl/asset/player/waUUjJlf9MQWkFJUS9M6E5I8>`_
+
+`part 3 <https://tilburgutube.uvt.nl/asset/player/T1OZPHWjnOdKnhmIIapLBJJV>`_
+
+`part 4 <https://tilburgutube.uvt.nl/asset/player/wdLSYK7TXBJDOHXZcPZQjetT>`_
+
+`part 5 <https://tilburgutube.uvt.nl/asset/player/o1pZpmR6hW9BW3P6aOle1QKl>`_
+
+`part 6 <https://tilburgutube.uvt.nl/asset/player/S1XjOSjeOg8GIeOajfR7n00G>`_
+
+`part 7 <https://tilburgutube.uvt.nl/asset/player/Q2GDeTcJdXlmhNcX9XURmRbw>`_
+
+`part 8 <https://tilburgutube.uvt.nl/asset/player/R1CP8czbPTQcECaaU5FCDoWi>`_
+
+
+
+exercises
+---------
+
+
+
+From the :ref:`exercises <Exercises_vertical>` of this lecture, we discuss questions 1 and 2 in class.
+
+
+python
+------
+
+In the python file for this lecture, we consider 
+`public and private contracts.
+<HartTirole/HartTirole.html>`_
+
+Here you can download this file in ipython notebook form (ipynb)
+
+* :download:`Hart and Tirole <HartTirole.ipynb>`

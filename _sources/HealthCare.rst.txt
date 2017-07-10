@@ -1,0 +1,40 @@
+=================================
+Competition policy in health care
+=================================
+
+
+lecture
+-------
+
+:ref:`Lecture notes on Healthcare <Healthcare>`
+
+
+
+screencasts
+-----------
+
+`part 1 <https://tilburgutube.uvt.nl/asset/player/FsUhrCLHUdaRcQeSaHjiNn2D>`_
+
+`part 2 <https://tilburgutube.uvt.nl/asset/player/F1pmFEeLPXUNivpDVHL5tkFY>`_
+
+`part 3 <https://tilburgutube.uvt.nl/asset/player/z276mJXVdaQOTPbZSJCXDm0Y>`_
+
+`part 4 <https://tilburgutube.uvt.nl/asset/player/B2NBUaEULNWCQchIoOWjG4iP>`_
+
+
+exercises
+---------
+
+In class we discuss question 1 from the :ref:`exercises <ExercisesHealth>`. 
+
+
+
+
+
+python
+------
+
+In the python file for this lecture, we consider risk adjustment in 
+`health insurance. <Healthcare/Healthcare.html>`_
+
+* :download:`health care <Healthcare.ipynb>`

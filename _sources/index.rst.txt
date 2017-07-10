@@ -1,0 +1,75 @@
+.. Competition_Policy_and_Regulation documentation master file, created by
+   sphinx-quickstart on Sat Jan 17 12:45:04 2015.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+   sphinx-build -E ~/SURFdrive/github_source/competition_policy_and_regulation/source ~/github/competition_policy_and_regulation
+
+
+   
+Welcome to Competition Policy and Regulation's documentation!
+=============================================================
+
+In 2016-2017 this course is taught by:
+
+* Jan Boone
+* Clemens Fiedler
+* Moritz Suppliet
+
+Make sure that you read the Rules of the Game if you want to attend
+this course!
+
+The Introduction Lecture can be found :download:`here <IntroductionLecture.html>`.
+
+.. TODO: adjust introduction lecture (presentation and
+   html-presentation) to include new rules on participation!!!!!
+
+  
+Contents:
+=========
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   Introduction_Lecture 
+   RulesOfTheGame
+   Python
+   Article101			  
+   VerticalRestraints
+   Article102Part1			  
+   Article102Part2
+   Mergers
+   IPandInnovation
+   Regulation
+   HealthCare
+
+
+Lecture notes
+-------------
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   Article101and102LectureNotes
+   LectureNotes_Mergers
+   Regulation_Innovation_Lecture_Notes
+
+
+
+Python files
+------------			  
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   /Introduction_to_Python/*
+   /Collusion_Cournot/*
+   /Collusion_Bertrand/*
+   /HartTirole/*
+   /pricediscrimination/*			  
+   /Mergers/*
+   /Innovation/*   
+   /Regulation/*
+   /Healthcare/*

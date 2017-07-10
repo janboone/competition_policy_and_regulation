@@ -1,0 +1,51 @@
+=======
+Mergers
+=======
+
+lecture
+-------
+
+
+:ref:`Lecture notes on Mergers and Acquisitions <Mergers>`
+
+screencasts
+-----------
+
+
+`part 1 <https://tilburgutube.uvt.nl/asset/player/MeUkELW6eUJNIXnqHD6TTzTw>`_
+
+`part 2 <https://tilburgutube.uvt.nl/asset/player/DNseGXeSUYGFPOTPLPXsZm6f>`_
+
+`part 3 <https://tilburgutube.uvt.nl/asset/player/Q2lXWUOmRTHsPdmEdjOhUS61>`_
+
+`part 4 <https://tilburgutube.uvt.nl/asset/player/B2OCdgqPYMQQQORkNQEXaNEz>`_
+
+`part 5 <https://tilburgutube.uvt.nl/asset/player/n1TpKISpWccYUjsJfS16Mo7b>`_
+
+`part 6 <https://tilburgutube.uvt.nl/asset/player/z1RRaktoPY9KktLLQe50s3kt>`_
+
+`part 7 <https://tilburgutube.uvt.nl/asset/player/NWWVjPgMWEIOEkcIaa7tqW94>`_
+
+`part 8 <https://tilburgutube.uvt.nl/asset/player/KkAjFlJXldcpWGfTZF84BwSA>`_
+
+`part 9 <https://tilburgutube.uvt.nl/asset/player/l1RUrXWhgngKJaISkS0t4C8C>`_
+
+`part 10 <https://tilburgutube.uvt.nl/asset/player/dGYgXXVLaHF2ZYWXkju91O7C>`_
+
+`part 11 <https://tilburgutube.uvt.nl/asset/player/CTOUVlGnTLCYseDdSvnAHDFP>`_
+
+
+
+exercises
+---------
+
+From the :ref:`exercise <Exercises_mergers>` of this lecture, we discuss question 1 in class.
+ 
+ 
+python
+------
+
+In the python file of this lecture, we consider `merger
+simulation. <Mergers/Mergers.html>`_
+
+* :download:`mergers <Mergers.ipynb>`

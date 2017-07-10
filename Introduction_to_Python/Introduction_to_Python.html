@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Python: introduction &mdash; Competition Policy and Regulation 1.0 documentation</title>
+    <title>Python: introduction &#8212; Competition Policy and Regulation 1.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,22 +17,27 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Competition Policy and Regulation 1.0 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Python: collusion with Cournot competition" href="../Collusion_Cournot/Collusion_Cournot.html" />
     <link rel="prev" title="Innovation and Regulation Lecture Notes" href="../Regulation_Innovation_Lecture_Notes.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -151,28 +156,28 @@ change it) in the notebook (but not in the html file).</p>
 <p>This should give you some first ideas. In the lectures we will look at
 economic examples.</p>
 <p>First, Python is a great calculator</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="mi">2</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">2</span>
 </pre></div>
 </div>
 <p>Now something a bit bigger:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="mi">10</span><span class="o">**</span><span class="mi">20</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span><span class="o">**</span><span class="mi">20</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="il">100000000000000000000L</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">100000000000000000000</span><span class="n">L</span>
 </pre></div>
 </div>
 <p>As you note, in Python <span class="math">\(10^{20}\)</span> is written with ** not with ^.</p>
 <p>We can define a variable <span class="math">\(x\)</span></p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="o">+</span><span class="mi">2</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">+</span><span class="mi">2</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="mi">12</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">12</span>
 </pre></div>
 </div>
 <p>There are lists, tuples, dictionaries etc. Make sure you know what these
@@ -182,8 +187,8 @@ different data types are and how they work.</p>
 <a class="reference external" href="http://matplotlib.org/gallery.html">gallery</a> if you want to know how
 to do things.</p>
 <p>First, we need to import this library:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>import matplotlib.pyplot as plt
-%matplotlib inline
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
 <p>The first line says that we import matplotlib as &#8220;plt&#8221;. Hence statements
@@ -192,14 +197,14 @@ second statement makes sure that we can see the graphs in the notebook
 as we make them.</p>
 <p>Let&#8217;s define a function that we all know, so that we understand what we
 are drawing.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_first_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_first_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">my_first_function</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">my_first_function</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="mi">16</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">16</span>
 </pre></div>
 </div>
 <p>Well, that works. Note that when you type &#8220;my_&#8221; you can press the &#8220;tab&#8221;
@@ -208,23 +213,23 @@ cannot accidently type the wrong name which leads to an error lateron.</p>
 <p>Before we can plot this function, we define for which values of
 <span class="math">\(x\)</span> we want to view this function. This is most easily done with
 the arange statement from scipy:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">arange</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">arange</span>
 
 <span class="n">range_x</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">range_x</span>
+<span class="nb">print</span> <span class="n">range_x</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>[ -2.00000000e+00  -1.90000000e+00  -1.80000000e+00  -1.70000000e+00
-  -1.60000000e+00  -1.50000000e+00  -1.40000000e+00  -1.30000000e+00
-  -1.20000000e+00  -1.10000000e+00  -1.00000000e+00  -9.00000000e-01
-  -8.00000000e-01  -7.00000000e-01  -6.00000000e-01  -5.00000000e-01
-  -4.00000000e-01  -3.00000000e-01  -2.00000000e-01  -1.00000000e-01
-   1.77635684e-15   1.00000000e-01   2.00000000e-01   3.00000000e-01
-   4.00000000e-01   5.00000000e-01   6.00000000e-01   7.00000000e-01
-   8.00000000e-01   9.00000000e-01   1.00000000e+00   1.10000000e+00
-   1.20000000e+00   1.30000000e+00   1.40000000e+00   1.50000000e+00
-   1.60000000e+00   1.70000000e+00   1.80000000e+00   1.90000000e+00
-   2.00000000e+00]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="o">-</span><span class="mf">2.00000000e+00</span>  <span class="o">-</span><span class="mf">1.90000000e+00</span>  <span class="o">-</span><span class="mf">1.80000000e+00</span>  <span class="o">-</span><span class="mf">1.70000000e+00</span>
+  <span class="o">-</span><span class="mf">1.60000000e+00</span>  <span class="o">-</span><span class="mf">1.50000000e+00</span>  <span class="o">-</span><span class="mf">1.40000000e+00</span>  <span class="o">-</span><span class="mf">1.30000000e+00</span>
+  <span class="o">-</span><span class="mf">1.20000000e+00</span>  <span class="o">-</span><span class="mf">1.10000000e+00</span>  <span class="o">-</span><span class="mf">1.00000000e+00</span>  <span class="o">-</span><span class="mf">9.00000000e-01</span>
+  <span class="o">-</span><span class="mf">8.00000000e-01</span>  <span class="o">-</span><span class="mf">7.00000000e-01</span>  <span class="o">-</span><span class="mf">6.00000000e-01</span>  <span class="o">-</span><span class="mf">5.00000000e-01</span>
+  <span class="o">-</span><span class="mf">4.00000000e-01</span>  <span class="o">-</span><span class="mf">3.00000000e-01</span>  <span class="o">-</span><span class="mf">2.00000000e-01</span>  <span class="o">-</span><span class="mf">1.00000000e-01</span>
+   <span class="mf">1.77635684e-15</span>   <span class="mf">1.00000000e-01</span>   <span class="mf">2.00000000e-01</span>   <span class="mf">3.00000000e-01</span>
+   <span class="mf">4.00000000e-01</span>   <span class="mf">5.00000000e-01</span>   <span class="mf">6.00000000e-01</span>   <span class="mf">7.00000000e-01</span>
+   <span class="mf">8.00000000e-01</span>   <span class="mf">9.00000000e-01</span>   <span class="mf">1.00000000e+00</span>   <span class="mf">1.10000000e+00</span>
+   <span class="mf">1.20000000e+00</span>   <span class="mf">1.30000000e+00</span>   <span class="mf">1.40000000e+00</span>   <span class="mf">1.50000000e+00</span>
+   <span class="mf">1.60000000e+00</span>   <span class="mf">1.70000000e+00</span>   <span class="mf">1.80000000e+00</span>   <span class="mf">1.90000000e+00</span>
+   <span class="mf">2.00000000e+00</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Hence, &#8220;arange&#8221; creates an array starting at <span class="math">\(-2.0\)</span> going up to
@@ -233,51 +238,51 @@ scientific notation with <span class="math">\(e-01\)</span>. Finally, we are doi
 stuff here, so <span class="math">\(0\)</span> looks &#8220;a bit odd&#8221;.</p>
 <p>Now we create a range of <span class="math">\(y\)</span>-values that we want to draw. See how
 elegantly you define this new list of numbers:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">range_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">my_first_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">range_x</span><span class="p">]</span>
-<span class="k">print</span> <span class="n">range_y</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">range_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">my_first_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">range_x</span><span class="p">]</span>
+<span class="nb">print</span> <span class="n">range_y</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.6099999999999999</span><span class="p">,</span> <span class="mf">3.2399999999999993</span><span class="p">,</span> <span class="mf">2.8899999999999992</span><span class="p">,</span> <span class="mf">2.5599999999999987</span><span class="p">,</span> <span class="mf">2.2499999999999987</span><span class="p">,</span> <span class="mf">1.9599999999999984</span><span class="p">,</span> <span class="mf">1.6899999999999984</span><span class="p">,</span> <span class="mf">1.4399999999999984</span><span class="p">,</span> <span class="mf">1.2099999999999982</span><span class="p">,</span> <span class="mf">0.99999999999999822</span><span class="p">,</span> <span class="mf">0.80999999999999828</span><span class="p">,</span> <span class="mf">0.63999999999999835</span><span class="p">,</span> <span class="mf">0.48999999999999838</span><span class="p">,</span> <span class="mf">0.35999999999999849</span><span class="p">,</span> <span class="mf">0.24999999999999867</span><span class="p">,</span> <span class="mf">0.15999999999999887</span><span class="p">,</span> <span class="mf">0.089999999999999095</span><span class="p">,</span> <span class="mf">0.039999999999999362</span><span class="p">,</span> <span class="mf">0.0099999999999996619</span><span class="p">,</span> <span class="mf">3.1554436208840472e-30</span><span class="p">,</span> <span class="mf">0.010000000000000373</span><span class="p">,</span> <span class="mf">0.040000000000000785</span><span class="p">,</span> <span class="mf">0.090000000000001232</span><span class="p">,</span> <span class="mf">0.1600000000000017</span><span class="p">,</span> <span class="mf">0.25000000000000222</span><span class="p">,</span> <span class="mf">0.36000000000000276</span><span class="p">,</span> <span class="mf">0.49000000000000338</span><span class="p">,</span> <span class="mf">0.64000000000000401</span><span class="p">,</span> <span class="mf">0.81000000000000461</span><span class="p">,</span> <span class="mf">1.0000000000000053</span><span class="p">,</span> <span class="mf">1.210000000000006</span><span class="p">,</span> <span class="mf">1.4400000000000068</span><span class="p">,</span> <span class="mf">1.6900000000000077</span><span class="p">,</span> <span class="mf">1.9600000000000084</span><span class="p">,</span> <span class="mf">2.2500000000000093</span><span class="p">,</span> <span class="mf">2.5600000000000103</span><span class="p">,</span> <span class="mf">2.8900000000000112</span><span class="p">,</span> <span class="mf">3.2400000000000122</span><span class="p">,</span> <span class="mf">3.6100000000000132</span><span class="p">,</span> <span class="mf">4.0000000000000142</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.6099999999999999</span><span class="p">,</span> <span class="mf">3.2399999999999993</span><span class="p">,</span> <span class="mf">2.8899999999999992</span><span class="p">,</span> <span class="mf">2.5599999999999987</span><span class="p">,</span> <span class="mf">2.2499999999999987</span><span class="p">,</span> <span class="mf">1.9599999999999984</span><span class="p">,</span> <span class="mf">1.6899999999999984</span><span class="p">,</span> <span class="mf">1.4399999999999984</span><span class="p">,</span> <span class="mf">1.2099999999999982</span><span class="p">,</span> <span class="mf">0.99999999999999822</span><span class="p">,</span> <span class="mf">0.80999999999999828</span><span class="p">,</span> <span class="mf">0.63999999999999835</span><span class="p">,</span> <span class="mf">0.48999999999999838</span><span class="p">,</span> <span class="mf">0.35999999999999849</span><span class="p">,</span> <span class="mf">0.24999999999999867</span><span class="p">,</span> <span class="mf">0.15999999999999887</span><span class="p">,</span> <span class="mf">0.089999999999999095</span><span class="p">,</span> <span class="mf">0.039999999999999362</span><span class="p">,</span> <span class="mf">0.0099999999999996619</span><span class="p">,</span> <span class="mf">3.1554436208840472e-30</span><span class="p">,</span> <span class="mf">0.010000000000000373</span><span class="p">,</span> <span class="mf">0.040000000000000785</span><span class="p">,</span> <span class="mf">0.090000000000001232</span><span class="p">,</span> <span class="mf">0.1600000000000017</span><span class="p">,</span> <span class="mf">0.25000000000000222</span><span class="p">,</span> <span class="mf">0.36000000000000276</span><span class="p">,</span> <span class="mf">0.49000000000000338</span><span class="p">,</span> <span class="mf">0.64000000000000401</span><span class="p">,</span> <span class="mf">0.81000000000000461</span><span class="p">,</span> <span class="mf">1.0000000000000053</span><span class="p">,</span> <span class="mf">1.210000000000006</span><span class="p">,</span> <span class="mf">1.4400000000000068</span><span class="p">,</span> <span class="mf">1.6900000000000077</span><span class="p">,</span> <span class="mf">1.9600000000000084</span><span class="p">,</span> <span class="mf">2.2500000000000093</span><span class="p">,</span> <span class="mf">2.5600000000000103</span><span class="p">,</span> <span class="mf">2.8900000000000112</span><span class="p">,</span> <span class="mf">3.2400000000000122</span><span class="p">,</span> <span class="mf">3.6100000000000132</span><span class="p">,</span> <span class="mf">4.0000000000000142</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>As we are working numerically here, some numbers look a bit strange. But
 when we plot it later on, it will look familiar again. If you want to
 look at one element in this list, type</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">range_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">range_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="mf">4.0</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">4.0</span>
 </pre></div>
 </div>
 <p>Note that Python starts counting at <span class="math">\(0\)</span>. That also means that:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">range_y</span><span class="p">[</span><span class="mi">41</span><span class="p">]</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">range_y</span><span class="p">[</span><span class="mi">41</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>---------------------------------------------------------------------------
-IndexError                                Traceback (most recent call last)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span>                                <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
 
-&lt;ipython-input-7-366258d81fe1&gt; in &lt;module&gt;()
-----&gt; 1 range_y[41]
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="mi">366258</span><span class="n">d81fe1</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">range_y</span><span class="p">[</span><span class="mi">41</span><span class="p">]</span>
 
 
-IndexError: list index out of range
+<span class="ne">IndexError</span><span class="p">:</span> <span class="nb">list</span> <span class="n">index</span> <span class="n">out</span> <span class="n">of</span> <span class="nb">range</span>
 </pre></div>
 </div>
 <p>If you get an error like this, simply google &#8220;python list index out of
 range&#8221;: you are not the first to encounter this problem...</p>
 <p>Lists have other properties that you may not expect. For instance,
 although they may look like vectors to you, they are not:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span><span class="o">-</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span><span class="o">-</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>---------------------------------------------------------------------------
-TypeError                                 Traceback (most recent call last)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span>                                 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
 
-&lt;ipython-input-26-1683f32e17a9&gt; in &lt;module&gt;()
-----&gt; 1 [5,6,7]-[1,1,1]
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">26</span><span class="o">-</span><span class="mi">1683</span><span class="n">f32e17a9</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span><span class="o">-</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 
 
-TypeError: unsupported operand type(s) for -: &#39;list&#39; and &#39;list&#39;
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">unsupported</span> <span class="n">operand</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="o">-</span><span class="p">:</span> <span class="s1">&#39;list&#39;</span> <span class="ow">and</span> <span class="s1">&#39;list&#39;</span>
 </pre></div>
 </div>
 <p>Hence you get an error. There are a number of solutions to this. Again
@@ -286,28 +291,28 @@ have tried. Note that whereas I thought of <span class="math">\([5,6,7]-[1,1,1]\
 vector operation, others see it as a set operation. What is the
 difference?</p>
 <p>In order to work with lists as vectors, I tend to use</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
-<span class="k">print</span> <span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span><span class="o">-</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
+<span class="nb">print</span> <span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span><span class="o">-</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>[4 5 6]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Back to our graph, here is how you plot and save it:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span> <span class="c"># starts a new graph</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_x</span><span class="p">,</span> <span class="n">range_y</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="c"># play around with colors like &#39;r&#39;, or styles like &#39;--&#39;</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;Parabola&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;$x$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;$y$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span> <span class="c1"># starts a new graph</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_x</span><span class="p">,</span> <span class="n">range_y</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># play around with colors like &#39;r&#39;, or styles like &#39;--&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Parabola&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">4.0</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$y=x^2$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="n">my_first_function</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span>
-              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
-              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
-                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;$y=x^2$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="n">my_first_function</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+              <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=.2&quot;</span><span class="p">),</span>
               <span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;my_first_graph.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;my_first_graph.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="../_images/output_30_0.png" src="../_images/output_30_0.png" />
@@ -342,21 +347,18 @@ difference?</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/Introduction_to_Python/Introduction_to_Python.txt"
+      <li><a href="../_sources/Introduction_to_Python/Introduction_to_Python.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -367,11 +369,11 @@ difference?</p>
       &copy;2015, Jan Boone.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="../_sources/Introduction_to_Python/Introduction_to_Python.txt"
+      <a href="../_sources/Introduction_to_Python/Introduction_to_Python.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

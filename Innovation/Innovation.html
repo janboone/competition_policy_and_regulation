@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Python: innovation &mdash; Competition Policy and Regulation 1.0 documentation</title>
+    <title>Python: innovation &#8212; Competition Policy and Regulation 1.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,22 +17,27 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Competition Policy and Regulation 1.0 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Python: regulation" href="../Regulation/Regulation.html" />
     <link rel="prev" title="Python: merger simulations" href="../Mergers/Mergers.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -51,10 +56,10 @@ three different set ups for the market environment:</p>
 <li>Cournot competition with product differentiation</li>
 </ul>
 <p>First, we import the standard libraries:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>from scipy import optimize,arange
-from numpy import array
-import matplotlib.pyplot as plt
-%matplotlib inline
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">optimize</span><span class="p">,</span><span class="n">arange</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
 <div class="section" id="utility-function">
@@ -70,7 +75,7 @@ the economy&#8221;). Let <span class="math">\(w\)</span> denote the agent&#8217;
 <li>Derive that this utility structure leads to (inverse) demand of the
 form <span class="math">\(p_i = 1 - q_i - b\sum_{j \neq i}^n q_j\)</span>.</li>
 </ul>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">utility</span><span class="p">(</span><span class="n">vector_q</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">utility</span><span class="p">(</span><span class="n">vector_q</span><span class="p">):</span>
     <span class="n">u</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">q</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">q</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">vector_q</span><span class="p">])</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">b</span><span class="o">*</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">vector_q</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
     <span class="k">return</span> <span class="n">u</span>
 </pre></div>
@@ -88,7 +93,7 @@ new product (with probability 1.0).</p>
 <span class="math">\(f\)</span> into account. That is, <code class="docutils literal"><span class="pre">profit</span></code> is the profit from the
 production stage. The costs <span class="math">\(f\)</span> from the R&amp;D stage are sunk at
 this moment.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="mf">0.0</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="n">max_N</span> <span class="o">=</span> <span class="mi">5</span>
 
 <span class="k">def</span> <span class="nf">demand</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">Q_others</span><span class="p">):</span>
@@ -113,8 +118,8 @@ passed as an argument to the function <code class="docutils literal"><span class
 <p>The function <code class="docutils literal"><span class="pre">number</span> <span class="pre">of</span> <span class="pre">firms</span></code> then determines how many firms can
 profitably enter: what is the highest number <span class="math">\(i\)</span> such that
 <code class="docutils literal"><span class="pre">profit(i)-f</span></code> <span class="math">\(\geq 0\)</span>?</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">number_of_firms</span><span class="p">(</span><span class="n">profit</span><span class="p">,</span><span class="n">f</span><span class="p">):</span> <span class="c"># profit is a function here</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span> <span class="c"># if max_N = 5, we need range (0,1,2,3,4,5) = range(max_N+1)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">number_of_firms</span><span class="p">(</span><span class="n">profit</span><span class="p">,</span><span class="n">f</span><span class="p">):</span> <span class="c1"># profit is a function here</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span> <span class="c1"># if max_N = 5, we need range (0,1,2,3,4,5) = range(max_N+1)</span>
         <span class="k">if</span> <span class="n">profit</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">break</span>
         <span class="k">else</span><span class="p">:</span> <span class="k">continue</span>
@@ -143,7 +148,7 @@ the industry and then the equilibrium price under Bertrand competition.</p>
 <li>What is this price?</li>
 <li>Why don&#8217;t we find price equal to marginal costs?</li>
 </ul>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">b</span> <span class="o">=</span> <span class="mf">1.0</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="mf">1.0</span>
 
 <span class="k">def</span> <span class="nf">reaction_B</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">vector_p</span><span class="p">):</span>
     <span class="n">p</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">vector_p</span><span class="p">)</span>
@@ -162,23 +167,23 @@ the industry and then the equilibrium price under Bertrand competition.</p>
 
 <span class="k">def</span> <span class="nf">profits_Bertrand</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="n">p0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-    <span class="n">price</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">price</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">price</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="o">-</span><span class="n">cost</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">price</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">price_Bertrand</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">number_of_firms</span><span class="p">(</span><span class="n">profits_Bertrand</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&quot;no firm is active, price is undetermined&quot;</span>
-        <span class="n">price</span> <span class="o">=</span> <span class="s">&quot;n.a&quot;</span>
+        <span class="nb">print</span> <span class="s2">&quot;no firm is active, price is undetermined&quot;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="s2">&quot;n.a&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">p0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-        <span class="n">price</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">price</span>
 
-<span class="k">print</span> <span class="s">&quot;The equilibrium price under Bertrand competition with f =&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="s">&quot;equals:&quot;</span><span class="p">,</span> <span class="n">price_Bertrand</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">&quot;The equilibrium price under Bertrand competition with f =&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="s2">&quot;equals:&quot;</span><span class="p">,</span> <span class="n">price_Bertrand</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>The equilibrium price under Bertrand competition with f = 0.1 equals: 0.5
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">equilibrium</span> <span class="n">price</span> <span class="n">under</span> <span class="n">Bertrand</span> <span class="n">competition</span> <span class="k">with</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="n">equals</span><span class="p">:</span> <span class="mf">0.5</span>
 </pre></div>
 </div>
 </div>
@@ -204,14 +209,14 @@ Bertrand competition.</p>
 <li>Usually Bertrand gives lower equilibrium prices than Cournot; why is
 it the other way around here?</li>
 </ul>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">b</span> <span class="o">=</span> <span class="mf">1.0</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="mf">1.0</span>
 
 <span class="k">def</span> <span class="nf">profit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">Q_others</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">demand</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">Q_others</span><span class="p">)</span><span class="o">*</span><span class="n">q</span><span class="o">-</span><span class="n">cost</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">reaction</span><span class="p">(</span><span class="n">Q_others</span><span class="p">):</span>
     <span class="n">q</span> <span class="o">=</span>  <span class="n">optimize</span><span class="o">.</span><span class="n">fminbound</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">Q_others</span> <span class="o">=</span> <span class="n">Q_others</span><span class="p">:</span> <span class="o">-</span><span class="n">profit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Q_others</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">full_output</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># because of minus sign: fval &gt; 0 implies that profit &lt; 0: better produce nothing</span>
+    <span class="k">if</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># because of minus sign: fval &gt; 0 implies that profit &lt; 0: better produce nothing</span>
         <span class="n">q_i</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">q_i</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -224,24 +229,24 @@ it the other way around here?</li>
 
 <span class="k">def</span> <span class="nf">profits_Cournot</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="n">x0</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mf">0.1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">fixed_point</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">fixed_point</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">profit</span><span class="p">(</span><span class="n">output</span><span class="p">,(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">output</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">outcome_Cournot</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">number_of_firms</span><span class="p">(</span><span class="n">profits_Cournot</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&quot;no firm is active, price is undetermined&quot;</span>
-        <span class="n">price</span> <span class="o">=</span> <span class="s">&quot;n.a&quot;</span>
+        <span class="nb">print</span> <span class="s2">&quot;no firm is active, price is undetermined&quot;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="s2">&quot;n.a&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">fixed_point</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">fixed_point</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hybr&#39;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">price</span> <span class="o">=</span> <span class="n">demand</span><span class="p">(</span><span class="n">output</span><span class="p">,(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">output</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">price</span><span class="p">,</span><span class="n">output</span><span class="p">]</span>
 
-<span class="k">print</span> <span class="s">&quot;The equilibrium price under Cournot competition with f =&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="s">&quot;equals:&quot;</span><span class="p">,</span> <span class="n">outcome_Cournot</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span> <span class="s2">&quot;The equilibrium price under Cournot competition with f =&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="s2">&quot;equals:&quot;</span><span class="p">,</span> <span class="n">outcome_Cournot</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>The equilibrium price under Cournot competition with f = 0.1 equals: 0.333333333333
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">equilibrium</span> <span class="n">price</span> <span class="n">under</span> <span class="n">Cournot</span> <span class="n">competition</span> <span class="k">with</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="n">equals</span><span class="p">:</span> <span class="mf">0.333333333333</span>
 </pre></div>
 </div>
 </div>
@@ -251,22 +256,22 @@ it the other way around here?</li>
 (<span class="math">\(b&lt;1\)</span>). To present the results in a nice table, we introduce the
 following class. Don&#8217;t worry about this; you do not need to
 know/understand classes in python.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ListTable</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ListTable</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Overridden list class which takes a 2-dimensional list of</span>
 <span class="sd">        the form [[1,2,3],[4,5,6]], and renders an HTML Table in</span>
 <span class="sd">        IPython Notebook. &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">html</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;&lt;table&gt;&quot;</span><span class="p">]</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&lt;table&gt;&quot;</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;tr&gt;&quot;</span><span class="p">)</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;tr&gt;&quot;</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
-                <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;td&gt;{0}&lt;/td&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;td&gt;</span><span class="si">{0}</span><span class="s2">&lt;/td&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
 
-            <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;/tr&gt;&quot;</span><span class="p">)</span>
-        <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&lt;/table&gt;&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;/tr&gt;&quot;</span><span class="p">)</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;/table&gt;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We are interested in the question whether the number of firms that enter
@@ -278,16 +283,16 @@ as it is a transfer from consumers to producers.</p>
 produces output <span class="math">\(q\)</span>, total welfare is given by</p>
 <div class="math">
 \[W = u(q_1,...,q_n) - \sum_{i=1}^n (c(q_i)+f)\]</div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">W</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">W</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
     <span class="n">vector_q</span> <span class="o">=</span> <span class="p">[</span><span class="n">outcome_Cournot</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">firm</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">utility</span><span class="p">(</span><span class="n">vector_q</span><span class="p">)</span><span class="o">-</span><span class="n">n</span><span class="o">*</span><span class="n">f</span><span class="o">-</span><span class="nb">sum</span><span class="p">([</span><span class="n">cost</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">vector_q</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="mf">0.1</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="k">print</span> <span class="n">number_of_firms</span><span class="p">(</span><span class="n">profits_Cournot</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">number_of_firms</span><span class="p">(</span><span class="n">profits_Cournot</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
 <span class="n">table</span> <span class="o">=</span> <span class="n">ListTable</span><span class="p">()</span>
-<span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="s">&#39;welfare&#39;</span><span class="p">,</span><span class="s">&#39;profits&#39;</span><span class="p">])</span>
+<span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;welfare&#39;</span><span class="p">,</span><span class="s1">&#39;profits&#39;</span><span class="p">])</span>
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">max_N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">welfare</span> <span class="o">=</span> <span class="n">W</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
     <span class="n">profits</span> <span class="o">=</span> <span class="n">profits_Cournot</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">-</span><span class="n">f</span>
@@ -295,7 +300,7 @@ produces output <span class="math">\(q\)</span>, total welfare is given by</p>
 <span class="n">table</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="mi">3</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">3</span>
 </pre></div>
 </div>
 <table><tr><td>n</td><td>welfare</td><td>profits</td></tr><tr><td>1</td><td>0.177777777778</td><td>0.15</td></tr><tr><td>2</td><td>0.3</td><td>0.06</td></tr><tr><td>3</td><td>0.366666666667</td><td>0.0111111111111</td></tr><tr><td>4</td><td>0.377777777778</td><td>-0.0183673469388</td></tr><tr><td>5</td><td>0.333333333333</td><td>-0.0375</td></tr></table><ul class="simple">
@@ -335,21 +340,18 @@ produces output <span class="math">\(q\)</span>, total welfare is given by</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/Innovation/Innovation.txt"
+      <li><a href="../_sources/Innovation/Innovation.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -360,11 +362,11 @@ produces output <span class="math">\(q\)</span>, total welfare is given by</p>
       &copy;2015, Jan Boone.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="../_sources/Innovation/Innovation.txt"
+      <a href="../_sources/Innovation/Innovation.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

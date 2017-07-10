@@ -1,0 +1,459 @@
+Introduction to course
+======================
+
+This lecture
+~~~~~~~~~~~~
+
+
+- two parts
+
+
+    -  first, how the course is organized
+    -  then introduction to competition policy
+    -  recommended reading: Massimo Motta, 2004, *Competition Policy:
+       theory and practice*, Cambridge University Press.
+
+expectations
+------------
+
+-  we expect you to prepare each lecture
+-  watch video lecture beforehand
+-  prepare exercises to be discussed in class
+-  follow the datacamp lectures on python
+-  for next lecture: install python
+
+   - look `here <http://janboone.github.io/competition_policy_and_regulation/Introduction_to_Python/Introduction_to_Python.html>`_ to see how this should be done
+
+grade
+-----
+
+-  your grade is the average of
+
+   -  2 assignments
+   -  1 exam
+   -  class participation
+
+-  each has the same weight (25%)
+-  assignments are mandatory and involve programming in python
+-  class participation is mandatory and involves exercises from previous exams
+-  grades for assignments and class participation can only be used this academic year
+
+assignments
+-----------
+
+-  assignments can be done alone or in a team of 2 students
+-  for the programming assignments, you will do simulations
+-  next lecture will be an introduction to python 
+-  during the other lectures, I will also show you how to program in python
+-  attend (on the web) the datacamp courses on python
+-  I know this is new for (most of) you
+-  with python we can bring the theory to life
+-  as python is new, you are allowed to help each other a bit with this
+-  however, assignments are made independently by each team
+
+   
+python
+------
+
+-  good idea to look into python in the following weeks
+-  when you get stuck, you can google
+-  but some basic knowledge saves you a lot of time!
+-  with python notebooks you can program and explain what you do in the same file
+-  learn a bit of markdown and latex
+
+details
+-------
+
+-  `Rules of the game <http://janboone.github.io/competition_policy_and_regulation/RulesOfTheGame.html>`_ gives further details and an outline
+   of the lectures
+
+Competition law
+~~~~~~~~~~~~~~~
+
+EU law
+------
+
+-  EU law is structured as follows:
+
+   -  **Article 101**: agreements between firms
+
+      -  *horizontal agreements*: cartels, collusion, joint ventures
+      -  *vertical agreements*: manufacturer and wholesaler or
+         wholesaler and retailer
+
+   -  **Article 102**: abuse of a dominant position
+
+      -  price discrimination, predatory behavior, tying and bundling,
+         refusal to supply
+
+   -  **Merger Regulation**: when one firm plans to acquire another
+      firm, the Commission has to be notified
+
+why needed?
+-----------
+
+-  economists tend to believe that markets work well
+-  welfare theorems: Pareto efficient allocations
+-  why do we need a competition authority (CA)?
+
+imperfections
+-------------
+
+-  welfare theorems assume firms are price takers
+-  in real world firms have (market) power to set prices
+-  first year micro: monopolist setting prices leads to deadweight loss
+-  under total welfare standard: welfare loss equals deadweight loss
+   (:math:`DWL`)
+-  under consumer welfare standard: loss equals :math:`DWL+PS`
+-  CA tries to prevent monopolies from emerging through mergers
+-  when firm is dominant, CA tries to prevent firm from abusing this
+   position
+
+objective CA
+------------
+
+-  EU and US tend to put more emphasis on CS than on PS
+
+   -  firms can fight for themselves
+   -  harder to organize consumers because of free riding problems
+   -  against: consumers are also shareholders
+
+-  EU every now and again states as a goal promotion of market integration
+
+   -  political objective; hard to formalize in economics
+   -  EU forbids price discrimination across national borders
+   -  but from economic point of view can be welfare enhancing
+
+market power
+~~~~~~~~~~~~
+
+efficiency
+----------
+
+-  Nickell (JPE, 1996): firms with market power are less efficient
+
+   -  with market power, less reason to "worry"
+   -  moral hazard: more competitive the market, firms and managers work
+      harder to survive
+   -  selection: with market power, inefficient firm can survive; cannot
+      happen in a competitive market
+
+-  Aghion et. al (QJE, 2005) find that more competition leads to more
+   innovation
+-  Michael Porter (1990): competition is necessary to stimulate firms to
+   innovate
+
+not always bad
+--------------
+
+-  patents give firms incentives to innovate
+
+   -  ex post we lose welfare but we gain ex ante through the
+      introduction of products
+
+-  Government can regulate a monopolist: ACM (formerly, OPTA) regulates KPN
+-  Coase: durable good monopolist competes with itself
+
+   -  if monopolist cannot commit, reduce prices over time
+   -  :math:`p=mc` with monopoly
+
+-  contestable market: firm may be only seller but :math:`p<p^m`
+
+   -  potential entrants discipline the firm
+   -  barrier to entry is formed by sunk entry cost (not fixed cost)
+   -  taxi market: entry cost is not the price of a mercedes; can be
+      resold
+
+Too competitive?
+----------------
+
+-  Mankiw and Whinston (RAND, 1986): two externalities market entry
+
+   -  *business stealing effect*: excess entry
+   -  *appropriability effect*: too few firms enter
+
+create power
+------------
+
+-  *Outperform other firms*:
+
+   -  :math:`n \geq 2` firms compete in prices, :math:`i`'s cost
+      function: :math:`C(q_i) = c_i q_i`
+   -  :math:`c_1 \leq c_2 \leq ... \leq c_n`
+   -  :math:`c_1 < c_2` implies 1 is monopolist, :math:`p_1 = c_2`
+
+-  *switching costs*: offer frequent flyer miles or coupons for loyal
+   customers
+
+   -  if customer gathered enough miles, optimal to keep on using this
+      airline
+   -  though consumers love loyalty schemes, they create market power
+      and lead to higher prices
+
+-  *network effects*: network effects keep incumbents in the market when
+   there are superior (potential) entrants
+-  *exclude rivals*:
+
+   -  incumbent beer brewer sells to pubs and restaurants if they only
+      sell incumbent's beer brands
+   -  raises entry cost for newcomers
+
+network effects
+---------------
+
+-  consumers value both intrinsic quality of product and how many other
+   people use it
+
+   -  this is different from consuming ice-cream
+   -  when you decide on your operating system (Linux, Mac, Windows);
+      relevant how many of your friends use the same os
+   -  utility good :math:`i`: :math:`u_i = v_i + \nu(n_i) - p_i`
+   -  :math:`1` is incumbent product with :math:`n_1 >0`
+   -  new product 2 with :math:`v_2 > v_1` but nobody uses it yet
+   -  even with :math:`p_2 = c_2 < p_1` can be that
+      :math:`v_1 + \nu(n_1) - p_1 >   v_2 + \nu(0) - p_2`
+
+-  network effect gives incumbent market power
+
+   -  small differences at the start lead to completely different
+      outcomes
+
+defining markets
+~~~~~~~~~~~~~~~~
+
+relevant market
+---------------
+
+-  not much damage can be done by firms that are small players
+
+   -  if two firms with each a market share of 1 percent want to merge,
+      no reason to block such a merger
+   -  but when Microsoft or Google act suspiciously, we do worry
+
+-  market share is important in competition policy cases
+-  market share :math:`=` firm's revenue divided by total market revenue
+-  but what is the total market?
+
+   -  if you sell apples, is the relevant market apples or fruit?
+
+-  economists do not tend to worry about relevant market
+
+   -  find out directly whether a merger leads to higher prices; whether
+      a practice is welfare reducing
+
+-  European Courts do require a definition of the relevant market
+
+procedure
+---------
+
+-  guiding principle: "a relevant market is worth monopolizing"
+-  relevant market is a collection of products and regions such that a
+   (hypothetical) monopolist would be able to increase prices profitably
+   (but from which benchmark?)
+
+   -  contains all substitute products and regions which provide
+      competitive constraint on the products and regions under
+      consideration
+
+-  you wonder whether bananas in the Netherlands form a relevant market:
+
+   -  ask: if there would be a (hypothetical) monopolist on the Dutch
+      banana market, would she be able to *profitably* raise prices by 5
+      to 10 percent (*ceteris paribus*: assuming all other prices remain
+      constant)?
+   -  if so, bananas in the Netherlands is a relevant market (perhaps
+      bananas in Brabant is already a relevant market)
+   -  if not, expand the market and see whether on this expanded market
+      a hypothetical monopolist would be able to profitable raise prices
+
+substitution
+------------
+
+-  *demand side substitution*: if consumers would switch from bananas to
+   kiwis after the price increase, the question becomes whether bananas
+   and kiwis together form a relevant market
+-  *supply side substitution*: if suppliers of banana liquor would start
+   to sell bananas after the price increase, question becomes whether
+   the combined market of bananas and banana liquor form a relevant
+   market
+-  *geographic market*: if consumers would start to buy bananas in
+   Belgium after the price increase, the question becomes whether
+   bananas in the Netherlands and Belgium form a relevant market
+-  question is: is the market under consideration worth monopolizing?
+-  relevant market is smallest set of products worth monopolizing
+
+SSNIP test
+----------
+
+-  this is known as SSNIP test: small but significant non-transitory
+   increase in prices
+
+   -  "small but significant" is often taken to mean 5-10%
+   -  "non-transitory": if this could be profitably done for 5 days
+      only, the market is not worth monopolizing
+
+-  in economic terms, relevant question concerns elasticities
+
+   -  if price of :math:`x` is increased by 10%, by which percentage
+      does demand fall? e.g. because consumers buy outside the region
+   -  if drop in demand is big, price rise is not profitable; market for
+      :math:`x` is not worth monopolizing
+   -  or by which percentage does supply increase?
+
+fallacies
+---------
+
+-  applying SSNIP test can lead to two "famous mistakes":
+
+   -  *toothless fallacy*: marginal vs average consumer
+   -  *cellophane fallacy*: starting point for price increase
+
+toothless fallacy
+-----------------
+
+-  Commission in United Brands case: defining relevant market on the
+   basis of the average consumer
+-  Commission argued that very young and very old (those without teeth)
+   did not consider other fruit a substitute for bananas
+-  Commission concluded that bananas is a relevant market
+-  however, when a (hypothetical) monopolist raises its price, question
+   is not whether average consumer moves away, but whether marginal
+   consumer substitutes away
+-  if enough consumers *at the margin* substitute away, price increase
+   is not profitable (although a number of consumer may be captive)
+
+other examples
+--------------
+
+-  some people do not like sparkling water; for them still and sparkling
+   water are not substitutes
+
+   -  yet, still and sparkling water are on same relevant market if
+      enough consumers (at the margin) switch from still to sparkling if
+      the price of still water is increased by 10%
+
+-  aftermarkets: cheap ink-jet printer of brand :math:`X` but cartridges
+   are sold by :math:`X` at a high price
+
+   -  do cartridges of :math:`X` form a relevant market
+   -  probably not: although you will be stuck if :math:`X` increases
+      price, buyers of new printers substitute away from :math:`X`
+      because its cartridges are so expensive
+   -  buyers of new printers are the marginal consumers
+   -  if enough marginal consumers switch away from :math:`X`, rise in
+      cartridge prices is not profitable
+   -  if so, market for :math:`X` cartridges is not a relevant market
+
+-----------
+	  
+-  are Rolex and Casio watches in the same market?
+
+   -  some people argue they are not because they sell at completely
+      different prices and are of completely different quality
+   -  correct question: do consumers at the margin switch from Rolex to
+      Casio if price of Rolex watches is increased by 10%
+   -  CES utility function
+      :math:`u(x,y)=(a x^\theta + b   y^\theta)^{1/\theta}`
+   -  whether goods are substitutes is determined by :math:`\theta`
+   -  if :math:`a >> b` then price of :math:`X` will be higher than
+      price of :math:`Y`
+
+cellophane fallacy
+------------------
+
+-  SSNIP test considers price increase of 5-10%, but from which
+   benchmark?
+-  depends on the question that you want to answer
+-  benchmark price differs between merger cases and Article 101, 102
+   cases
+-  definition of relevant market is different for different questions
+-  merger case: whether the merger between two firms leads to price
+   increase
+
+   -  question is whether at current prices merged firm has enough
+      market power to raise prices
+   -  benchmark price is current price on the market
+
+-  abuse of a dominant position case: current price not necessarily the right
+   benchmark
+
+cellophane case
+---------------
+
+-  US case: Du Pont argued that cellophane was not a separate relevant
+   market
+
+   -  empirical evidence showed that it competed closely with other
+      packaging materials such as aluminium foil and wax paper
+
+-  Du Pont sole supplier of cellophane
+-  on the wider market of packaging materials it had a smaller market
+   share
+-  US Supreme Court agreed that because of these other packaging
+   materials Du Pont could not increase prices further
+-  from this it does not follow that Du Pont did not have market power
+
+   -  as a monopolist Du Pont had increased the price of cellophane to
+      such an extent that other (inferior) packaging materials now
+      became substitutes
+
+-  observation that Du Pont's cellophane did compete with these other
+   materials strongly suggests that Du Pont did abuse its market power
+   by charging excessive prices for cellophane
+
+benchmark price
+---------------
+
+-  in abuse case, current price level is not necessarily right benchmark
+   for SSNIP test
+-  sometimes take competitive price (or the price prevailing under
+   effective or workable competition) as a benchmark
+-  Du Pont as monopolist was able to raise price of cellophane
+   profitably by 10% from the competitive price
+-  if you try to determine whether a firm has abused her market power by
+   raising prices, relevant market should be determined with competitive
+   prices as benchmark (not current prices)
+-  recall that a profit maximizing monopolist cannot profitably increase
+   her price by 10% at current prices
+
+concentration and market power
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _concentration:
+
+market share
+------------
+
+-  tendency among lawyers to interpret high market share as a signal of
+   market power
+-  not necessarily correct:
+
+   -  two firms :math:`1,2` producing a homogenous good
+   -  :math:`p = 1- (q_1+q_2)`
+   -  firm's marginal costs: :math:`c_1=0,c_2=c< 0.5`
+   -  Cournot competition implies (*check*)
+      :math:`q_1^C =   \frac{1+c}{3},q_2^C = \frac{1-2c}{3},p^C=\frac{1+c}{3}`
+   -  Bertrand competition: :math:`q_1^B=1-c,q_2^B=0,p^B=c`
+   -  Bertrand outcome is more competitive than Cournot
+   -  Bertrand market is more concentrated than Cournot market
+   -  lack of competition under Cournot allows less efficient firm 2 to
+      enter
+   -  high concentration can be sign of intense competition
+
+summary
+-------
+
+-  in this lecture we have seen:
+
+   -  how EU competition law is structured
+   -  why we need CA and what its objectives are (can be)
+   -  what the welfare losses are due to monopoly/market power
+   -  why market power is not always bad
+   -  why high concentration does not always signal market power
+   -  ways in which firms create market power
+   -  how to define relevant market and avoid two fallacies
+
+
+
+	  
+.. <!-- pandoc -s --mathjax --slide-level 2 --toc --toc-depth=1 -t revealjs Introduction_Lecture.rst -V theme=solarized -o IntroductionLecture.html -->

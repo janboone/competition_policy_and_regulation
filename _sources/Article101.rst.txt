@@ -1,0 +1,52 @@
+===========
+Article 101
+===========
+
+lecture
+-------
+
+
+:ref:`Lecture notes on Article 101 <Article_101>`
+
+screencasts
+-----------
+
+`part 1 <https://tilburgutube.uvt.nl/asset/player/P2K8OpZOXwSinOfdrg8FWnBh>`_
+
+`part 2 <https://tilburgutube.uvt.nl/asset/player/t29hoGXQFwXsVkGFapxMqgX0>`_
+
+`part 3 <https://tilburgutube.uvt.nl/asset/player/L2PYbNVVMTfjiSSVYXwIsER7>`_
+
+`part 4 <https://tilburgutube.uvt.nl/asset/player/uWWaYaJUVXkNYFekrEkH8n2f>`_
+
+`part 5 <https://tilburgutube.uvt.nl/asset/player/H2IRiXRkPPSJaOPFSI6Co9Un>`_
+
+`part 6 <https://tilburgutube.uvt.nl/asset/player/YgiaSdLqLA5NMPfT9NTywBsa>`_
+
+
+
+exercises
+---------
+
+From the :ref:`exercises <Exercises_101>` of this lecture, we discuss questions 1 and 2 in class.
+ 
+ 
+python
+------
+
+In the python files for this lecture, we consider collusion with 
+`Cournot competition
+<Collusion_Cournot/Collusion_Cournot.html>`_
+and collusion with
+`Betrand competition. <Collusion_Bertrand/Collusion_Bertrand.html>`_
+
+Here you can download these file in ipython notebook form (ipynb)
+
+* :download:`Cournot <Collusion_Cournot.ipynb>`
+* :download:`Bertrand <Collusion_Bertrand.ipynb>`
+
+You can see the notebooks online, rendered by GitHub:
+
+* `<https://github.com/janboone/competition_policy_and_regulation/blob/gh-pages/_downloads/Collusion_Cournot.ipynb>`_
+* `<https://github.com/janboone/competition_policy_and_regulation/blob/gh-pages/_downloads/Collusion_Bertrand.ipynb>`_
+  

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Python: intrabrand competition &mdash; Competition Policy and Regulation 1.0 documentation</title>
+    <title>Python: intrabrand competition &#8212; Competition Policy and Regulation 1.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,22 +17,27 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Competition Policy and Regulation 1.0 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Python: price discrimination" href="../pricediscrimination/pricediscrimination.html" />
     <link rel="prev" title="Python: collusion with Bertrand competition" href="../Collusion_Bertrand/Collusion_Bertrand.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -48,10 +53,10 @@ than we have used before.</p>
 <p>This notebook shows you to derive an equilibrium numerically in this set
 up.</p>
 <p>First, we import the libraries that we need.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>from scipy import optimize,arange
-from numpy import array
-import matplotlib.pyplot as plt
-%matplotlib inline
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">optimize</span><span class="p">,</span><span class="n">arange</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
 <div class="section" id="demand-costs-and-profits">
@@ -60,7 +65,7 @@ import matplotlib.pyplot as plt
 and two Downstream firms <span class="math">\(D_1,D_2\)</span>. We assume linear demand
 <span class="math">\(p(x_1,x_2)=1-x_1-x_2\)</span> and zero costs both upstream and
 downstream, <span class="math">\(c=\gamma=0\)</span>.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">gamma</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">def</span> <span class="nf">demand</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">1</span><span class="o">-</span><span class="n">x1</span><span class="o">-</span><span class="n">x2</span>
@@ -75,15 +80,15 @@ downstream, <span class="math">\(c=\gamma=0\)</span>.</p>
 all rents from the downstream firms. Hence, <span class="math">\(U\)</span> sets
 <span class="math">\(x_1,x_2\)</span> to maximize the sum of downstream profits
 <span class="math">\(\pi(x_1,x_2)+\pi(x_2,x_1)-c(x_1+x_2)\)</span>.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">minus_industry_profits</span><span class="p">(</span><span class="n">vx</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">minus_industry_profits</span><span class="p">(</span><span class="n">vx</span><span class="p">):</span>
     <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">profit_D</span><span class="p">(</span><span class="n">vx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">vx</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="n">profit_D</span><span class="p">(</span><span class="n">vx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">vx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="n">vx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">vx</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-    <span class="c"># the optimize.brute routine that we use, minimizes a function</span>
+    <span class="c1"># the optimize.brute routine that we use, minimizes a function</span>
 
 <span class="n">public_contracts</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">brute</span><span class="p">(</span><span class="n">minus_industry_profits</span><span class="p">,</span> <span class="p">((</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),))</span>
-<span class="k">print</span> <span class="n">public_contracts</span>
+<span class="nb">print</span> <span class="n">public_contracts</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>[  2.01328278e-04   4.99790473e-01]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span>  <span class="mf">2.01328278e-04</span>   <span class="mf">4.99790473e-01</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Now what does this mean?</p>
@@ -105,7 +110,7 @@ is, if <span class="math">\(D_i\)</span> gets a deviation offer <span class="mat
 \[\max_x \pi(x,x_j^e) - cx\]</div>
 <p>The function <code class="docutils literal"><span class="pre">reaction_U</span></code> calculates <span class="math">\(U\)</span>&#8216;s optimal reaction to
 <code class="docutils literal"><span class="pre">beliefs</span></code> <span class="math">\(x_1^e,x_2^e\)</span>.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">reaction_U</span><span class="p">(</span><span class="n">beliefs</span><span class="p">):</span> <span class="c"># beliefs[0] is D_2&#39;s belief about x1; beliefs[1] is D_1&#39;s belief about x2</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reaction_U</span><span class="p">(</span><span class="n">beliefs</span><span class="p">):</span> <span class="c1"># beliefs[0] is D_2&#39;s belief about x1; beliefs[1] is D_1&#39;s belief about x2</span>
     <span class="n">x1</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">brute</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="p">(</span><span class="n">profit_D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">beliefs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">x</span><span class="p">),</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,),))</span>
     <span class="n">x2</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">brute</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="p">(</span><span class="n">profit_D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">beliefs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">x</span><span class="p">),</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,),))</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">x1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x2</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
@@ -121,18 +126,18 @@ is, if <span class="math">\(D_i\)</span> gets a deviation offer <span class="mat
 <span class="math">\(x' = x\)</span> while <span class="math">\(D_i\)</span> believes that <span class="math">\(x_j=x_j^e=x\)</span>.</p>
 <p>In other words, we are looking for the intersection point of the optimal
 reaction to belief <span class="math">\(x_i^e\)</span> and the 45-degree line:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">range_beliefs</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">range_beliefs</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="n">range_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">reaction_U</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">range_beliefs</span><span class="p">]</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_beliefs</span><span class="p">,</span> <span class="n">range_x</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_beliefs</span><span class="p">,</span> <span class="n">range_beliefs</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;Equilibrium passive beliefs&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;$x_j^e$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;$x_i$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span><span class="p">)</span>
-<span class="c"># plt.xlim(c,1.0)</span>
-<span class="c"># plt.ylim(0.0,0.3)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;passive_beliefs.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_beliefs</span><span class="p">,</span> <span class="n">range_x</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">range_beliefs</span><span class="p">,</span> <span class="n">range_beliefs</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Equilibrium passive beliefs&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_j^e$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_i$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span><span class="p">)</span>
+<span class="c1"># plt.xlim(c,1.0)</span>
+<span class="c1"># plt.ylim(0.0,0.3)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;passive_beliefs.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="../_images/output_10_0.png" src="../_images/output_10_0.png" />
@@ -141,15 +146,15 @@ beliefs are <span class="math">\(x\)</span>, then the optimal reaction by <span 
 beliefs should also be <span class="math">\(x\)</span> (think of <span class="math">\(x\)</span> either as a vector
 here or as a scalar with <span class="math">\(x_1=x_2=x\)</span>).</p>
 <p>From the graph we guess that the equilibrium is around <span class="math">\(x=0.3\)</span></p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">]</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">fixed_point</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="n">reaction_U</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">ans</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">fixed_point</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">())</span>
-<span class="k">print</span> <span class="n">ans</span>
+<span class="nb">print</span> <span class="n">ans</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>[ 0.33332648  0.33332648]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mf">0.33332648</span>  <span class="mf">0.33332648</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Indeed, as we found in the lecture, the optimal output level with two
@@ -185,21 +190,18 @@ downstrea firms equals the duopoloy Cournot output level.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/HartTirole/HartTirole.txt"
+      <li><a href="../_sources/HartTirole/HartTirole.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -210,11 +212,11 @@ downstrea firms equals the duopoloy Cournot output level.</p>
       &copy;2015, Jan Boone.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="../_sources/HartTirole/HartTirole.txt"
+      <a href="../_sources/HartTirole/HartTirole.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -1,0 +1,46 @@
+===================
+Article 102: Part 2
+===================
+
+
+
+
+lecture
+-------
+
+:ref:`Lecture notes on Article 102 <Article_102_2>`
+
+
+screencasts
+-----------
+
+
+`part 6 <https://tilburgutube.uvt.nl/asset/player/M2TQDGcEUJ6k8BfnPUaLC4gx>`_
+
+`part 7 <https://tilburgutube.uvt.nl/asset/player/dVZFoaXRZeKIdLMWWXjcmYKw>`_
+
+`part 8 <https://tilburgutube.uvt.nl/asset/player/J1GPdcPIQNWvA8RjXQ2J7JkB>`_
+
+`part 9 <https://tilburgutube.uvt.nl/asset/player/Q2VClGcVhflSAMV5ROkFq8mS>`_
+
+`part 10 <https://tilburgutube.uvt.nl/asset/player/d2SZXeJ4RadFQjGhRDxYKhfE>`_
+
+
+exercises
+---------
+
+From the :ref:`exercises <Exercises_102>`
+of this lecture, we discuss questions 2 and 3 in class.
+
+
+
+python
+------
+
+In the python file for this lecture, we consider
+`price discrimination
+<pricediscrimination/pricediscrimination.html>`_
+
+Here you can download this file in ipython notebook form (ipynb)
+
+* :download:`price discrimination <pricediscrimination.ipynb>`

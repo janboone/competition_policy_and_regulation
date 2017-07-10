@@ -1,0 +1,367 @@
+Mergers and Acquisitions
+========================
+
+.. _Mergers:
+
+- When firms in the same (relevant) market merge, the industry becomes
+  more concentrated; this can lead to higher prices via 
+
+    - unilateral effects, single firm dominance
+    - coordinated effects, collective/joint dominance
+
+- efficiency defence
+- vertical and conglomerate mergers lead to concerns about foreclosure and range
+  (portfolio) effects
+- efficiency offence
+- Remedies
+- European practice
+
+
+Unilateral effects in horizontal mergers
+----------------------------------------
+
+- When firms produce substitutes, incentive to raise price after merger
+- When firms produce complements, incentive to reduce price
+- Factors affecting unilateral market power:
+
+  - industry concentration, market shares merging firms, entry, buyer
+    power, failing firm defence 
+
+- Mergers in the new economy
+- Bidding markets
+
+- Effect of horizontal merger on price
+
+    - Consider a city with three grocery stores \\(A,B,C\\)
+    - Now \\(A\\) and \\(B\\) merge and there are no efficiency gains
+    - Then we expect the price to go up:
+
+        - Before the merger if \\(A\\) considered a price rise, it
+          realized that some of its customers would go to \\(B\\) (and \\(C\\))
+        - but now the loss of customers to \\(B\\) is no longer bad for the merged grocery's profits
+
+    - Hence there is less reason to keep prices low and we expect prices to go up
+	- If \\(A\\) and \\(B\\) sell complements, we expect prices to go
+	  down because now \\(A\\) takes into account that a lower price increases the sales of \\(B\\) 
+
+
+- Factors influencing the likelihood of a price rise
+		
+    - industry concentration: if there a 100 firms in the industry
+      with equal market share and two of them merge, the effect on the price is minimal
+    - market shares of merging firms: if two small firms merge, this
+      has a smaller effect than when the two biggest firms in the sector merge
+
+        - In the US a screening is used on the Herfindahl index and the change in this index; Motta page 235
+
+    - But market share and concentration is not sufficient:
+
+        - High concentration may be due to intense competition (see :ref:`concentration`)
+        - It does not capture the "closeness" of competition within a relevant market:
+        - If there are 4 firms in a market \\(A,B,C,D\\) and most
+          consumers of \\(A\\) say that their second choice would be \\(B\\)
+          and consumers of \\(B\\) have \\(A\\) as their second choice, then a
+          merger between \\(A\\) and \\(B\\) is more likely to lead to higher
+          prices than when consumers consider each of the other three
+          a good alternative
+        - Sometimes the diversion ratio is calculated to capture this:
+          diversion ratio from \\(A\\) to \\(B\\) is the proportion of sales
+          lost by \\(A\\) when \\(p_A\\) increases that are captured by \\(B\\) 
+
+    - Ease of entry: if it is easy for new firms to enter, merged firm
+      cannot raise price as it will attract entrants into the
+      industry; if "hit-and-run" entry is possible, no reason at all
+      to worry about the price effects of a merger 
+    - US guidelines consider entry to be a check on the merged firm if
+      entry can affect prices in the relevant market within two years
+    - Demand factors: can consumers easily switch away to a new
+      product if the price goes up? If switching costs are low, demand
+      is relatively elastic and scope for price increase limited
+    - Buyer power: If the merged firm supplies a limited number of
+      powerful buyers, the scope for price increase is limited as well
+      (e.g. buyers can threaten to switch supplier; sponsor the entry
+      of a new supplier; vertically integrate with a supplier to secure their own supply)
+    - Failing firm defence: suppose a firm is about to go bankrupt and
+      another firm takes over this firm, then one can argue that the
+      take over cannot be anticompetitive since the firm would have
+      exited the industry anyway: merger has no effect on the number of firms active in the market
+    - Intuitively, it seems a waste to let the failing firm's assets
+      idle after it leaves the industry
+    - In Kali-Salz three criteria were formulated for a failing firm defence to be valid:
+
+        - acquired firm would in the near future have been forced out
+          of the market if not taken over by another firm (failing firm)
+        - there is not an alternative buyer of the failing firm that
+          causes less anti-competitive concern (then a merger with
+          this firm would be preferred from a competition policy point of view)
+        - acquiring firm would get failing firm's market share if it
+          is forced to exit (if not, i.e. if sales of the failing firm
+          would be distributed equally over the other firms in the
+          market, exit of this firm may keep concentration lower than the take over)
+
+- Mergers in the new economy
+			
+    - In sectors that are characterized by a high degree of innovation
+      and network effects, there are two considerations which make the
+      framework above less relevant: 
+    - Is competition best described as "in" the market or "for" the market:
+
+        - If competition is "in" the market, the analysis above applies
+        - with competition "for" the market, concentration measures
+          are less informative: if network effects cause one standard
+          to prevail in a market, high market concentration is not very informative
+        - concern here is whether the merger leads to a standard being
+          adopted that is not efficient; e.g. suppose there are three
+          standards in the market produced by resp. firms \\(A,B,C\\),
+          each with market share \\(1/3\\) 
+        - now firms \\(A\\) and \\(B\\) merge and decide to make their products compatible
+        - the increase in the network of \\(AB\\) can "tip" the market in
+          favor of \\(AB\\) even though the \\(C\\) standard could be superior
+        - merger of \\(AB\\) should be abolished in this case
+
+    - Is the sector characterized by price competition or product competition? In the latter case the worry is not that the merger
+      will lead to higher prices but to a lower rate of innovation as
+      firms reduce R&D (instead of reducing production) 
+
+- Bidding markets
+
+    - An example of a bidding market is the construction sector where
+      firms bid for projects, like parts of the construction of the Betuwe
+      lijn, the high speed train connection between Amsterdam and Paris etc.
+    - Here concentration is also not very informative as it does not
+      capture the "closeness" of firms in the following sense
+    - suppose that there are 10 firms \\(A,B,C,...J\\) with equal market
+      shares and \\(A\\) and \\(B\\) want to merge
+    - If it is the case that for each project won by \\(A\\), firm \\(B\\) was the
+      second lowest bidder and similarly for projects won by \\(B\\), firm \\(A\\) was runner up
+    - then the merger of \\(A\\) and \\(B\\) should be expected to lead to bigger
+      price increases than in the case where any of the other 8 firms was
+      the second lowest bidder.
+
+
+Coordinated effects in horizontal mergers
+-----------------------------------------	  
+
+- Merger may change market structure such that it becomes easier for
+  firms to (tacitly) collude
+- Although merger does not allow a single firm to raise its price,
+  collectively it may become easier for firms to raise price
+- Difference with unilateral effects is that with unilateral effects
+  the merged firm can increase its price (no matter what competitors
+  do), with coordinated effects price rise is only profitable if other
+  firms raise their price as well 
+- Test for coordinated effects:
+
+    - internal factors
+    - external factors (see the :ref:`list  <collusion>` of factors facilitating collusion)
+    - how does merger change things?
+
+	  
+- Internal and external factors:
+
+    - Internal factors: are characteristics in the industry such that
+      firms are able to reach a tacit understanding to limit
+      competition and sustain this 
+
+        - small number of firms
+        - cross ownership between firms
+        - orders arrive with high frequency
+        - demand is stable
+        - transparency in the market, e.g. due to the use of RPM or
+          information exchange is easy (organized by trade
+          association) 
+        - goods are homogenous
+        - firms are symmetric
+        - multi market contact
+        - excess capacity
+
+    - External factors: do the firms collectively have market power to raise prices:
+
+        - ease of entry: if it is easy for new firms to enter,
+          existing firms cannot profitably raise their price;
+          collective dominance is not a concern 
+        - supply-side substitutability
+        - large buyers that can counteract price increases due to
+          collective dominance
+        - maverick firm that does not want to collude but instead
+          behaves aggressively (think of Easy Jet, Easy Cruise etc.)
+			
+- How does the merger change things?
+
+- Even if all the (internal and external) factors above point to the
+  possibility of collusion, this is not enough to forbid the merger on
+  the basis of collective dominance
+- One should also argue why before the merger tacit collusion was not
+  feasible while after the merger it is:
+
+    - merger may create firms that are more symmetric than before (in
+      terms of production capacity, marginal costs, portfolio of
+      products etc.) and hence facilitates collusion
+    - merger removes the maverick firm from the market by acquiring
+      it; firm that blocked collusion before disappears and hence
+      collusion is easier to sustain 
+
+
+Efficiency defence
+------------------
+
+- If the merger leads to a reduction in *marginal costs*, there
+  is a tendency for firms to price lower (monopolist with lower costs
+  chooses a lower price as well)
+- If the reduction in marginal costs is big enough, this can dominate
+  the market power effect of the merger and lead to lower prices
+- Sources of efficiency gains after a merger: economies of scale and
+  scope; reallocation of assets to more productive uses within the
+  merged entity; learning from the other firm's best practice;
+  reallocating output over plants to reduce costs 
+- There are some problems with this efficiency defence:
+
+    - It is easy to promise efficiency gains by firms, but in practice
+      they are usually not realized (competition authority lacks the
+      information to verify the claims of efficiency gains)
+    - As noted above, if the efficiency gains lead to a more symmetric
+      structure in the industry it may facilitate collusion
+    - if the efficiency gains can also be realized without the merger,
+      they cannot be used as a defence of the merger
+
+- Under a consumer welfare standard the efficiency gains need to be
+  bigger to justify a merger than under a total welfare standard, as
+  in the former case the price has to actually decrease after the
+  merger for consumers to benefit (consumer surplus to increase)
+- Under a total welfare standard reductions in fixed costs (by
+  eliminating the duplication of overhead costs) can also justify a
+  merger while this cannot happen under a consumer welfare standard
+  (as fixed costs have no effect on the price of existing firms)
+- If efficiency gains are big enough, other firms in the industry will
+  lose from the merger; hence competitors complaining about a merger
+  is often suspicious; competition policy should not protect competitors
+
+	
+Vertical mergers
+----------------
+
+- A vertical merger like vertical restraints can raise welfare by internalizing
+  externalities between upstream and downstream firms (like double marginalization)
+- But such a merger can also lead to a reduction in welfare, e.g. when
+  it leads to (partial) foreclosure (see :ref:`vertical restraints <foreclosure>`) and thus raises rivals' costs
+- Even in cases where the vertical merger would lead to efficiency gains for the merged
+  firm, the Commission has held this against the firms: efficiency offence
+- underlying idea is that the cost advantage leads to the exit of competitors and
+  hence to higher prices in the long run
+- However, before such a predatory pricing theory makes sense, one needs to show
+  that prices can go up after the other firms have left (e.g. there must be high
+  barriers to entry etc.)
+- further, the other firms can perhaps merge as well or reduce their costs in
+  other ways
+- Instead of prohibiting the merger on the basis of efficiency offence one can
+  also allow the merger and use Article 102 later on to prevent the abuse of a dominant
+  position
+- Principle here should again be: vertical merger is no problem as long as there
+  is enough inter-brand competition
+
+
+Conglomerate mergers
+--------------------
+
+- merger between two firms that are neither in the same relevant market not
+  vertically related
+- Think, for instance, of a firm \\(B\\) brewing beer merging with a firm \\(C\\)
+  producing crisps
+- Commission has identified the following range/portfolio effects:
+
+  - merged firm is attractive to retailers as it offers a range of products
+  - merger leads to economies of scale and scope
+  - merger creates possibilities for tying and bundling
+  - merger increases the threat of refusal to supply
+
+- First two effects mainly harm competitors, not competition; other firms should
+  try to get similar advantages
+- Fourth argument does not make much sense as the outside options for the
+  retailers (in either beer or crisps) have not changed
+- Tying and bundling can be a problem if one of the firms holds a monopoly (or at
+  least dominant) position in its market; as shown :ref:`here <tying>`  it
+  is then possible (under conditions) to leverage market power from one market to the next
+- Commission has used this type of argument in the Tetra Laval/Sidel case (where
+  the Commission argued that the merger would have allowed Tetra Laval to leverage its
+  dominance in carton packing and equipment to achieve a dominant position in the
+  market for plastic bottling machines)
+- CFI has criticized this decision as Commission did not show that merger
+  created overwhelming advantage for Tetra Laval nor that competitors were not able
+  to respond to merger by creating similar advantages
+- Commission also used this portfolio power theory to prohibit the GE/Honeywell
+  merger that had already been cleared in the US by the DOJ; in the US the decision was
+  interpreted as protecting competitors instead of protecting competition
+
+
+Remedies
+--------
+
+- Commission can allow a merger, prohibit it or allow the merger if certain
+  remedies are adopted
+- Two categories of remedies:
+	
+    - structural remedies: merging firms are forced to sell some assets (e.g.
+      divest some products or divisions)
+    - behavioral remedies: merging firms commit themselves not to engage in
+      certain (abusive) practices or to license a certain technology to rivals
+
+- Structural remedies can be used to solve portfolio problems or reduce excess
+  capacity available to the merged firm
+- disadvantage: merged firm divesting assets has an incentive to sell to
+  weak competitor who does not form a serious threat; CA lacks information to see
+  whether assets go to the right firm; if divestiture turns out to be a
+  mistake, hard to turn back
+- Behavioral remedies require continuous monitoring by CA or independent party
+
+
+European practice: Merger Regulation
+------------------------------------
+
+
+- When firms want to merge, they have to notify the Merger Task Force (if the
+  merger has a Community dimension, otherwise firms go to the national CA)
+- Within one month from the notification the Commission decides whether the
+  merger is cleared right away or whether further investigation (Phase II) is needed
+- Phase II investigation can last 4 months; three possible outcomes: cleared,
+  cleared subject to remedy, prohibition of merger
+- If merger is prohibited, firms can appeal Commission's decision at CFI
+- However, appeal can take up to three years; usually even if firms win in the European Courts,
+  commercial rationale for merger has disappeared
+- Europe used to have a dominance test for mergers; however some mergers can be
+  welfare reducing (and should thus be prohibited) even though they do not create or
+  strengthen a dominant position
+- The US, Canada, Australia, New Zealand, UK have SLC test (substantial lessening
+  of competition)
+- Commission introduced in 2004 a new Merger Regulation (for horizontal mergers)
+  based on a similar idea that merger should not "significantly impede effective competition"
+
+
+Summary
+-------
+
+- Horizontal mergers and acquisitions can raise prices (and
+  reduce consumer welfare) through either unilateral or
+  coordinated effects
+- Firms can defend the merger by claiming that marginal costs will go
+  down to such an extent that prices will actually fall
+- Other ways to argue that the merger will not lead to
+  higher prices include: low concentration, merger involves two small firms,
+  low entry barriers, consumers can easily switch to other
+  suppliers, strong buyer power, failing firm defence
+- Vertical mergers, like vertical restraints, can create
+  efficiencies that lead to lower prices
+- However, vertical mergers (again, like restraints) can
+  also lead to foreclosure and higher prices
+- Even when there are efficiencies the Commission sometimes
+  holds this against firms as an efficiency offence
+- Conglomerate mergers can be bad for welfare because of
+  portfolio effects if the merger creates the possibilities for
+  bundling and tying
+
+
+.. _Exercises_mergers:
+   
+Exercises
+~~~~~~~~~
+
+- question 1: question 1 from :download:`exam June 2015 <exam_June_2015.pdf>`

@@ -1,0 +1,39 @@
+===================
+Article 102: Part 1
+===================
+
+
+
+lecture
+-------
+
+:ref:`Lecture notes on Article 102 <Article_102>`
+
+
+screencasts
+-----------
+
+
+`part 1 <https://tilburgutube.uvt.nl/asset/player/T1YhtcSgZUYTkRlIcYoBt6jc>`_
+
+`part 2 <https://tilburgutube.uvt.nl/asset/player/l1XdHiUZQIVlUQZANpefYd2M>`_
+
+`part 3 <https://tilburgutube.uvt.nl/asset/player/m2FOFsRQZVXdlBWTjQoZxqIc>`_
+
+`part 4 <https://tilburgutube.uvt.nl/asset/player/Q1NejBSjMjNZghdHrdRuHze5>`_
+
+`part 5 <https://tilburgutube.uvt.nl/asset/player/NbYJTuFjgcFgC5VqgIpI2n7r>`_
+
+
+exercises
+---------
+
+
+.. Instead of looking at the exercises, you can use the time in class to
+.. ask questions about the python assignment. 
+
+
+python
+------
+
+No python file for the first part of this lecture.
