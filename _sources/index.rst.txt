@@ -18,7 +18,9 @@ In 2017-2018 this course is taught by:
 Make sure that you read the Rules of the Game if you want to attend
 this course!
 
-The Introduction Lecture can be found :download:`here <IntroductionLecture.html>`.
+The Introduction Lecture can be found `here <http://janboone.github.io/competition_policy_and_regulation/_downloads/IntroductionLecture.html#/>`_ and downloaded :download:`here <IntroductionLecture.html>`.
+
+
 
 .. TODO: adjust introduction lecture (presentation and
    html-presentation) to include new rules on participation!!!!!
