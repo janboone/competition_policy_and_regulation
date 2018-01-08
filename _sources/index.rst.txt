@@ -9,11 +9,11 @@
 Welcome to Competition Policy and Regulation's documentation!
 =============================================================
 
-In 2016-2017 this course is taught by:
+In 2017-2018 this course is taught by:
 
+* Moritz Suppliet
 * Jan Boone
 * Clemens Fiedler
-* Moritz Suppliet
 
 Make sure that you read the Rules of the Game if you want to attend
 this course!

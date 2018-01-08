@@ -2,9 +2,8 @@
 Python: introduction
 ====================
 
-This notebook gives an introduction to the programming language
-`python <https://www.python.org>`__ and the `ipython
-notebook <http://ipython.org/notebook.html>`__.
+This notebook gives an introduction to the programming language python
+and the jupyter notebook.
 
 When you are first reading this, you are probably looking at the html
 file. This file looks the same as the notebook, but you cannot run code
@@ -19,24 +18,14 @@ By reading the html file, you will learn:
 Installing Python
 -----------------
 
-The first important step is to install Python on your computer. The set
-up that we need is pretty much the one used
-`here <http://quant-econ.net/py/index.html>`__. Hence simply follow
-their `instructions <http://quant-econ.net/py/getting_started.html>`__
-on how to install the anaconda version.
-
-If for some reason anaconda does not work for you, feel free to use the
-`canopy <https://www.enthought.com/products/canopy/>`__ version. For my
-lectures (and asignments) this works fine as well.
-
-Make sure you work with Python 2.x (not 3.x) to avoid some syntax
-errors.
+For python, we use the `anaconda <https://www.anaconda.com/download/>`__
+distribution. Make sure to install python 3.X.
 
 Learning Python
 ---------------
 
 Why would you want to learn Python? First of all, because it is fun!
-(well that is what I think...)
+(well that is what we think...)
 
 There are a number of ways to learn python:
 
@@ -53,26 +42,13 @@ Just to be sure: this is a course on Competition Policy and not on
 programming. There will be no Python questions on the exam.
 
 But you can save yourself a lot of time on the assignments if you master
-the basics of Python. Make sure you cover things like data types,
-conditional statements (if, then, else), iteration, boolean expressions,
-functions (including lambda functions). As this is not a programming
-course, you do not need to learn object oriented programming; but you
-may want to, anyway.
+the basics of Python. And you earn a point for class participation if
+you finish the datacamp course in time.
 
-I do not force you to learn Python, but I strongly recommend it for two
-reasons. First, as explained below, it allows you generate a notebook
-that contains both code and typeset explanations of what you are doing.
-This allows us to understand what you try to do (even if it does not
-work out). Say, an excel file does not give the same degree of
-transparency and even if it is correct, you lose points because we don't
-understand what you are doing. Programming is as much about explaining
-what you do as it is about the results.
-
-Second, in the lectures I will give you Python examples that you can
-then copy-paste for your assignments. This saves you time when using
-python for the assignments. Also the assignments will be given in a
-notebook and some code may already be included. Hence, learning and
-using Python for this course is highly recommended.
+In the lectures we will give you Python examples that you can then
+copy-paste for your assignments. This saves you time when using python
+for the assignments. Also the assignments will be given in a notebook
+and some code may already be included.
 
 Also when you finish your degree(s) and look for a job: Python is open
 source. Programs like Stata, Mathlab, Mathematica etc. are great, but
@@ -161,7 +137,7 @@ Now something a bit bigger:
 
 .. parsed-literal::
 
-    100000000000000000000L
+    100000000000000000000
 
 
 
@@ -240,7 +216,7 @@ the arange statement from scipy:
     from scipy import arange
     
     range_x = arange(-2.0,2.1,0.1)
-    print range_x
+    print(range_x)
 
 
 .. parsed-literal::
@@ -269,7 +245,7 @@ elegantly you define this new list of numbers:
 .. code:: python
 
     range_y = [my_first_function(x) for x in range_x]
-    print range_y
+    print(range_y)
 
 
 .. parsed-literal::
@@ -305,9 +281,10 @@ Note that Python starts counting at :math:`0`. That also means that:
 
 
     ---------------------------------------------------------------------------
+
     IndexError                                Traceback (most recent call last)
 
-    <ipython-input-7-366258d81fe1> in <module>()
+    <ipython-input-11-366258d81fe1> in <module>()
     ----> 1 range_y[41]
     
 
@@ -329,9 +306,10 @@ although they may look like vectors to you, they are not:
 
 
     ---------------------------------------------------------------------------
+
     TypeError                                 Traceback (most recent call last)
 
-    <ipython-input-26-1683f32e17a9> in <module>()
+    <ipython-input-12-1683f32e17a9> in <module>()
     ----> 1 [5,6,7]-[1,1,1]
     
 
@@ -349,7 +327,7 @@ In order to work with lists as vectors, I tend to use
 .. code:: python
 
     from numpy import array
-    print array([5,6,7])-array([1,1,1])
+    print(array([5,6,7])-array([1,1,1]))
 
 
 .. parsed-literal::

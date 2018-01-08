@@ -46,9 +46,8 @@
             
   <div class="section" id="python-introduction">
 <h1>Python: introduction<a class="headerlink" href="#python-introduction" title="Permalink to this headline">¶</a></h1>
-<p>This notebook gives an introduction to the programming language
-<a class="reference external" href="https://www.python.org">python</a> and the <a class="reference external" href="http://ipython.org/notebook.html">ipython
-notebook</a>.</p>
+<p>This notebook gives an introduction to the programming language python
+and the jupyter notebook.</p>
 <p>When you are first reading this, you are probably looking at the html
 file. This file looks the same as the notebook, but you cannot run code
 in the html file (which you can in the notebook).</p>
@@ -60,21 +59,13 @@ in the html file (which you can in the notebook).</p>
 </ul>
 <div class="section" id="installing-python">
 <h2>Installing Python<a class="headerlink" href="#installing-python" title="Permalink to this headline">¶</a></h2>
-<p>The first important step is to install Python on your computer. The set
-up that we need is pretty much the one used
-<a class="reference external" href="http://quant-econ.net/py/index.html">here</a>. Hence simply follow
-their <a class="reference external" href="http://quant-econ.net/py/getting_started.html">instructions</a>
-on how to install the anaconda version.</p>
-<p>If for some reason anaconda does not work for you, feel free to use the
-<a class="reference external" href="https://www.enthought.com/products/canopy/">canopy</a> version. For my
-lectures (and asignments) this works fine as well.</p>
-<p>Make sure you work with Python 2.x (not 3.x) to avoid some syntax
-errors.</p>
+<p>For python, we use the <a class="reference external" href="https://www.anaconda.com/download/">anaconda</a>
+distribution. Make sure to install python 3.X.</p>
 </div>
 <div class="section" id="learning-python">
 <h2>Learning Python<a class="headerlink" href="#learning-python" title="Permalink to this headline">¶</a></h2>
 <p>Why would you want to learn Python? First of all, because it is fun!
-(well that is what I think...)</p>
+(well that is what we think...)</p>
 <p>There are a number of ways to learn python:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://quant-econ.net/py/learning_python.html">http://quant-econ.net/py/learning_python.html</a> gives a great
@@ -89,24 +80,12 @@ it includes weblecturs</li>
 <p>Just to be sure: this is a course on Competition Policy and not on
 programming. There will be no Python questions on the exam.</p>
 <p>But you can save yourself a lot of time on the assignments if you master
-the basics of Python. Make sure you cover things like data types,
-conditional statements (if, then, else), iteration, boolean expressions,
-functions (including lambda functions). As this is not a programming
-course, you do not need to learn object oriented programming; but you
-may want to, anyway.</p>
-<p>I do not force you to learn Python, but I strongly recommend it for two
-reasons. First, as explained below, it allows you generate a notebook
-that contains both code and typeset explanations of what you are doing.
-This allows us to understand what you try to do (even if it does not
-work out). Say, an excel file does not give the same degree of
-transparency and even if it is correct, you lose points because we don&#8217;t
-understand what you are doing. Programming is as much about explaining
-what you do as it is about the results.</p>
-<p>Second, in the lectures I will give you Python examples that you can
-then copy-paste for your assignments. This saves you time when using
-python for the assignments. Also the assignments will be given in a
-notebook and some code may already be included. Hence, learning and
-using Python for this course is highly recommended.</p>
+the basics of Python. And you earn a point for class participation if
+you finish the datacamp course in time.</p>
+<p>In the lectures we will give you Python examples that you can then
+copy-paste for your assignments. This saves you time when using python
+for the assignments. Also the assignments will be given in a notebook
+and some code may already be included.</p>
 <p>Also when you finish your degree(s) and look for a job: Python is open
 source. Programs like Stata, Mathlab, Mathematica etc. are great, but
 they need a license (to be used legally). If your employer has no such
@@ -166,7 +145,7 @@ economic examples.</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span><span class="o">**</span><span class="mi">20</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">100000000000000000000</span><span class="n">L</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">100000000000000000000</span>
 </pre></div>
 </div>
 <p>As you note, in Python <span class="math">\(10^{20}\)</span> is written with ** not with ^.</p>
@@ -216,7 +195,7 @@ the arange statement from scipy:</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">arange</span>
 
 <span class="n">range_x</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="nb">print</span> <span class="n">range_x</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">range_x</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="o">-</span><span class="mf">2.00000000e+00</span>  <span class="o">-</span><span class="mf">1.90000000e+00</span>  <span class="o">-</span><span class="mf">1.80000000e+00</span>  <span class="o">-</span><span class="mf">1.70000000e+00</span>
@@ -239,7 +218,7 @@ stuff here, so <span class="math">\(0\)</span> looks &#8220;a bit odd&#8221;.</p
 <p>Now we create a range of <span class="math">\(y\)</span>-values that we want to draw. See how
 elegantly you define this new list of numbers:</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">range_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">my_first_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">range_x</span><span class="p">]</span>
-<span class="nb">print</span> <span class="n">range_y</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">range_y</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.6099999999999999</span><span class="p">,</span> <span class="mf">3.2399999999999993</span><span class="p">,</span> <span class="mf">2.8899999999999992</span><span class="p">,</span> <span class="mf">2.5599999999999987</span><span class="p">,</span> <span class="mf">2.2499999999999987</span><span class="p">,</span> <span class="mf">1.9599999999999984</span><span class="p">,</span> <span class="mf">1.6899999999999984</span><span class="p">,</span> <span class="mf">1.4399999999999984</span><span class="p">,</span> <span class="mf">1.2099999999999982</span><span class="p">,</span> <span class="mf">0.99999999999999822</span><span class="p">,</span> <span class="mf">0.80999999999999828</span><span class="p">,</span> <span class="mf">0.63999999999999835</span><span class="p">,</span> <span class="mf">0.48999999999999838</span><span class="p">,</span> <span class="mf">0.35999999999999849</span><span class="p">,</span> <span class="mf">0.24999999999999867</span><span class="p">,</span> <span class="mf">0.15999999999999887</span><span class="p">,</span> <span class="mf">0.089999999999999095</span><span class="p">,</span> <span class="mf">0.039999999999999362</span><span class="p">,</span> <span class="mf">0.0099999999999996619</span><span class="p">,</span> <span class="mf">3.1554436208840472e-30</span><span class="p">,</span> <span class="mf">0.010000000000000373</span><span class="p">,</span> <span class="mf">0.040000000000000785</span><span class="p">,</span> <span class="mf">0.090000000000001232</span><span class="p">,</span> <span class="mf">0.1600000000000017</span><span class="p">,</span> <span class="mf">0.25000000000000222</span><span class="p">,</span> <span class="mf">0.36000000000000276</span><span class="p">,</span> <span class="mf">0.49000000000000338</span><span class="p">,</span> <span class="mf">0.64000000000000401</span><span class="p">,</span> <span class="mf">0.81000000000000461</span><span class="p">,</span> <span class="mf">1.0000000000000053</span><span class="p">,</span> <span class="mf">1.210000000000006</span><span class="p">,</span> <span class="mf">1.4400000000000068</span><span class="p">,</span> <span class="mf">1.6900000000000077</span><span class="p">,</span> <span class="mf">1.9600000000000084</span><span class="p">,</span> <span class="mf">2.2500000000000093</span><span class="p">,</span> <span class="mf">2.5600000000000103</span><span class="p">,</span> <span class="mf">2.8900000000000112</span><span class="p">,</span> <span class="mf">3.2400000000000122</span><span class="p">,</span> <span class="mf">3.6100000000000132</span><span class="p">,</span> <span class="mf">4.0000000000000142</span><span class="p">]</span>
@@ -259,9 +238,10 @@ look at one element in this list, type</p>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">---------------------------------------------------------------------------</span>
+
 <span class="ne">IndexError</span>                                <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
 
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="mi">366258</span><span class="n">d81fe1</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">366258</span><span class="n">d81fe1</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
 <span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">range_y</span><span class="p">[</span><span class="mi">41</span><span class="p">]</span>
 
 
@@ -276,9 +256,10 @@ although they may look like vectors to you, they are not:</p>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">---------------------------------------------------------------------------</span>
+
 <span class="ne">TypeError</span>                                 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
 
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">26</span><span class="o">-</span><span class="mi">1683</span><span class="n">f32e17a9</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">1683</span><span class="n">f32e17a9</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
 <span class="o">----&gt;</span> <span class="mi">1</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span><span class="o">-</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 
 
@@ -292,7 +273,7 @@ vector operation, others see it as a set operation. What is the
 difference?</p>
 <p>In order to work with lists as vectors, I tend to use</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
-<span class="nb">print</span> <span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span><span class="o">-</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span><span class="o">-</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">]</span>

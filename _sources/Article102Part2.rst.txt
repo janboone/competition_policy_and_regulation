@@ -30,7 +30,7 @@ exercises
 ---------
 
 From the :ref:`exercises <Exercises_102>`
-of this lecture, we discuss questions 2 and 3 in class.
+of this lecture, we discuss question 3 in class.
 
 
 

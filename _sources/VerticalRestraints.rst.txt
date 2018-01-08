@@ -34,7 +34,7 @@ exercises
 
 
 
-From the :ref:`exercises <Exercises_vertical>` of this lecture, we discuss questions 1 and 2 in class.
+From the :ref:`exercises <Exercises_vertical>` of this lecture, we discuss question 2 in class.
 
 
 python

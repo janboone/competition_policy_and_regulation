@@ -10,7 +10,7 @@ A very short introduction to python and how to install it can be found
 on `this page. <Introduction_to_Python/Introduction_to_Python.html>`_
 
 
-Here you can download these file in ipython notebook form (ipynb)
+Here you can download this file in ipython notebook form (ipynb)
 
 * :download:`introduction <Introduction_to_Python.ipynb>`
 
@@ -18,12 +18,3 @@ With browsers like Safari, Chrome etc., you can see the notebook
 online, rendered by GitHub:
 
 * `<https://github.com/janboone/competition_policy_and_regulation/blob/gh-pages/_downloads/Introduction_to_Python.ipynb>`_
-
-
-  
-python for economists
----------------------  
-
-* `presentation <http://janboone.github.io/open_source_for_economists/_downloads/Intro_to_python_for_economists-presentation.slides.html#/>`_
-* `html <http://janboone.github.io/open_source_for_economists/Intro_to_python_for_economists/Intro_to_python_for_economists.html>`_
-* `notebook <https://github.com/janboone/open_source_for_economists/blob/gh-pages/_downloads/Intro_to_python_for_economists.ipynb>`_

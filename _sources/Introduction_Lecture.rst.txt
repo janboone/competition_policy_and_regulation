@@ -31,11 +31,12 @@ grade
 
    -  2 assignments
    -  1 exam
-   -  class participation
+   -  class and datacamp participation
 
 -  each has the same weight (25%)
 -  assignments are mandatory and involve programming in python
 -  class participation is mandatory and involves exercises from previous exams
+-  part of the class participation is finishing the datacamp course in time
 -  grades for assignments and class participation can only be used this academic year
 
 assignments
@@ -44,9 +45,9 @@ assignments
 -  assignments can be done alone or in a team of 2 students
 -  for the programming assignments, you will do simulations
 -  next lecture will be an introduction to python 
--  during the other lectures, I will also show you how to program in python
--  attend (on the web) the datacamp courses on python
--  I know this is new for (most of) you
+-  during the other lectures, we will also show you how to program in python
+-  attend (on the web) the datacamp courses on python and finish the course in time!
+-  we know this is new for (most of) you
 -  with python we can bring the theory to life
 -  as python is new, you are allowed to help each other a bit with this
 -  however, assignments are made independently by each team

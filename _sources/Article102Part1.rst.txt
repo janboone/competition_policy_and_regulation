@@ -28,9 +28,7 @@ screencasts
 exercises
 ---------
 
-
-.. Instead of looking at the exercises, you can use the time in class to
-.. ask questions about the python assignment. 
+From the :ref:`exercises <Exercises_102>` of this lecture, we discuss question 1 in class.
 
 
 python

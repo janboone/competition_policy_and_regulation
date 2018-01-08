@@ -15,27 +15,29 @@ of each of the lectures.
 For more details on the assignments, see the "Assignments" section on
 Blackboard. For active participation, students should prepare the exercises that are discussed in class.
 
-Not every lecture will start at 8:45. Check Blackboard to see at which time we start. We will also announce this in class (for the next week).
-
 .. csv-table:: Preliminary schedule, may be updated by announcements on BB:
    :header: "day", "date", "time", "room", "topic", "exercises", "assignment due", "datacamp"
    :widths: 5, 15, 25, 15, 20, 30, 20, 70
 
-   Wed, Feb 01, 8:45-12:30,	PZ 045,  Introduction        ,                                                                ,             ,
-   Wed, Feb 08, 8:45-12:30,	PZ 045,  Python              , install python at home                                         ,             , Python Basics (Hello Python! - Variables&Types)              
-   Wed, Feb 15, 8:45-12:30,	PZ 045,  Article 101         , questions 1 and 2 after lecture notes                          ,				, Basics (Variables&Types - Can Python handle everything?)     
-   Wed, Feb 22, 8:45-12:30,	PZ 045,  Vertical restraints , questions 1 and 2 after lecture notes                          ,				, Python Lists (Lists what are they? - Subset and calculate)   
-   Wed, Mar 08, 8:45-12:30,	PZ 045,  no class            ,                                                                ,				, Python Lists (Subset and calculate - Inner workings of lists)
-   Wed, Mar 15, 8:45-12:30,	PZ 045,  Article 102 (1)     , question 1 after lecture notes                                 ,             , Functions and Packages                             		   
-   Wed, Mar 22, 8:45-12:30,	PZ 045,  Article 102 (2)     , questions 2 and 3 after lecture notes                          ,				, Numpy (Numpy - 2D Numpy Arrays)                              
-   Wed, Mar 29, 8:45-12:30,	PZ 045,  Mergers             , question 1 at the end of lecture notes                         ,				, Numpy (2D Numpy Arrays - Blend it all together)              
-   Wed, Apr 05, 8:45-12:30,	PZ 045,  Innovation          , question 1 at the end of lecture notes                         ,             ,
-   Wed, Apr 12, 8:45-12:30,	PZ 045,  Q and A assignment 1,                                                                , Assignment 1,
-   Wed, Apr 19, 8:45-12:30,	PZ 045,  Regulation          , question 1 at the end of lecture notes                         ,             ,
-   Wed, May 03, 8:45-12:30,	PZ 045,  no class            ,                                                                ,             ,
-   Wed, May 10, 8:45-12:30,	PZ 045,  Health care         , question 1 at the end of lecture notes and Q and A assignment 2,             ,
-   Wed, May 17, 8:45-12:30,	PZ 045,  no class            ,                                                                , Assignment 2,
+   Tue, Jan 30, 8:45-10:30,	CZ 005,  Introduction        ,                                                                ,             ,
+   Tue, Feb 06, 8:45-10:30,	CZ 005,  Python              , install python at home                                         ,             , Python Basics (Hello Python! - Variables&Types)              
+   Tue, Feb 20, 8:45-10:30,	CZ 005,  Article 101         , question 2 after lecture notes                                 ,		    , Basics (Variables&Types - Can Python handle everything?)     
+   Tue, Feb 27, 8:45-10:30,	CZ 005,  Vertical restraints , question 2 after lecture notes                                 ,		    , Python Lists (Lists what are they? - Subset and calculate)   
+   Tue, Mar 06, 8:45-10:30,	CZ 005,  Article 102 (1)     , question 1 after lecture notes                                 ,		    , Python Lists (Subset and calculate - Inner workings of lists)
+   Tue, Mar 13, 8:45-10:30,	CZ 005,  Article 102 (2)     , question 3 after lecture notes                                 ,             , Functions and Packages                             		   
+   Tue, Mar 20, 8:45-10:30,	CZ 005,  no class            ,                                                                ,		    , Numpy (Numpy - 2D Numpy Arrays)                              
+   Tue, Mar 27, 8:45-10:30,	CZ 005,  Q and A assignment 1,                                                                , Assignment 1, Numpy (2D Numpy Arrays - Blend it all together)              
+   Tue, Apr 03, 8:45-10:30,	CZ 005,  Mergers             , question 1 at the end of lecture notes                         ,             ,
+   Tue, Apr 10, 8:45-10:30,	CZ 005,  no class            ,                                                                ,             ,
+   Tue, Apr 17, 8:45-10:30,	CZ 005,  Innovation          , question 1 at the end of lecture notes                         ,             ,
+   Tue, May 01, 8:45-10:30,	CZ 005,  Regulation          , question 1 at the end of lecture notes                         ,             ,
+   Tue, May 08, 8:45-10:30,	CZ 005,  Q and A assignment 2,                                                                , Assignment 2,
+   Tue, May 15, 8:45-10:30,	CZ 005,  Health care         , question 1 at the end of lecture notes                         ,             ,
 
+
+                                                                
+
+   
 Assignments are due on Thursdays in the weeks indicated in the table above at 12:00 (noon).
    
 Here we provide detailed contents of the lectures and the associated
@@ -118,7 +120,8 @@ Web-lectures
 The competition policy lectures can be viewed on line. Each lecture page contains the links to the screencasts.
 
 Also we use `datacamp <https://campus.datacamp.com/courses/intro-to-python-for-data-science/chapter-1-python-basics?ex=1>`_ weblectures for python.
-The schedule above suggests a way to go through these lectures so that you finish them in time for your first assignment. 
+The schedule above suggests a way to go through these lectures so that you finish them in time for your first assignment. Note that there is one deadline before which you need to finish the datacamp lectures.
+See class participation below.
 
 In the "live" lecture, you can ask questions that you have
 about the web-lecture. Hence, it is important that you watch the
@@ -170,15 +173,16 @@ you give the right answer. If we believe that you prepared for class,
 we give you 1 point; if you didn't prepare (or are absent from class)
 when called to answer a question, you get 0. 
 
+You can also earn 1 point with finishing the datacamp course ("Intro to python for datascience") before Monday March 26, 2018.
+
 Your grade for partipation :math:`P` is determined as
 follows. Suppose, we called your name :math:`n` times during the
-semester and summing over the grades (0's and 1's) you received :math:`x`
+semester and summing over the grades (0's and 1's) you received (including the one for the datacamp assignment) :math:`x`
 points, then 
 
 .. math::
 
-   P = 25*x/n
-
+   P = 25*x/(n+1)
 
 Hence :math:`P` lies between 0 and 25.
 
@@ -194,7 +198,7 @@ Final grade
 Your final grade is the unweighted average of your participation in
 class, the two assignments and the
 final exam. Let :math:`P` denote the grade for your participation in
-class, :math:`A_i` denote your grade on assignment :math:`i`
+class (including datacamp), :math:`A_i` denote your grade on assignment :math:`i`
 and :math:`E` your grade on the exam. Then the final grade :math:`F` is
 determined by
 
@@ -206,7 +210,7 @@ determined by
 Hence class participation and assignments are mandatory and very important!
 
 The grades for participation and the assignments can only be used in this academic year
-2016-2017. Next year a student does the whole course again including the
+2017-2018. Next year a student does the whole course again including the
 assignments and class participation.
 
 For the exam, it is important that you understand things; not learn them by
@@ -214,6 +218,5 @@ heart. Therefore, at the (written) exam, you are allowed to
 bring a handwritten A4 page with notes. You can write on this page
 what you want: equations, law texts, poetry.
 
-The exam is planned at T.B.A.
+The exam is planned at Tuesday 29-05-2018 and the resit at Monday 02-07-2018.
 
-.. at Friday, May 27 2016. The resit at Tuesday, June 28 2016.
