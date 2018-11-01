@@ -14,14 +14,23 @@ lecture
 screencasts
 -----------
 
+* In this video we discuss after markets and first consider another example of abuse: tying and bundling:
 
 `part 6 <https://tilburgutube.uvt.nl/asset/player/M2TQDGcEUJ6k8BfnPUaLC4gx>`_
 
+* We consider cases when tying is and tying is not problematic, starting with the case of price discrimination:
+
 `part 7 <https://tilburgutube.uvt.nl/asset/player/dVZFoaXRZeKIdLMWWXjcmYKw>`_
+
+* We shortly summarize the Chicago argument defending bundling, study how bundling can reduce price competition and how bundling can increase price compeition by excluding rivals: 
 
 `part 8 <https://tilburgutube.uvt.nl/asset/player/J1GPdcPIQNWvA8RjXQ2J7JkB>`_
 
+* We consider bundling as an entry barrier, based on the model by Nalebuff (2004):
+
 `part 9 <https://tilburgutube.uvt.nl/asset/player/Q2VClGcVhflSAMV5ROkFq8mS>`_
+
+* Then we shortly study an example of R&D and tying. Last, we summarize the lecture on article 102:
 
 `part 10 <https://tilburgutube.uvt.nl/asset/player/d2SZXeJ4RadFQjGhRDxYKhfE>`_
 

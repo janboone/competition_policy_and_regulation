@@ -13,14 +13,23 @@ lecture
 screencasts
 -----------
 
+* The first video interprets the legal text of article 102 and lists examples of abuse that will be studied in this lecture:
 
 `part 1 <https://tilburgutube.uvt.nl/asset/player/T1YhtcSgZUYTkRlIcYoBt6jc>`_
 
+* First, we provide an example of refusal to supply and essential facilities:
+
 `part 2 <https://tilburgutube.uvt.nl/asset/player/l1XdHiUZQIVlUQZANpefYd2M>`_
+
+* Then we take a look at predatory pricing and other forms of predation:
 
 `part 3 <https://tilburgutube.uvt.nl/asset/player/m2FOFsRQZVXdlBWTjQoZxqIc>`_
 
+* We discuss how predation can be detected using several tests:
+
 `part 4 <https://tilburgutube.uvt.nl/asset/player/Q1NejBSjMjNZghdHrdRuHze5>`_
+
+* Next we consider price discrimination, including how price discrimination can enhance welfare and a model of second degree price discrimination: 
 
 `part 5 <https://tilburgutube.uvt.nl/asset/player/NbYJTuFjgcFgC5VqgIpI2n7r>`_
 

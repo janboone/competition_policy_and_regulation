@@ -9,23 +9,33 @@
 Welcome to Competition Policy and Regulation's documentation!
 =============================================================
 
-In 2017-2018 this course is taught by:
+**Note that this webpage is under construction for 2018-2019**
 
+In 2018-2019 this course is taught by:
+
+* Cedric Argenton
 * Moritz Suppliet
-* Jan Boone
 * Clemens Fiedler
 
 Make sure that you read the Rules of the Game if you want to attend
 this course!
 
-The Introduction Lecture can be found `here <http://janboone.github.io/competition_policy_and_regulation/_downloads/IntroductionLecture.html#/>`_ and downloaded :download:`here <IntroductionLecture.html>`.
-
-
 
 .. TODO: adjust introduction lecture (presentation and
    html-presentation) to include new rules on participation!!!!!
 
-  
+
+Datacamp
+--------
+
+We are very happy that we partner with `datacamp <https://www.datacamp.com/>`_
+for this course to teach you python.
+
+`Datacamp <https://www.datacamp.com/about>`_ offers great on-line courses for
+you to learn python and it allows us to track your progress...
+
+
+   
 Contents:
 =========
 
@@ -33,12 +43,10 @@ Contents:
    :glob:
    :maxdepth: 1
 
-   Introduction_Lecture 
-   RulesOfTheGame
    Python
-   Article101			  
+   Article101
    VerticalRestraints
-   Article102Part1			  
+   Article102Part1
    Article102Part2
    Mergers
    IPandInnovation

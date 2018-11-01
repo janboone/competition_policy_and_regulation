@@ -13,11 +13,19 @@ lecture
 screencasts
 -----------
 
+* We introduce the problem of vertical integration in the Dutch healthcare market, shortly discussing the pros and cons of integration:
+
 `part 1 <https://tilburgutube.uvt.nl/asset/player/FsUhrCLHUdaRcQeSaHjiNn2D>`_
+
+* We provide two arguments why integration may enhance investment incentives and discuss policy implications:
 
 `part 2 <https://tilburgutube.uvt.nl/asset/player/F1pmFEeLPXUNivpDVHL5tkFY>`_
 
+* Now we discuss a model by Rothschild and Stigilitz (1976) of adverse selection in the health insurance market:
+
 `part 3 <https://tilburgutube.uvt.nl/asset/player/z276mJXVdaQOTPbZSJCXDm0Y>`_
+
+* Last, we explain the efficiency losses of the model, how regulation can improve outcome in the health insurance market and provides policy implications: 
 
 `part 4 <https://tilburgutube.uvt.nl/asset/player/B2NBUaEULNWCQchIoOWjG4iP>`_
 
