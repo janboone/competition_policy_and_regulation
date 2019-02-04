@@ -458,3 +458,6 @@ summary
 
 	  
 .. <!-- pandoc -s --mathjax --slide-level 2 --toc --toc-depth=1 -t revealjs Introduction_Lecture.rst -V theme=solarized -o IntroductionLecture.html -->
+.. <!-- pandoc -s --slide-level 2 --toc --toc-depth=1 -t beamer Introduction_Lecture.rst -o IntroductionLecture.pdf -->
+
+   

@@ -24,7 +24,9 @@ this course!
 .. TODO: adjust introduction lecture (presentation and
    html-presentation) to include new rules on participation!!!!!
 
+* :download:`First lecture handout <S19IntroductionSlides.pdf>`
 
+   
 Datacamp
 --------
 
