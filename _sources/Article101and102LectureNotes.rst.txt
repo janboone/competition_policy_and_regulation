@@ -475,8 +475,10 @@ position (`Article 102`_).
 Literature:
 
 - Motta chapter 6
-- `Primer on foreclosure <http://venus.unive.it/roson/papers/primer20030716.pdf>`_
+- `Primer on foreclosure <https://idei.fr/sites/default/files/medias/doc/by/tirole/primer.pdf>`_
 
+
+  
 Overview
 ~~~~~~~~
 
