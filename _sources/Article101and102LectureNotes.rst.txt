@@ -1987,16 +1987,20 @@ Exercises
 
    where two constraints need to be taken into account:
 
-   \\begin{align} \\label{eq:13} \\tag{$IR\_l$} t\_l \\leq \\theta\_l
-   q\_l \\\\ \\label{eq:14} \\tag{$IR\_h$} t\_h \\leq \\theta\_h q\_h
-   \\end{align}
+   \\begin{equation} \\label{eq:13} \\tag{$IR\_l$} t\_l \\leq \\theta\_l
+   q\_l \\end{equation}
+
+   \\begin{equation} \\label{eq:14} \\tag{$IR\_h$} t\_h \\leq \\theta\_h q\_h
+   \\end{equation}
 
    (c) [5 points] Explain why the monopolist also needs to take the
    following two constraints into account:
 
-   \\begin{align} \\label{eq:15} \\tag{$IC\_l$} \\theta\_l q\_l -t\_l
-   \\geq \\theta\_l q\_h -t\_h \\\\ \\label{eq:16} \\tag{$IC\_h$}
-   \\theta\_h q\_h -t\_h \\geq \\theta\_h q\_l -t\_l \\end{align}
+   \\begin{equation} \\label{eq:15} \\tag{$IC\_l$} \\theta\_l q\_l -t\_l
+   \\geq \\theta\_l q\_h -t\_h \\end{equation}
+   
+   \\begin{equation} \\label{eq:16} \\tag{$IC\_h$}
+   \\theta\_h q\_h -t\_h \\geq \\theta\_h q\_l -t\_l \\end{equation}
 
    (d) [5 points] By adding the two constraints under (c), show that
    \\(q\_h \\geq q\_l\\). What is the interpretation of this inequality?
