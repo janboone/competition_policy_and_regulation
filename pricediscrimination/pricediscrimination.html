@@ -4,12 +4,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Python: price discrimination &#8212; Competition Policy and Regulation 1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -24,7 +32,8 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
+  </head>
+  <body>
   
 
     <div class="document">
@@ -44,7 +53,7 @@ month and low fee per call.</p>
 abolish it. In this notebook we compare welfare under both price
 discrimination and non-discrimination (the case where the firm cannot
 price discriminate).</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">optimize</span><span class="p">,</span><span class="n">arange</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">optimize</span><span class="p">,</span><span class="n">arange</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
@@ -52,25 +61,25 @@ price discriminate).</p>
 </div>
 <div class="section" id="utility-and-costs">
 <h2>utility and costs<a class="headerlink" href="#utility-and-costs" title="Permalink to this headline">¶</a></h2>
-<p>Assume that a consumer of type <span class="math notranslate nohighlight">\(n\)</span> derives utility
-<span class="math notranslate nohighlight">\(u(q,t,n) = nq-t\)</span> from consuming a quality <span class="math notranslate nohighlight">\(q\)</span> product at
-price <span class="math notranslate nohighlight">\(t\)</span>. The cost of producing quality <span class="math notranslate nohighlight">\(q\)</span> is given by
-<span class="math notranslate nohighlight">\(c(q)=0.5q^2\)</span>.</p>
-<p>Assume that there are two types of consumers <span class="math notranslate nohighlight">\(n_a &gt; 0\)</span> and
-<span class="math notranslate nohighlight">\(n_b &gt; n_a\)</span>, where the fraction of <span class="math notranslate nohighlight">\(n_a\)</span> consumers is given
-by <span class="math notranslate nohighlight">\(\phi \in [0,1]\)</span>.</p>
-<p>The firm creates two versions of the product: quality <span class="math notranslate nohighlight">\(q_a\)</span> and
-<span class="math notranslate nohighlight">\(q_b\)</span> at price <span class="math notranslate nohighlight">\(t_a,t_b\)</span> resp. If each type buys the version
+<p>Assume that a consumer of type <span class="math">\(n\)</span> derives utility
+<span class="math">\(u(q,t,n) = nq-t\)</span> from consuming a quality <span class="math">\(q\)</span> product at
+price <span class="math">\(t\)</span>. The cost of producing quality <span class="math">\(q\)</span> is given by
+<span class="math">\(c(q)=0.5q^2\)</span>.</p>
+<p>Assume that there are two types of consumers <span class="math">\(n_a &gt; 0\)</span> and
+<span class="math">\(n_b &gt; n_a\)</span>, where the fraction of <span class="math">\(n_a\)</span> consumers is given
+by <span class="math">\(\phi \in [0,1]\)</span>.</p>
+<p>The firm creates two versions of the product: quality <span class="math">\(q_a\)</span> and
+<span class="math">\(q_b\)</span> at price <span class="math">\(t_a,t_b\)</span> resp. If each type buys the version
 created for this type (we will have constraints to ensure this), profits
-<span class="math notranslate nohighlight">\(\pi\)</span> and total welfare <span class="math notranslate nohighlight">\(W\)</span> are given by</p>
-<div class="math notranslate nohighlight">
+<span class="math">\(\pi\)</span> and total welfare <span class="math">\(W\)</span> are given by</p>
+<div class="math">
 \[\begin{split}\begin{split}
 \pi &amp; = \phi (t_a - 0.5q_a^2)+(1-\phi)(t_b - 0.5q_b^2)   \\
 W &amp;= \phi (n_a q_a - 0.5q_a^2)+(1-\phi)(n_b q_b - 0.5q_b^2)
 \end{split}\end{split}\]</div>
 <p>Hence, the efficient (welfare maximizing) quality levels satisfy
-<span class="math notranslate nohighlight">\(q_i^* = n_i\)</span>.</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">u</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+<span class="math">\(q_i^* = n_i\)</span>.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">u</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">n</span><span class="o">*</span><span class="n">q</span><span class="o">-</span><span class="n">t</span>
 
 <span class="k">def</span> <span class="nf">c</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
@@ -98,24 +107,24 @@ W &amp;= \phi (n_a q_a - 0.5q_a^2)+(1-\phi)(n_b q_b - 0.5q_b^2)
     <span class="k">return</span> <span class="n">phi</span><span class="o">*</span><span class="n">buy</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">ta</span><span class="p">,</span><span class="n">na</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">ta</span><span class="p">,</span><span class="n">na</span><span class="p">)</span><span class="o">+</span><span class="n">ta</span><span class="o">-</span><span class="n">c</span><span class="p">(</span><span class="n">qa</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">buy</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="n">tb</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="n">tb</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span><span class="o">+</span><span class="n">tb</span><span class="o">-</span><span class="n">c</span><span class="p">(</span><span class="n">qb</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Welfare</span> <span class="n">maximizing</span> <span class="n">qualities</span> <span class="n">are</span> <span class="n">given</span> <span class="n">by</span><span class="p">:</span>  <span class="mf">0.5</span> <span class="p">,</span>  <span class="mf">1.0</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Welfare</span> <span class="n">maximizing</span> <span class="n">qualities</span> <span class="n">are</span> <span class="n">given</span> <span class="n">by</span><span class="p">:</span>  <span class="mf">0.5</span> <span class="p">,</span>  <span class="mf">1.0</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="no-discrimination">
 <h2>no discrimination<a class="headerlink" href="#no-discrimination" title="Permalink to this headline">¶</a></h2>
 <p>First, we consider the case where the firm cannot price discriminate:
-<span class="math notranslate nohighlight">\(q_a=q_b=q\)</span> and <span class="math notranslate nohighlight">\(t_a=t_b=t\)</span>.</p>
+<span class="math">\(q_a=q_b=q\)</span> and <span class="math">\(t_a=t_b=t\)</span>.</p>
 <p>The firm has two choices:</p>
 <ul class="simple">
-<li>set <span class="math notranslate nohighlight">\(t\)</span> such that <span class="math notranslate nohighlight">\(u(q,t,n_a)=0\)</span> and sell to both
+<li>set <span class="math">\(t\)</span> such that <span class="math">\(u(q,t,n_a)=0\)</span> and sell to both
 consumer types</li>
-<li>set <span class="math notranslate nohighlight">\(t\)</span> such that <span class="math notranslate nohighlight">\(u(q,t,n_b)=0\)</span> and sell to type
-<span class="math notranslate nohighlight">\(n_b\)</span> only</li>
+<li>set <span class="math">\(t\)</span> such that <span class="math">\(u(q,t,n_b)=0\)</span> and sell to type
+<span class="math">\(n_b\)</span> only</li>
 </ul>
-<p>When <span class="math notranslate nohighlight">\(\phi = 0.5\)</span>, profits are maximized by setting <span class="math notranslate nohighlight">\(q=1\)</span>
-and selling to <span class="math notranslate nohighlight">\(n_b\)</span> only:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">range_q</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.51</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<p>When <span class="math">\(\phi = 0.5\)</span>, profits are maximized by setting <span class="math">\(q=1\)</span>
+and selling to <span class="math">\(n_b\)</span> only:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">range_q</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.51</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="n">phi</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">range_profits_a</span> <span class="o">=</span> <span class="p">[</span><span class="n">profit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">q</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">q</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">range_q</span><span class="p">]</span>
 <span class="n">range_profits_b</span> <span class="o">=</span> <span class="p">[</span><span class="n">profit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">q</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">q</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">range_q</span><span class="p">]</span>
@@ -133,11 +142,11 @@ and selling to <span class="math notranslate nohighlight">\(n_b\)</span> only:</
 </pre></div>
 </div>
 <img alt="../_images/output_5_0.png" src="../_images/output_5_0.png" />
-<p>The following function determines the optimal <span class="math notranslate nohighlight">\(q\)</span> and <span class="math notranslate nohighlight">\(t\)</span>
+<p>The following function determines the optimal <span class="math">\(q\)</span> and <span class="math">\(t\)</span>
 set by the firm in case of non-discrimination. As suggested by the
-figure, <span class="math notranslate nohighlight">\(\phi=0.5\)</span> implies that <span class="math notranslate nohighlight">\(q=1\)</span> and with <span class="math notranslate nohighlight">\(t=1\)</span>
-only type <span class="math notranslate nohighlight">\(n_b\)</span> buys the product.</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
+figure, <span class="math">\(\phi=0.5\)</span> implies that <span class="math">\(q=1\)</span> and with <span class="math">\(t=1\)</span>
+only type <span class="math">\(n_b\)</span> buys the product.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
     <span class="n">qa</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fminbound</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">profit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="n">phi</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">qb</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fminbound</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">profit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="n">phi</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">profit</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">qa</span><span class="p">,</span><span class="n">qa</span><span class="p">,</span><span class="n">na</span><span class="o">*</span><span class="n">qa</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">profit</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">qb</span><span class="p">,</span><span class="n">qb</span><span class="p">,</span><span class="n">nb</span><span class="o">*</span><span class="n">qb</span><span class="p">,</span><span class="n">phi</span><span class="p">):</span>
@@ -151,7 +160,7 @@ only type <span class="math notranslate nohighlight">\(n_b\)</span> buys the pro
 <span class="nb">print</span> <span class="s2">&quot;optimal quality and price are given by:&quot;</span><span class="p">,</span> <span class="n">quality_non_discr</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">optimal</span> <span class="n">quality</span> <span class="ow">and</span> <span class="n">price</span> <span class="n">are</span> <span class="n">given</span> <span class="n">by</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.99999999999999989</span><span class="p">,</span> <span class="mf">0.99999999999999989</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">optimal</span> <span class="n">quality</span> <span class="ow">and</span> <span class="n">price</span> <span class="n">are</span> <span class="n">given</span> <span class="n">by</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.99999999999999989</span><span class="p">,</span> <span class="mf">0.99999999999999989</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -162,7 +171,7 @@ into account:</p>
 <ul class="simple">
 <li>two Individual Rationality (IR) constraints:</li>
 </ul>
-<div class="math notranslate nohighlight">
+<div class="math">
 \[\begin{split}\begin{split}
 u(q_a,t_a,n_a) &amp;\geq 0 \\
 u(q_b,t_b,n_b) &amp;\geq 0
@@ -170,7 +179,7 @@ u(q_b,t_b,n_b) &amp;\geq 0
 <ul class="simple">
 <li>two incentive compatibility (IC) constraints:</li>
 </ul>
-<div class="math notranslate nohighlight">
+<div class="math">
 \[\begin{split}\begin{split}
 u(q_a,t_a,n_a) &amp;\geq u(q_b,t_b,n_a) \\
 u(q_b,t_b,n_b) &amp;\geq u(q_a,t_a,n_b)
@@ -178,15 +187,15 @@ u(q_b,t_b,n_b) &amp;\geq u(q_a,t_a,n_b)
 <p>The IR constraints make sure that both types want to buy at all. The IC
 constraints make sure that types buy the “right” product (i.e. the
 product meant for them).</p>
-<p>As shown in the lecture, with <span class="math notranslate nohighlight">\(n_b &gt; n_a\)</span>, <span class="math notranslate nohighlight">\(IR_a\)</span> and
-<span class="math notranslate nohighlight">\(IC_b\)</span> are binding. Hence, <span class="math notranslate nohighlight">\(t_a = n_a q_a\)</span> and
-<span class="math notranslate nohighlight">\(t_b = n_b q_b - (n_b-n_a)q_a\)</span>.</p>
-<p>Further, we know from the lecture that <span class="math notranslate nohighlight">\(q_b = q_b^*\)</span>: first best
+<p>As shown in the lecture, with <span class="math">\(n_b &gt; n_a\)</span>, <span class="math">\(IR_a\)</span> and
+<span class="math">\(IC_b\)</span> are binding. Hence, <span class="math">\(t_a = n_a q_a\)</span> and
+<span class="math">\(t_b = n_b q_b - (n_b-n_a)q_a\)</span>.</p>
+<p>Further, we know from the lecture that <span class="math">\(q_b = q_b^*\)</span>: first best
 quality for the highest type (“no distortion at the top”).</p>
-<p>Quality <span class="math notranslate nohighlight">\(q_a\)</span> then solves</p>
-<div class="math notranslate nohighlight">
+<p>Quality <span class="math">\(q_a\)</span> then solves</p>
+<div class="math">
 \[\max_q \phi(n_a q -c(q))+(1-\phi)(n_b q_b^* - (n_b-n_a)q - c(q_b^*))\]</div>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
     <span class="n">nh</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">na</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span>
     <span class="n">nl</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">na</span><span class="p">,</span><span class="n">nb</span><span class="p">)</span>
     <span class="n">opt_h</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">nh</span><span class="p">))</span> <span class="c1"># first best quality for the highest type</span>
@@ -198,28 +207,28 @@ quality for the highest type (“no distortion at the top”).</p>
     <span class="k">return</span> <span class="p">[</span><span class="n">ql</span><span class="p">,</span><span class="n">tl</span><span class="p">,</span><span class="n">qh</span><span class="p">,</span><span class="n">th</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>For <span class="math notranslate nohighlight">\(\phi =0.5\)</span>, the low type is not served: both <span class="math notranslate nohighlight">\(q\)</span> and
-<span class="math notranslate nohighlight">\(t\)</span> are (basically) zero. The high type gets efficient quality
-<span class="math notranslate nohighlight">\(q_b=q_b^*=1.0\)</span> at <span class="math notranslate nohighlight">\(t=1.0\)</span>.</p>
+<p>For <span class="math">\(\phi =0.5\)</span>, the low type is not served: both <span class="math">\(q\)</span> and
+<span class="math">\(t\)</span> are (basically) zero. The high type gets efficient quality
+<span class="math">\(q_b=q_b^*=1.0\)</span> at <span class="math">\(t=1.0\)</span>.</p>
 <ul class="simple">
-<li>Why do we find <span class="math notranslate nohighlight">\(q_a =0\)</span>; a positive profit can be made selling
-<span class="math notranslate nohighlight">\(q_a&gt;0\)</span> at <span class="math notranslate nohighlight">\(t_a&gt;0\)</span> to <span class="math notranslate nohighlight">\(n_a\)</span>?</li>
+<li>Why do we find <span class="math">\(q_a =0\)</span>; a positive profit can be made selling
+<span class="math">\(q_a&gt;0\)</span> at <span class="math">\(t_a&gt;0\)</span> to <span class="math">\(n_a\)</span>?</li>
 </ul>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">quality_discr</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">quality_discr</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">5.9608609865491405e-06</span><span class="p">,</span> <span class="mf">2.9804304932745702e-06</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.99999701956950671</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">5.9608609865491405e-06</span><span class="p">,</span> <span class="mf">2.9804304932745702e-06</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.99999701956950671</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>We can define a function to check whether all constraints are satisfied.
-In this function, the variables <code class="docutils literal notranslate"><span class="pre">ira,</span> <span class="pre">ica,</span> <span class="pre">irb,</span> <span class="pre">icb</span></code> are booleans. A
-boolean takes on two values <code class="docutils literal notranslate"><span class="pre">True</span></code> (1) or <code class="docutils literal notranslate"><span class="pre">False</span></code> (0). Using <code class="docutils literal notranslate"><span class="pre">and</span></code>
-and <code class="docutils literal notranslate"><span class="pre">or</span></code> booleans can be combined.</p>
-<p>To illustrate, <code class="docutils literal notranslate"><span class="pre">True</span> <span class="pre">and</span> <span class="pre">False</span> <span class="pre">=</span> <span class="pre">False</span></code> while
-<code class="docutils literal notranslate"><span class="pre">True</span> <span class="pre">or</span> <span class="pre">False</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
-<p>At <span class="math notranslate nohighlight">\(\phi =0.5\)</span> the menu generated by the function
-<code class="docutils literal notranslate"><span class="pre">quality_discr</span></code> satisfies all four constraints (as it should):</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">menu</span><span class="p">):</span>
+In this function, the variables <code class="docutils literal"><span class="pre">ira,</span> <span class="pre">ica,</span> <span class="pre">irb,</span> <span class="pre">icb</span></code> are booleans. A
+boolean takes on two values <code class="docutils literal"><span class="pre">True</span></code> (1) or <code class="docutils literal"><span class="pre">False</span></code> (0). Using <code class="docutils literal"><span class="pre">and</span></code>
+and <code class="docutils literal"><span class="pre">or</span></code> booleans can be combined.</p>
+<p>To illustrate, <code class="docutils literal"><span class="pre">True</span> <span class="pre">and</span> <span class="pre">False</span> <span class="pre">=</span> <span class="pre">False</span></code> while
+<code class="docutils literal"><span class="pre">True</span> <span class="pre">or</span> <span class="pre">False</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
+<p>At <span class="math">\(\phi =0.5\)</span> the menu generated by the function
+<code class="docutils literal"><span class="pre">quality_discr</span></code> satisfies all four constraints (as it should):</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">menu</span><span class="p">):</span>
     <span class="n">qa</span> <span class="o">=</span> <span class="n">menu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">ta</span> <span class="o">=</span> <span class="n">menu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">qb</span> <span class="o">=</span> <span class="n">menu</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -233,12 +242,12 @@ and <code class="docutils literal notranslate"><span class="pre">or</span></code
 <span class="n">check</span><span class="p">(</span><span class="n">quality_discr</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kc">True</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kc">True</span>
 </pre></div>
 </div>
 <p>Next we plot the quality level for the low type as a function of
-<span class="math notranslate nohighlight">\(\phi\)</span>.</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">range_phi</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="math">\(\phi\)</span>.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">range_phi</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="n">range_ql</span> <span class="o">=</span> <span class="p">[</span><span class="n">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">range_phi</span><span class="p">]</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
@@ -255,18 +264,18 @@ and <code class="docutils literal notranslate"><span class="pre">or</span></code
 </div>
 <img alt="../_images/output_15_0.png" src="../_images/output_15_0.png" />
 <ul class="simple">
-<li>Why is quality for the low type increasing in <span class="math notranslate nohighlight">\(\phi\)</span>?</li>
-<li>What happens to <span class="math notranslate nohighlight">\(q_b\)</span> as a function of <span class="math notranslate nohighlight">\(\phi\)</span>?</li>
-<li>What is the quality level <span class="math notranslate nohighlight">\(q_a\)</span> at <span class="math notranslate nohighlight">\(\phi =1.0\)</span>? Why?</li>
+<li>Why is quality for the low type increasing in <span class="math">\(\phi\)</span>?</li>
+<li>What happens to <span class="math">\(q_b\)</span> as a function of <span class="math">\(\phi\)</span>?</li>
+<li>What is the quality level <span class="math">\(q_a\)</span> at <span class="math">\(\phi =1.0\)</span>? Why?</li>
 </ul>
 </div>
 <div class="section" id="welfare">
 <h2>welfare<a class="headerlink" href="#welfare" title="Permalink to this headline">¶</a></h2>
 <p>Finally, we compare welfare under discrimination and non-discrimination.
-We plot welfare in each case as a function of <span class="math notranslate nohighlight">\(\phi\)</span>. For each
-<span class="math notranslate nohighlight">\(\phi\)</span> we consider the profit maximizing quality and price chosen
+We plot welfare in each case as a function of <span class="math">\(\phi\)</span>. For each
+<span class="math">\(\phi\)</span> we consider the profit maximizing quality and price chosen
 by the firm.</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">range_phi</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">range_phi</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="n">range_W_non_disrc</span> <span class="o">=</span> <span class="p">[</span><span class="n">welfare</span><span class="p">(</span><span class="n">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="n">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span><span class="n">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="n">quality_non_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span><span class="n">phi</span><span class="p">)</span> <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">range_phi</span><span class="p">]</span>
 <span class="n">range_W_discr</span> <span class="o">=</span> <span class="p">[</span><span class="n">welfare</span><span class="p">(</span><span class="n">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="n">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span><span class="n">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">2</span><span class="p">],</span><span class="n">quality_discr</span><span class="p">(</span><span class="n">phi</span><span class="p">)[</span><span class="mi">3</span><span class="p">],</span><span class="n">phi</span><span class="p">)</span> <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">range_phi</span><span class="p">]</span>
 
@@ -287,12 +296,12 @@ by the firm.</p>
 <img alt="../_images/output_18_0.png" src="../_images/output_18_0.png" />
 <ul class="simple">
 <li>Why do the welfare levels of discrimination and non-discrimination
-coincide for <span class="math notranslate nohighlight">\(\phi \leq 0.5\)</span>?</li>
+coincide for <span class="math">\(\phi \leq 0.5\)</span>?</li>
 <li>Why is welfare higher under discrimination than non-discrimination
-for <span class="math notranslate nohighlight">\(\phi &gt; 0.5\)</span>?</li>
+for <span class="math">\(\phi &gt; 0.5\)</span>?</li>
 <li>What explains the jump in welfare for the non-discrimination case
-around <span class="math notranslate nohighlight">\(\phi = 0.75\)</span>? What happens here?</li>
-<li>Why do the two welfare levels coincide at <span class="math notranslate nohighlight">\(\phi = 1.0\)</span>?</li>
+around <span class="math">\(\phi = 0.75\)</span>? What happens here?</li>
+<li>Why do the two welfare levels coincide at <span class="math">\(\phi = 1.0\)</span>?</li>
 <li>What do you think of the European Commision’s bias against price
 discrimination?</li>
 </ul>
@@ -333,14 +342,12 @@ discrimination?</li>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -351,7 +358,7 @@ discrimination?</li>
       &copy;2015, Jan Boone.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

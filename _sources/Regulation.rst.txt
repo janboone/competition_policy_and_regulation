@@ -53,7 +53,6 @@ python
 ------
 
 In the python file for this lecture, we consider the graphical
-approach to 
-`regulation. <Regulation/Regulation.html>`_
+approach to regulation:
 
 * :download:`regulation <Regulation.ipynb>`

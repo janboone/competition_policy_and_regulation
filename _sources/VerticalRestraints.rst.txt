@@ -56,10 +56,6 @@ From the :ref:`exercises <Exercises_vertical>` of this lecture, we discuss quest
 python
 ------
 
-In the python file for this lecture, we consider 
-`public and private contracts.
-<HartTirole/HartTirole.html>`_
-
-Here you can download this file in ipython notebook form (ipynb)
+In the python file for this lecture, we consider public and private contracts:
 
 * :download:`Hart and Tirole <HartTirole.ipynb>`

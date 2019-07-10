@@ -47,9 +47,6 @@ python
 ------
 
 In the python file for this lecture, we consider
-`price discrimination
-<pricediscrimination/pricediscrimination.html>`_
-
-Here you can download this file in ipython notebook form (ipynb)
+price discrimination:
 
 * :download:`price discrimination <pricediscrimination.ipynb>`

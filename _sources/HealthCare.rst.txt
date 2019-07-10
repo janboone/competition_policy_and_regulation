@@ -43,6 +43,6 @@ python
 ------
 
 In the python file for this lecture, we consider risk adjustment in 
-`health insurance. <Healthcare/Healthcare.html>`_
+health insurance:
 
 * :download:`health care <Healthcare.ipynb>`

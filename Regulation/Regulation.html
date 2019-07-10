@@ -4,12 +4,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Python: regulation &#8212; Competition Policy and Regulation 1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -24,7 +32,8 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
+  </head>
+  <body>
   
 
     <div class="document">
@@ -36,34 +45,34 @@
 <h1>Python: regulation<a class="headerlink" href="#python-regulation" title="Permalink to this headline">¶</a></h1>
 <p>This notebook programs the graphical approach to regulation. We follow
 the notation in the regulation lecture.</p>
-<p>So we have a public project with value <span class="math notranslate nohighlight">\(S\)</span> to society. Cost of the
-firm doing this project is given by <span class="math notranslate nohighlight">\(C=\beta -e\)</span> where
-<span class="math notranslate nohighlight">\(\beta\)</span> either equals <span class="math notranslate nohighlight">\(\beta^l &gt; 0\)</span> or
-<span class="math notranslate nohighlight">\(\beta^h&gt;\beta^l\)</span>.</p>
-<p>By investing effort <span class="math notranslate nohighlight">\(e\)</span> the firm can reduce the costs of the
+<p>So we have a public project with value <span class="math">\(S\)</span> to society. Cost of the
+firm doing this project is given by <span class="math">\(C=\beta -e\)</span> where
+<span class="math">\(\beta\)</span> either equals <span class="math">\(\beta^l &gt; 0\)</span> or
+<span class="math">\(\beta^h&gt;\beta^l\)</span>.</p>
+<p>By investing effort <span class="math">\(e\)</span> the firm can reduce the costs of the
 project. For the graphs we use a quadratic effort cost function
-<span class="math notranslate nohighlight">\(\psi(e) = 0.5e^2\)</span> and <span class="math notranslate nohighlight">\(\beta^h = 3.0, \beta^l = 2.5\)</span>.</p>
-<p>The planner pays the firm a transfer equal to <span class="math notranslate nohighlight">\(T=C+t\)</span> at cost (to
-the planner) equal to <span class="math notranslate nohighlight">\((1+\lambda)T\)</span> with <span class="math notranslate nohighlight">\(\lambda \geq 0\)</span>.</p>
+<span class="math">\(\psi(e) = 0.5e^2\)</span> and <span class="math">\(\beta^h = 3.0, \beta^l = 2.5\)</span>.</p>
+<p>The planner pays the firm a transfer equal to <span class="math">\(T=C+t\)</span> at cost (to
+the planner) equal to <span class="math">\((1+\lambda)T\)</span> with <span class="math">\(\lambda \geq 0\)</span>.</p>
 <p>We import the libraries that we need below.</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">optimize</span><span class="p">,</span><span class="n">arange</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">optimize</span><span class="p">,</span><span class="n">arange</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">linspace</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
 <p>First, we replicate the figure in the exercise. An indifference curve in
-<span class="math notranslate nohighlight">\((C,t)\)</span> space takes the form <span class="math notranslate nohighlight">\(u = t -\psi(e) = \bar u\)</span> for
-some value <span class="math notranslate nohighlight">\(\bar u \geq 0\)</span>. Hence, we get
-<span class="math notranslate nohighlight">\(t = \bar u + \psi(\beta - C)\)</span>. We draw these indifference curves
-for <span class="math notranslate nohighlight">\(\bar u =0\)</span>; that is, the curves correspond to the IR
+<span class="math">\((C,t)\)</span> space takes the form <span class="math">\(u = t -\psi(e) = \bar u\)</span> for
+some value <span class="math">\(\bar u \geq 0\)</span>. Hence, we get
+<span class="math">\(t = \bar u + \psi(\beta - C)\)</span>. We draw these indifference curves
+for <span class="math">\(\bar u =0\)</span>; that is, the curves correspond to the IR
 constraints.</p>
-<p>The first best contract features <span class="math notranslate nohighlight">\(e^*\)</span> that minimizes total costs
-<span class="math notranslate nohighlight">\(\beta - e + \psi(e)\)</span>: <span class="math notranslate nohighlight">\(\psi'(e^*) = 1\)</span>. Hence, we have
-<span class="math notranslate nohighlight">\(\psi'(\beta-C)=1\)</span>. With the quadratic <span class="math notranslate nohighlight">\(\psi\)</span> function that
-we have chosen, this yields <span class="math notranslate nohighlight">\(\beta - C =1\)</span> or equivalently
-<span class="math notranslate nohighlight">\(C = \beta -1\)</span>.</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">beta_h</span> <span class="o">=</span> <span class="mi">3</span>
+<p>The first best contract features <span class="math">\(e^*\)</span> that minimizes total costs
+<span class="math">\(\beta - e + \psi(e)\)</span>: <span class="math">\(\psi'(e^*) = 1\)</span>. Hence, we have
+<span class="math">\(\psi'(\beta-C)=1\)</span>. With the quadratic <span class="math">\(\psi\)</span> function that
+we have chosen, this yields <span class="math">\(\beta - C =1\)</span> or equivalently
+<span class="math">\(C = \beta -1\)</span>.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">beta_h</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">beta_l</span> <span class="o">=</span> <span class="mf">2.5</span>
 
 <span class="k">def</span> <span class="nf">psi</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">beta</span><span class="p">):</span>
@@ -115,45 +124,45 @@ we have chosen, this yields <span class="math notranslate nohighlight">\(\beta -
 </div>
 <img alt="../_images/output_3_0.png" src="../_images/output_3_0.png" />
 <p>a Indifference curves are of the form
-<span class="math notranslate nohighlight">\(t = \bar u - \psi(\beta - C)\)</span>. Hence,</p>
-<div class="math notranslate nohighlight">
+<span class="math">\(t = \bar u - \psi(\beta - C)\)</span>. Hence,</p>
+<div class="math">
 \[\frac{dt}{dC} = -\psi'(\beta - C) &lt; 0\]</div>
-<p>because <span class="math notranslate nohighlight">\(\psi' &gt; 0\)</span>. In words, indifference curves are downward
+<p>because <span class="math">\(\psi' &gt; 0\)</span>. In words, indifference curves are downward
 sloping.</p>
-<p>To see how steepness varies with <span class="math notranslate nohighlight">\(\beta\)</span>, we consider the second
+<p>To see how steepness varies with <span class="math">\(\beta\)</span>, we consider the second
 derivative:</p>
-<div class="math notranslate nohighlight">
+<div class="math">
 \[\frac{d^2t}{dCd\beta} = -\psi''(\beta - C) &lt; 0\]</div>
-<p>because <span class="math notranslate nohighlight">\(\psi'' &gt;0\)</span>. Hence, higher <span class="math notranslate nohighlight">\(\beta\)</span> curves are
+<p>because <span class="math">\(\psi'' &gt;0\)</span>. Hence, higher <span class="math">\(\beta\)</span> curves are
 steeper (have a “more negative slope”).</p>
-<p>In the first best contract we have <span class="math notranslate nohighlight">\(\psi'(\beta -C)=1\)</span>. As
-<span class="math notranslate nohighlight">\(\beta\)</span> increases, <span class="math notranslate nohighlight">\(C\)</span> must increase as well to keep
-<span class="math notranslate nohighlight">\(\beta -C\)</span> constant. Hence <span class="math notranslate nohighlight">\(C\)</span> is higher for <span class="math notranslate nohighlight">\(\beta^h\)</span>
-than for <span class="math notranslate nohighlight">\(\beta^l\)</span>.</p>
-<p>b The slope is given by <span class="math notranslate nohighlight">\(dt/dC = -\psi'(\beta-C) = -1\)</span> in first
-best as <span class="math notranslate nohighlight">\(\psi'(\beta-C)=1\)</span> in first best.</p>
-<p>c Suppose contracts <span class="math notranslate nohighlight">\(\alpha, \beta\)</span> would be implemented under
-asymmetric information. Then <span class="math notranslate nohighlight">\(\beta^l\)</span> can raise her utility by
-choosing the “wrong” contract <span class="math notranslate nohighlight">\(\beta\)</span>. This contract lies to the
-north east of her own contract <span class="math notranslate nohighlight">\(\alpha\)</span>: higher <span class="math notranslate nohighlight">\(t\)</span> and
-higher <span class="math notranslate nohighlight">\(C\)</span> (and thus lower effort <span class="math notranslate nohighlight">\(e\)</span>) which is prefered by
-<span class="math notranslate nohighlight">\(\beta^l\)</span>.</p>
+<p>In the first best contract we have <span class="math">\(\psi'(\beta -C)=1\)</span>. As
+<span class="math">\(\beta\)</span> increases, <span class="math">\(C\)</span> must increase as well to keep
+<span class="math">\(\beta -C\)</span> constant. Hence <span class="math">\(C\)</span> is higher for <span class="math">\(\beta^h\)</span>
+than for <span class="math">\(\beta^l\)</span>.</p>
+<p>b The slope is given by <span class="math">\(dt/dC = -\psi'(\beta-C) = -1\)</span> in first
+best as <span class="math">\(\psi'(\beta-C)=1\)</span> in first best.</p>
+<p>c Suppose contracts <span class="math">\(\alpha, \beta\)</span> would be implemented under
+asymmetric information. Then <span class="math">\(\beta^l\)</span> can raise her utility by
+choosing the “wrong” contract <span class="math">\(\beta\)</span>. This contract lies to the
+north east of her own contract <span class="math">\(\alpha\)</span>: higher <span class="math">\(t\)</span> and
+higher <span class="math">\(C\)</span> (and thus lower effort <span class="math">\(e\)</span>) which is prefered by
+<span class="math">\(\beta^l\)</span>.</p>
 <p>d To implement first best effort and cost levels while keeping the
-contracts IC, we need to raise <span class="math notranslate nohighlight">\(t^l\)</span> such that</p>
-<div class="math notranslate nohighlight">
+contracts IC, we need to raise <span class="math">\(t^l\)</span> such that</p>
+<div class="math">
 \[t^l-\psi(\beta^l-C^l) = t^h - \psi(\beta^l - C^h) &gt; 0\]</div>
-<p>where <span class="math notranslate nohighlight">\(t^h = \psi(\beta^h - C^h)\)</span> and hence the right hand side is
+<p>where <span class="math">\(t^h = \psi(\beta^h - C^h)\)</span> and hence the right hand side is
 strictly positive.</p>
-<p>This leads to a new contract <span class="math notranslate nohighlight">\(\tilde \alpha\)</span> which gives type
-<span class="math notranslate nohighlight">\(\beta^l\)</span> strictly positive utility <span class="math notranslate nohighlight">\(\tilde u &gt;0\)</span>.</p>
-<p>Note that contract <span class="math notranslate nohighlight">\(\tilde \alpha\)</span> lies to the south-west of
-<span class="math notranslate nohighlight">\(\beta^h\)</span>‘s indifference curve. Hence <span class="math notranslate nohighlight">\(\beta^h\)</span> has no
-incentive to choose <span class="math notranslate nohighlight">\(\tilde \alpha\)</span> (“mimic <span class="math notranslate nohighlight">\(\beta^l\)</span>“).</p>
-<p>The dotted line gives <span class="math notranslate nohighlight">\(\beta^l\)</span>‘s indifference curve through the
-new contract <span class="math notranslate nohighlight">\(\tilde \alpha\)</span>.</p>
-<p>Summarizing, with contracts <span class="math notranslate nohighlight">\(\tilde \alpha, \beta\)</span>, the planner
+<p>This leads to a new contract <span class="math">\(\tilde \alpha\)</span> which gives type
+<span class="math">\(\beta^l\)</span> strictly positive utility <span class="math">\(\tilde u &gt;0\)</span>.</p>
+<p>Note that contract <span class="math">\(\tilde \alpha\)</span> lies to the south-west of
+<span class="math">\(\beta^h\)</span>‘s indifference curve. Hence <span class="math">\(\beta^h\)</span> has no
+incentive to choose <span class="math">\(\tilde \alpha\)</span> (“mimic <span class="math">\(\beta^l\)</span>“).</p>
+<p>The dotted line gives <span class="math">\(\beta^l\)</span>‘s indifference curve through the
+new contract <span class="math">\(\tilde \alpha\)</span>.</p>
+<p>Summarizing, with contracts <span class="math">\(\tilde \alpha, \beta\)</span>, the planner
 can implement first best.</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span><span class="s1">&#39;text.fontsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$C$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$t$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
@@ -211,27 +220,27 @@ can implement first best.</p>
 </pre></div>
 </div>
 <img alt="../_images/output_8_0.png" src="../_images/output_8_0.png" />
-<p>e Implementing first best is only optimal if <span class="math notranslate nohighlight">\(\lambda =0\)</span>. That
+<p>e Implementing first best is only optimal if <span class="math">\(\lambda =0\)</span>. That
 is, the planner does not worry about paying high rents
-(<span class="math notranslate nohighlight">\(\tilde u &gt;0\)</span>) to <span class="math notranslate nohighlight">\(\beta^l\)</span>. If <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span>, it
-becomes optimal to distort <span class="math notranslate nohighlight">\(\beta^h\)</span>‘s contract.</p>
-<p>This can be seen as follows. By distorting <span class="math notranslate nohighlight">\(\beta^h\)</span>‘s contract,
+(<span class="math">\(\tilde u &gt;0\)</span>) to <span class="math">\(\beta^l\)</span>. If <span class="math">\(\lambda &gt; 0\)</span>, it
+becomes optimal to distort <span class="math">\(\beta^h\)</span>‘s contract.</p>
+<p>This can be seen as follows. By distorting <span class="math">\(\beta^h\)</span>‘s contract,
 we reduce welfare, but this is a second order effect (as we start from
 first best). By distorting this contract, we can reduce the rents we pay
-to <span class="math notranslate nohighlight">\(\beta^l\)</span> which is a first order gain for <span class="math notranslate nohighlight">\(\lambda &gt;0\)</span>.</p>
+to <span class="math">\(\beta^l\)</span> which is a first order gain for <span class="math">\(\lambda &gt;0\)</span>.</p>
 <p>f Start from the first best contracts. Reduce the rents that the planner
-pays to <span class="math notranslate nohighlight">\(\beta^l\)</span> by moving <span class="math notranslate nohighlight">\(\beta^l\)</span>‘s indifference curve
-downwards. This implies that <span class="math notranslate nohighlight">\(\beta^h\)</span>‘s contract moves to the
+pays to <span class="math">\(\beta^l\)</span> by moving <span class="math">\(\beta^l\)</span>‘s indifference curve
+downwards. This implies that <span class="math">\(\beta^h\)</span>‘s contract moves to the
 right and downward; i.e. it gets distorted with inefficiently high costs
-<span class="math notranslate nohighlight">\(C\)</span> (due to inefficiently low effort <span class="math notranslate nohighlight">\(e\)</span>). By doing this, we
-reduce rents, without giving <span class="math notranslate nohighlight">\(\beta^l\)</span> an incentive to mimic
-<span class="math notranslate nohighlight">\(\beta^h\)</span>. We keep <span class="math notranslate nohighlight">\(\beta^h\)</span> on her IR constraint.</p>
+<span class="math">\(C\)</span> (due to inefficiently low effort <span class="math">\(e\)</span>). By doing this, we
+reduce rents, without giving <span class="math">\(\beta^l\)</span> an incentive to mimic
+<span class="math">\(\beta^h\)</span>. We keep <span class="math">\(\beta^h\)</span> on her IR constraint.</p>
 <p>The trade off is: the further we reduce the rents paid to
-<span class="math notranslate nohighlight">\(\beta^l\)</span> (move <span class="math notranslate nohighlight">\(\beta^l\)</span>‘s indifference curve downwards),
-the more we have distort <span class="math notranslate nohighlight">\(\beta^h\)</span>‘s effort and costs.</p>
+<span class="math">\(\beta^l\)</span> (move <span class="math">\(\beta^l\)</span>‘s indifference curve downwards),
+the more we have distort <span class="math">\(\beta^h\)</span>‘s effort and costs.</p>
 <p>g See figure below with second best contracts
-<span class="math notranslate nohighlight">\(\hat \alpha, \hat \beta\)</span>.</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="math">\(\hat \alpha, \hat \beta\)</span>.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span><span class="s1">&#39;text.fontsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$C$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$t$&quot;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
@@ -288,24 +297,24 @@ the more we have distort <span class="math notranslate nohighlight">\(\beta^h\)<
 </pre></div>
 </div>
 <img alt="../_images/output_12_01.png" src="../_images/output_12_01.png" />
-<p>h We keep <span class="math notranslate nohighlight">\(\beta^h\)</span> on her IR constraint and hence <span class="math notranslate nohighlight">\(IR_h\)</span> is
-binding. <span class="math notranslate nohighlight">\(\beta^l\)</span> receives a rent and hence <span class="math notranslate nohighlight">\(IR_l\)</span> is not
+<p>h We keep <span class="math">\(\beta^h\)</span> on her IR constraint and hence <span class="math">\(IR_h\)</span> is
+binding. <span class="math">\(\beta^l\)</span> receives a rent and hence <span class="math">\(IR_l\)</span> is not
 binding.</p>
-<p>We want to avoid that <span class="math notranslate nohighlight">\(\beta^l\)</span> mimics <span class="math notranslate nohighlight">\(\beta^h\)</span> and hence
-<span class="math notranslate nohighlight">\(IC_l\)</span> is binding. Further, <span class="math notranslate nohighlight">\(\beta^h\)</span> strictly prefers
-contract <span class="math notranslate nohighlight">\(\hat \beta\)</span> above <span class="math notranslate nohighlight">\(\hat \alpha\)</span>
-(<span class="math notranslate nohighlight">\(\hat \alpha\)</span> lies below the indifference curve <span class="math notranslate nohighlight">\(u^h = 0\)</span>);
-hence <span class="math notranslate nohighlight">\(IC_h\)</span> is not binding.</p>
+<p>We want to avoid that <span class="math">\(\beta^l\)</span> mimics <span class="math">\(\beta^h\)</span> and hence
+<span class="math">\(IC_l\)</span> is binding. Further, <span class="math">\(\beta^h\)</span> strictly prefers
+contract <span class="math">\(\hat \beta\)</span> above <span class="math">\(\hat \alpha\)</span>
+(<span class="math">\(\hat \alpha\)</span> lies below the indifference curve <span class="math">\(u^h = 0\)</span>);
+hence <span class="math">\(IC_h\)</span> is not binding.</p>
 <p>i The second best contracts are determined by the trade off between the
-rents paid to <span class="math notranslate nohighlight">\(\beta^l\)</span> and the distorted effort of
-<span class="math notranslate nohighlight">\(\beta^h\)</span>. As the probability <span class="math notranslate nohighlight">\(\nu\)</span> that a firm is
-<span class="math notranslate nohighlight">\(\beta^l\)</span> increases, the rents become more important (in expected
-welfare) compared to <span class="math notranslate nohighlight">\(\beta^h\)</span>‘s distortion.</p>
-<p>Hence, in response to an increase in <span class="math notranslate nohighlight">\(\nu\)</span>, it is optimal to push
-<span class="math notranslate nohighlight">\(\beta^l\)</span>‘s indifference curve downwards. This pushes contract
-<span class="math notranslate nohighlight">\(\hat \beta\)</span> to the right, raising <span class="math notranslate nohighlight">\(C^h\)</span>.</p>
-<p>Thus, the planner reduces <span class="math notranslate nohighlight">\(\beta^l\)</span>‘s rents (<span class="math notranslate nohighlight">\(t^l\)</span> falls,
-while <span class="math notranslate nohighlight">\(C^l\)</span> is unchanged) and increases <span class="math notranslate nohighlight">\(\beta^h\)</span>‘s effort
+rents paid to <span class="math">\(\beta^l\)</span> and the distorted effort of
+<span class="math">\(\beta^h\)</span>. As the probability <span class="math">\(\nu\)</span> that a firm is
+<span class="math">\(\beta^l\)</span> increases, the rents become more important (in expected
+welfare) compared to <span class="math">\(\beta^h\)</span>‘s distortion.</p>
+<p>Hence, in response to an increase in <span class="math">\(\nu\)</span>, it is optimal to push
+<span class="math">\(\beta^l\)</span>‘s indifference curve downwards. This pushes contract
+<span class="math">\(\hat \beta\)</span> to the right, raising <span class="math">\(C^h\)</span>.</p>
+<p>Thus, the planner reduces <span class="math">\(\beta^l\)</span>‘s rents (<span class="math">\(t^l\)</span> falls,
+while <span class="math">\(C^l\)</span> is unchanged) and increases <span class="math">\(\beta^h\)</span>‘s effort
 distortion.</p>
 </div>
 
@@ -332,14 +341,12 @@ distortion.</p>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -350,7 +357,7 @@ distortion.</p>
       &copy;2015, Jan Boone.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

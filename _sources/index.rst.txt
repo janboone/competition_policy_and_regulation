@@ -9,22 +9,12 @@
 Welcome to Competition Policy and Regulation's documentation!
 =============================================================
 
-**Note that this webpage is under construction for 2018-2019**
+**Note that this webpage is under construction for 2019-2020**
 
-In 2018-2019 this course is taught by:
+In 2019-2020 this course is taught by:
 
 * Cedric Argenton
 * Moritz Suppliet
-* Clemens Fiedler
-
-Make sure that you read the Rules of the Game if you want to attend
-this course!
-
-
-.. TODO: adjust introduction lecture (presentation and
-   html-presentation) to include new rules on participation!!!!!
-
-* :download:`First lecture handout <S19IntroductionSlides.pdf>`
 
    
 Datacamp
