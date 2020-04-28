@@ -823,9 +823,13 @@ Model
       \\begin{align} \\label{eq:7} U^l &= t^l - \\psi(\\beta^l-C^l) \\\\
       U^h &= t^h - \\psi(\\beta^h-C^h) \\end{align}
    -  to make sure each type reveals itself, we have two IC contraints:
-      \\begin{align} \\label{eq:8} \\tag{$IC\_l$} U^l &\\geq t^h
-      -\\psi(\\beta^l-C^h) \\\\ \\tag{$IC\_h$} U^h &\\geq t^l
-      -\\psi(\\beta^h-C^l) \\end{align}
+      \\begin{equation} \\label{eq:8} \\tag{$IC\_l$} U^l \\geq t^h
+      -\\psi(\\beta^l-C^h)
+      \\end{equation}
+
+      \\begin{equation}
+      \\tag{$IC\_h$} U^h \\geq t^l
+      -\\psi(\\beta^h-C^l) \\end{equation}
    -  if \\(\\beta^h\\) chooses the \\(\\beta^l\\) contract, it gets
       transfer \\(t^l\\) and has to choose effort such that \\(\\beta^h
       - e = C^l\\) because \\(C\\) is observable
