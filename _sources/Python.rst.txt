@@ -2,6 +2,7 @@
 Python introduction
 ===================
 
+`Introduction lecture <https://uvt.mediasite.com/Mediasite/Play/31a4aa0884314cf8be9e05f8070a49c81d>`_
  
 first introduction
 ------------------

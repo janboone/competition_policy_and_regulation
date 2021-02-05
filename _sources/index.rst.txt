@@ -2,7 +2,7 @@
    sphinx-quickstart on Sat Jan 17 12:45:04 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
-   sphinx-build -E ~/SURFdrive/github_source/competition_policy_and_regulation/source ~/github/competition_policy_and_regulation
+   sphinx-build -E ~/SURFdrive/Archive/github_source/competition_policy_and_regulation/source ~/github/competition_policy_and_regulation
 
 
    
@@ -11,7 +11,7 @@ Welcome to Competition Policy and Regulation's documentation!
 
 **Note that this webpage is under construction for 2019-2020**
 
-In 2019-2020 this course is taught by:
+In 2020-2021 this course is taught by:
 
 * Cedric Argenton
 * Moritz Suppliet
@@ -26,6 +26,7 @@ for this course to teach you python.
 `Datacamp <https://www.datacamp.com/about>`_ offers great on-line courses for
 you to learn python and it allows us to track your progress...
 
+To get access to datacamp, follow `this link <https://www.tilburguniversity.edu/students/skills/programming>`_
 
    
 Contents:
