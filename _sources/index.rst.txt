@@ -9,8 +9,6 @@
 Welcome to Competition Policy and Regulation's documentation!
 =============================================================
 
-**Note that this webpage is under construction for 2019-2020**
-
 In 2020-2021 this course is taught by:
 
 * Cedric Argenton
