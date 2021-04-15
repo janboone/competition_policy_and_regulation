@@ -4,7 +4,7 @@ Python: merger simulations
 
 In this notebook we introduce a simple model to do merger simulations.
 The analysis here is based on `Epstein and Rubinfeld
-(2001) <http://scholarship.law.berkeley.edu/cgi/viewcontent.cgi?article=2362&context=facpubs>`__.
+(2001) <https://escholarship.org/uc/item/2sq9s8c8>`__.
 
 The advantage of this approach is that the model can be calibrated with
 relatively little information. In particular, we need to know
