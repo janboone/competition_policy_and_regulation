@@ -43,4 +43,7 @@ From the :ref:`exercises <Exercises_102>` of this lecture, we discuss question 1
 python
 ------
 
-No python file for the first part of this lecture.
+In the python file for this lecture, we consider
+price discrimination:
+
+* :download:`price discrimination <pricediscrimination.ipynb>`

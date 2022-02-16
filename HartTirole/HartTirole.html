@@ -44,7 +44,7 @@ up.</p>
 <p>First, we import the libraries that we need.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">optimize</span><span class="p">,</span><span class="n">arange</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
@@ -74,7 +74,7 @@ all rents from the downstream firms. Hence, <span class="math notranslate nohigh
     <span class="c1"># the optimize.brute routine that we use, minimizes a function</span>
 
 <span class="n">public_contracts</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">brute</span><span class="p">(</span><span class="n">minus_industry_profits</span><span class="p">,</span> <span class="p">((</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),))</span>
-<span class="nb">print</span> <span class="n">public_contracts</span>
+<span class="k">print</span> <span class="n">public_contracts</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>  <span class="mf">2.01328278e-04</span>   <span class="mf">4.99790473e-01</span><span class="p">]</span>
@@ -140,7 +140,7 @@ here or as a scalar with <span class="math notranslate nohighlight">\(x_1=x_2=x\
 <span class="k">def</span> <span class="nf">fixed_point</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="n">reaction_U</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">ans</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">fixed_point</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">())</span>
-<span class="nb">print</span> <span class="n">ans</span>
+<span class="k">print</span> <span class="n">ans</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mf">0.33332648</span>  <span class="mf">0.33332648</span><span class="p">]</span>

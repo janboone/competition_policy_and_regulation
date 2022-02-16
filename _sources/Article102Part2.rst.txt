@@ -46,7 +46,4 @@ of this lecture, we discuss question 3 in class.
 python
 ------
 
-In the python file for this lecture, we consider
-price discrimination:
-
-* :download:`price discrimination <pricediscrimination.ipynb>`
+No python file for this part of this lecture.

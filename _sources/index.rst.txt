@@ -9,10 +9,11 @@
 Welcome to Competition Policy and Regulation's documentation!
 =============================================================
 
-In 2020-2021 this course is taught by:
+In 2021-22, the lecturers for this course are:
 
 * Cedric Argenton
 * Moritz Suppliet
+* Chayanin Wipusanawan
 
    
 Datacamp

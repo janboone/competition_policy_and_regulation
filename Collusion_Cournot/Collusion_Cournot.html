@@ -43,7 +43,7 @@ to explain what we do in the code.</p>
 <p>First, we import some libraries that we will use:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">optimize</span><span class="p">,</span><span class="n">arange</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
@@ -164,7 +164,7 @@ vector <code class="docutils literal notranslate"><span class="pre">param</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
 
 <span class="n">ans</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">vector_reaction</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">param</span><span class="p">))</span>
-<span class="nb">print</span> <span class="n">ans</span>
+<span class="k">print</span> <span class="n">ans</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mf">0.33332648</span>  <span class="mf">0.33332648</span><span class="p">]</span>
